@@ -47,7 +47,6 @@ package classes
 			// Magic //
 			funcs = new Array();
 			args = new Array();
-			var temp:Number = 0;
 
 			// Introduction //
 			clearOutput();
@@ -943,49 +942,34 @@ package classes
 			outputText("\n", false);
 			if (player.gills) 
 				outputText("A pair of feathery gills are growing out just below your neck, spreading out horizontally and draping down your chest.  They allow you to stay in the water for quite a long time.  ", false);
-			//Chesticles..I mean bewbz.
-			if (player.breastRows.length == 1) 
-			{
-				outputText("You have " + num2Text(player.breastRows[temp].breasts) + " " + player.breastDescript(temp) + ", each supporting ", false);
-				outputText( player.breastRows[temp].nipplesPerBreast == 1 ? "a" : num2Text(player.breastRows[temp].nipplesPerBreast)); //Number of nipples.
-				outputText(" " + inch_and_cm(player.nippleLength) + " ");		  // Length of nipples
-				outputText(player.nippleDescript(temp) + (player.breastRows[0].nipplesPerBreast == 1 ? "." : "s."), false); //Nipple description and plural
-				if (player.breastRows[0].milkFullness > 75) 
-					outputText("  Your " + player.breastDescript(temp) + " are painful and sensitive from being so stuffed with milk.  You should release the pressure soon.", false);
-				if (player.breastRows[0].breastRating >= 1) 
-					outputText("  You could easily fill a " + player.breastCup(temp) + " bra.", false);
-				//Done with tits.  Move on.
-				outputText("\n", false);
+
+			// Breasts //
+			if (player.breastRows.length > 1)
+				outputText("You have " + num2Text(player.breastRows.length) + " rows of breasts, the topmost pair starting at your chest.\n");
+			for (var breast_index:int = 0; breast_index < player.breastRows.length; breast_index++) {
+				// Index.
+				if      (player.breastRows.length == 1)  outputText("You have ");
+				else if (breast_index == 0)              outputText("--Your uppermost rack houses ");
+				else if (breast_index == 1)              outputText("--The second row holds ");
+				else if (breast_index == 2)              outputText("--Your third row of breasts contains ");
+				else if (breast_index == 3)              outputText("--Your fourth set of tits cradles ");
+				else if (breast_index == 4)              outputText("--Your fifth and final mammary grouping swells with ");
+
+				// Description of boobs. 
+				outputText(num2Text(player.breastRows[breast_index].breasts) + " " + player.breastDescript(breast_index) + " with ");					// nr & descript of breasts
+				outputText(player.breastRows[breast_index].nipplesPerBreast == 1 ? "a" : num2Text(player.breastRows[breast_index].nipplesPerBreast)); 	// nipples per breast
+				outputText(" " + inch_and_cm(player.nippleLength) + " ");																				// length of nipples
+				outputText(player.nippleDescript(breast_index) + (player.breastRows[breast_index].nipplesPerBreast == 1 ? "" : "s"));					// nipple descript & plural hell.
+				outputText(player.breastRows.length == 1 || rand(4) == 0 ? "." : " each.");
+
+				// Additional variation.
+				if (player.breastRows[breast_index].breastRating >= 1) 
+					outputText("  They could easily fill a " + player.breastCup(breast_index) + " bra.");
+				if (player.breastRows[breast_index].milkFullness > 75) 
+					outputText("  They " + player.breastDescript(breast_index) + " are painful and sensitive from being so stuffed with milk.  You should release the pressure soon.");
+				outputText("\n");
 			}
-			//many rows
-			else 
-			{
-				outputText("You have " + num2Text(player.breastRows.length) + " rows of breasts, the topmost pair starting at your chest.\n", false);
-				while (temp < player.breastRows.length) 
-				{
-					if (temp == 0) 
-						outputText("--Your uppermost rack houses ", false);
-					if (temp == 1) 
-						outputText("\n--The second row holds ", false);
-					if (temp == 2) 
-						outputText("\n--Your third row of breasts contains ", false);
-					if (temp == 3) 
-						outputText("\n--Your fourth set of tits cradles ", false);
-					if (temp == 4) 
-						outputText("\n--Your fifth and final mammary grouping swells with ", false);
-					outputText(num2Text(player.breastRows[temp].breasts) + " " + player.breastDescript(temp) + " with ", false);
-					outputText(num2Text(player.breastRows[temp].nipplesPerBreast)); //Number of nipples per breast
-					outputText(" " + inch_and_cm(player.nippleLength) + " ");		// Length of nipples
-					outputText(player.nippleDescript(temp) + (player.breastRows[0].nipplesPerBreast == 1 ? " each." : "s each."), false); //Description and Plural
-					if (player.breastRows[temp].breastRating >= 1) 
-						outputText("  They could easily fill a " + player.breastCup(temp) + " bra.", false);
-					if (player.breastRows[temp].milkFullness > 75) 
-						outputText("  Your " + player.breastDescript(temp) + " are painful and sensitive from being so stuffed with milk.  You should release the pressure soon.", false);
-					temp++;
-				}
-				//Done with tits.  Move on.
-				outputText("\n", false);
-			}	
+
 			//Crotchial stuff - mention snake
 			if (player.lowerBody == LOWER_BODY_TYPE_NAGA && player.gender > 0) 
 			{
