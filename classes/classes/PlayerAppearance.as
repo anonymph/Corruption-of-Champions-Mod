@@ -1086,101 +1086,37 @@ package classes
 			}
 
 			// Vagina //
-			if (player.vaginas.length > 0) 
-			{
-				if (player.gender == 2 && player.isTaur()) 
-					outputText("\nYour womanly parts have shifted to lie between your hind legs, in a rather feral fashion.", false);
-				outputText("\n", false);
-				if (player.vaginas.length == 1) 
-					outputText("You have a " + player.vaginaDescript(0) + ", with a " + inches_and_centimetres(player.clitLength) + " clit");
-				if (player.vaginas[0].virgin) 
-					outputText(" and an intact hymen", false); // Wait, won't this fuck up, with multiple vaginas?
-				outputText(".  ", false);
-				if (player.vaginas.length > 1) 
-					outputText("You have " + player.vaginas.length+ " " + player.vaginaDescript(0) + "s, with " + inches_and_centimetres(player.clitLength) + "-centimetre clits each.  ");
-				if (player.lib < 50 && player.lust < 50) //not particularly horny
+			if (player.vaginas.length > 0) {
+				if (player.cocks.length == 0 && player.isTaur()) 
+					outputText("\nYour womanly parts have shifted to lie between your hind legs, in a rather feral fashion.");
+
+				// One or multiple varginas?
+				if (player.vaginas.length == 1)  outputText("\nYou have a [vagina], with a " + inches_and_centimetres(player.clitLength) + " clit" + (player.vaginas[0].virgin ? " and an intact hymen.  " :".  "));
+				else                             outputText("\nYou have " + num2Text(player.vaginas.length )+ " [vagina]s, with " + inches_and_centimetres(player.clitLength) + "-centimetre clits each.  ");
+
+				// Wetness variations
+				var how_wet:int = (player.lib >= 50 || player.lust >= 50 ? 1 : 0)  // Kinda horny
+				                + (player.lib >= 80 || player.lust >= 80 ? 1 : 0)  // Very horny
+				                + (player.vaginas[0].vaginalWetness >= VAGINA_WETNESS_WET ? 1 : 0) // Wet
+                                + (player.vaginas[0].vaginalWetness >= VAGINA_WETNESS_DROOLING ? 1 : 0); // Absolutely drooling.
+				if      (how_wet == 0)  {}
+				else if (how_wet == 1)  outputText("Moisture gleams in");
+				else if (how_wet == 2)  outputText("Occasional beads of lubricant drip from");
+				else if (how_wet == 3)  outputText("Thin streams of lubricant occasionally dribble from");
+				else if (how_wet == 4)  outputText("Thick streams of lubricant drool constantly from");
 				
-				{
-					//Wetness
-					if (player.vaginas[0].vaginalWetness >= VAGINA_WETNESS_WET && player.vaginas[0].vaginalWetness< VAGINA_WETNESS_DROOLING) 
-						outputText("Moisture gleams in ", false);
-					if (player.vaginas[0].vaginalWetness>= VAGINA_WETNESS_DROOLING) 
-					{
-						outputText("Occasional beads of ", false);
-						outputText("lubricant drip from ", false);
-					}				
-					//Different description based on vag looseness
-					if (player.vaginas[0].vaginalWetness>= VAGINA_WETNESS_WET) 
-					{
-						if (player.vaginas[0].vaginalLooseness< VAGINA_LOOSENESS_LOOSE) 
-							outputText("your " + player.vaginaDescript(0) + ". ", false);
-						if (player.vaginas[0].vaginalLooseness>= VAGINA_LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness< VAGINA_LOOSENESS_GAPING_WIDE) 
-							outputText("your " + player.vaginaDescript(0) + ", its lips slightly parted. ", false);
-						if (player.vaginas[0].vaginalLooseness>= VAGINA_LOOSENESS_GAPING_WIDE) 
-							outputText("the massive hole that is your " + player.vaginaDescript(0) + ".  ", false);
-					}
-				}
-				if ((player.lib>=50 || player.lust >=50) && (player.lib< 80 && player.lust < 80)) //kinda horny
-				
-				{
-					//Wetness
-					if (player.vaginas[0].vaginalWetness< VAGINA_WETNESS_WET) 
-						outputText("Moisture gleams in ", false);
-					if (player.vaginas[0].vaginalWetness>= VAGINA_WETNESS_WET && player.vaginas[0].vaginalWetness< VAGINA_WETNESS_DROOLING) 
-					{
-						outputText("Occasional beads of ", false);
-						outputText("lubricant drip from ", false);
-					}
-					if (player.vaginas[0].vaginalWetness>= VAGINA_WETNESS_DROOLING) 
-					{
-						outputText("Thin streams of ", false);
-						outputText("lubricant occasionally dribble from ", false);
-					}				
-					//Different description based on vag looseness
-					if (player.vaginas[0].vaginalLooseness< VAGINA_LOOSENESS_LOOSE) 
-						outputText("your " + player.vaginaDescript(0) + ". ", false);
-					if (player.vaginas[0].vaginalLooseness>= VAGINA_LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness< VAGINA_LOOSENESS_GAPING_WIDE) 
-						outputText("your " + player.vaginaDescript(0) + ", its lips slightly parted. ", false);
-					if (player.vaginas[0].vaginalLooseness>= VAGINA_LOOSENESS_GAPING_WIDE) 
-						outputText("the massive hole that is your " + player.vaginaDescript(0) + ".  ", false);
-				}
-				if ((player.lib> 80 || player.lust > 80)) //WTF horny!
-				
-				{
-					//Wetness
-					if (player.vaginas[0].vaginalWetness< VAGINA_WETNESS_WET) 
-					
-					{
-						outputText("Occasional beads of ", false);
-						outputText("lubricant drip from ", false);
-					}
-					if (player.vaginas[0].vaginalWetness>= VAGINA_WETNESS_WET && player.vaginas[0].vaginalWetness< VAGINA_WETNESS_DROOLING)
-					
-					{
-						outputText("Thin streams of ", false);
-						outputText("lubricant occasionally dribble from ", false);
-					}
-					if (player.vaginas[0].vaginalWetness>= VAGINA_WETNESS_DROOLING) 
-					
-					{
-						outputText("Thick streams of ", false);
-						outputText("lubricant drool constantly from ", false);
-					}				
-					//Different description based on vag looseness
-					if (player.vaginas[0].vaginalLooseness< VAGINA_LOOSENESS_LOOSE) 
-						outputText("your " + player.vaginaDescript(0) + ". ", false);
-					if (player.vaginas[0].vaginalLooseness>= VAGINA_LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness< VAGINA_LOOSENESS_GAPING_WIDE) 
-						outputText("your " + player.vaginaDescript(0) + ", its lips slightly parted. ", false);
-					if (player.vaginas[0].vaginalLooseness>= VAGINA_LOOSENESS_GAPING_WIDE) 
-						outputText("the massive hole that is your cunt.  ", false);
-				}
-				//Line Drop for next descript!
-				outputText("\n", false);
+				// Looseness variations
+				if      (how_wet == 0)                                                       {}
+				else if (player.vaginas[0].vaginalLooseness < VAGINA_LOOSENESS_LOOSE)        outputText(" your [vagina].  ");
+				else if (player.vaginas[0].vaginalLooseness < VAGINA_LOOSENESS_GAPING_WIDE)  outputText(" your [vagina], its lips slightly parted.  ");
+				else                                                                         outputText(" the massive hole that is your [vagina].  ");
+
+				outputText("\n");
 			}
-			//Genderless lovun'
-			if (player.cockTotal() == 0 && player.vaginas.length == 0) 
-				outputText("\nYou have a curious lack of any sexual endowments.\n", false);
-			
+
+			// Genderless //
+			if (player.cocks.length + player.vaginas.length == 0) 
+				outputText("\nYou have a curious lack of any sexual endowments.\n");
 			
 			//BUNGHOLIO
 			if (player.ass) 
