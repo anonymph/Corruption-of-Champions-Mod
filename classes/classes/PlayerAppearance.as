@@ -822,9 +822,9 @@ package classes
 			{
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) 
 				{
-					var belly_size = player.statusEffectv3(StatusEffects.Eggs)
-					               + player.statusEffectv2(StatusEffects.Eggs) * 10
-                                   + player.pregnancyIncubation <= 20 ? 10 : 0;
+					var belly_size:Number = player.statusEffectv3(StatusEffects.Eggs)
+					                      + player.statusEffectv2(StatusEffects.Eggs) * 10
+                                          + player.pregnancyIncubation <= 20 ? 10 : 0;
 
 					outputText("<b>Your swollen pregnant belly is as large as a");
 					if      (belly_size < 10)  outputText(" basketball.</b>");
@@ -959,8 +959,7 @@ package classes
 				outputText(num2Text(player.breastRows[breast_index].breasts) + " " + player.breastDescript(breast_index) + " with ");					// nr & descript of breasts
 				outputText(player.breastRows[breast_index].nipplesPerBreast == 1 ? "a" : num2Text(player.breastRows[breast_index].nipplesPerBreast)); 	// nipples per breast
 				outputText(" " + inch_and_cm(player.nippleLength) + " ");																				// length of nipples
-				outputText(player.nippleDescript(breast_index) + (player.breastRows[breast_index].nipplesPerBreast == 1 ? "" : "s"));					// nipple descript & plural hell.
-				outputText(player.breastRows.length == 1 || rand(4) == 0 ? "." : " each.");
+				outputText(player.nippleDescript(breast_index) + (player.breastRows[breast_index].nipplesPerBreast == 1 ? " each." : "s each."));					// nipple descript & plural hell.
 
 				// Additional variation.
 				if (player.breastRows[breast_index].breastRating >= 1) 
