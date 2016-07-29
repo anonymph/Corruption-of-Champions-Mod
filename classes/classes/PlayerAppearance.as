@@ -44,21 +44,19 @@ package classes
 		/*** Text methods ***/
 
 		public function appearance():void {
+			// Magic //
 			funcs = new Array();
 			args = new Array();
-			//Temp vars
 			var temp:Number = 0;
-			var rando:Number = 0;
-			//Determine race type:
-			var race:String = "human";
-			race = player.race();
-			//Discuss race
+
+			// Introduction //
 			clearOutput();
 			displayHeader("Appearance");
-			if (race != player.startingRace)	outputText("You began your journey as a " + player.startingRace+ ", but gave that up as you explored the dangers of this realm.  ", false);
-			//Height and race.
-			outputText("You are a " + feet_inch_and_metres(player.tallness) + " tall " + player.maleFemaleHerm() + " " + race + ", with " + player.bodyType() + ".", false);
+			if (player.race() != player.startingRace)
+				outputText("You began your journey as a " + player.startingRace+ ", but gave that up as you explored the dangers of this realm.  ");
+			outputText("You are a " + feet_inch_and_metres(player.tallness) + " tall " + player.maleFemaleHerm() + " " + player.race() + ", with " + player.bodyType() + ".");
 			
+			// Armor & Equipment //
 			outputText("  <b>You are currently " + (player.armorDescript() != "gear" ? "wearing your " + player.armorDescript() : "naked") + "" + " and using your " + player.weaponName + " as a weapon.</b>", false);
 			if (player.jewelryName != "nothing") 
 				outputText("<b> Girding one of your fingers is " + player.jewelryName + ".</b> ")
@@ -1016,7 +1014,7 @@ package classes
 
 			// Cock Descriptions //
 			if (player.hasCock()) {
-				rando = rand(100);
+				var rando:int = rand(100);
 
 				// Is taur and has multiple cocks?
 				if      (player.isTaur() && player.cockTotal() == 1)
@@ -1289,7 +1287,7 @@ package classes
 			flushOutputTextToGUI();
 		}
 
-		public function sockDescript(index:int):void 
+		private function sockDescript(index:int):void 
 		{
 			outputText("  ");
 			if (player.cocks[index].sock == "wool") 
