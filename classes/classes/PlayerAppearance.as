@@ -823,31 +823,15 @@ package classes
 			{
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) 
 				{
-					outputText("<b>", false);
-					//Compute size
-					temp = player.statusEffectv3(StatusEffects.Eggs) + player.statusEffectv2(StatusEffects.Eggs) * 10;
-					if (player.pregnancyIncubation <= 50 && player.pregnancyIncubation > 20) 
-					{
-						outputText("Your swollen pregnant belly is as large as a ", false);
-						if (temp < 10) 
-							outputText("basketball.", false);
-						if (temp >= 10 && temp < 20) 
-							outputText("watermelon.", false);
-						if (temp >= 20) 
-							outputText("beach ball.", false);
-					}
-					if (player.pregnancyIncubation <= 20) 
-					{
-						outputText("Your swollen pregnant belly is as large as a ", false);
-						if (temp < 10) 
-							outputText("watermelon.", false);
-						if (temp >= 10 && temp < 20) 
-							outputText("beach ball.", false);
-						if (temp >= 20) 
-							outputText("large medicine ball.", false);
-					}
-					outputText("</b>", false);
-					temp = 0;
+					var belly_size = player.statusEffectv3(StatusEffects.Eggs)
+					               + player.statusEffectv2(StatusEffects.Eggs) * 10
+                                   + player.pregnancyIncubation <= 20 ? 10 : 0;
+
+					outputText("<b>Your swollen pregnant belly is as large as a");
+					if      (belly_size < 10)  outputText(" basketball.</b>");
+					else if (belly_size < 20)  outputText(" watermelon.</b>");
+					else if (belly_size < 30)  outputText(" beach ball.</b>");
+					else                       outputText(" large medicine ball.</b>");
 				}
 				//Satur preggos - only shows if bigger than regular pregnancy or not pregnancy
 				else if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR && player.buttPregnancyIncubation > player.pregnancyIncubation) 
