@@ -956,10 +956,10 @@ package classes
 				else if (breast_index == 4)              outputText("--Your fifth and final mammary grouping swells with ");
 
 				// Description of boobs. 
-				outputText(num2Text(player.breastRows[breast_index].breasts) + " " + player.breastDescript(breast_index) + " with ");					// nr & descript of breasts
+				outputText(num2Text(player.breastRows[breast_index].breasts) + " " + player.breastDescript(breast_index) + " each with ");				// nr & descript of breasts
 				outputText(player.breastRows[breast_index].nipplesPerBreast == 1 ? "a" : num2Text(player.breastRows[breast_index].nipplesPerBreast)); 	// nipples per breast
 				outputText(" " + inch_and_cm(player.nippleLength) + " ");																				// length of nipples
-				outputText(player.nippleDescript(breast_index) + (player.breastRows[breast_index].nipplesPerBreast == 1 ? " each." : "s each."));					// nipple descript & plural hell.
+				outputText(player.nippleDescript(breast_index) + (player.breastRows[breast_index].nipplesPerBreast == 1 ? "." : "s."));		// nipple descript & plural hell.
 
 				// Additional variation.
 				if (player.breastRows[breast_index].breastRating >= 1) 
@@ -969,14 +969,12 @@ package classes
 				outputText("\n");
 			}
 
-			//Crotchial stuff - mention snake
-			if (player.lowerBody == LOWER_BODY_TYPE_NAGA && player.gender > 0) 
-			{
-				outputText("\nYour sex", false);
-				if (player.gender == 3 || player.totalCocks() > 1) 
-					outputText("es are ", false);
-				else outputText(" is ", false);
-				outputText("concealed within a cavity in your tail when not in use, though when the need arises, you can part your concealing slit and reveal your true self.\n", false);
+			// Naga variation //
+			if (player.lowerBody == LOWER_BODY_TYPE_NAGA && player.gender > 0) {
+				outputText("\nYour sex");
+				if (player.cocks.length + player.vaginas.length > 1)  outputText("es are ");
+				else                                                  outputText(" is ");
+				outputText("concealed within a cavity in your tail when not in use, though when the need arises, you can part your concealing slit and reveal your true self.\n");
 			}
 
 			// Cock Descriptions //
