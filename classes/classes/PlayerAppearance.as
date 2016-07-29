@@ -1069,41 +1069,23 @@ package classes
 			}
 
 
-			//Of Balls and Sacks!
-			if (player.balls > 0) 
-			{
-				if (player.findStatusEffect(StatusEffects.Uniball) >= 0)
-				{
-					if (player.skinType != SKIN_TYPE_GOO) 
-						outputText("Your [sack] clings tightly to your groin, holding " + player.ballsDescript() + " snugly against you.");
-					else if (player.skinType == SKIN_TYPE_GOO) 
-						outputText("Your [sack] clings tightly to your groin, dripping and holding " + player.ballsDescript() + " snugly against you.");
-				}
-				else if (player.cockTotal() == 0) 
-				{
-					if (player.skinType == SKIN_TYPE_PLAIN) 
-						outputText("A " + player.sackDescript() + " with " + player.ballsDescript() + " swings heavily under where a penis would normally grow.", false);
-					if (player.skinType == SKIN_TYPE_FUR) 
-						outputText("A fuzzy " + player.sackDescript() + " filled with " + player.ballsDescript() + " swings low under where a penis would normally grow.", false);
-					if (player.hasScales()) 
-						outputText("A scaley " + player.sackDescript() + " hugs your " + player.ballsDescript() + " tightly against your body.", false);
-					if (player.skinType == SKIN_TYPE_GOO) 
-						outputText("An oozing, semi-solid sack with " + player.ballsDescript() + " swings heavily under where a penis would normally grow.", false);
-				}
-				else 
-				{
-					if (player.skinType == SKIN_TYPE_PLAIN) 
-						outputText("A " + player.sackDescript() + " with " + player.ballsDescript() + " swings heavily beneath your " + player.multiCockDescriptLight() + ".", false);
-					if (player.skinType == SKIN_TYPE_FUR) 
-						outputText("A fuzzy " + player.sackDescript() + " filled with " + player.ballsDescript() + " swings low under your " + player.multiCockDescriptLight() + ".", false);
-					if (player.hasScales()) 
-						outputText("A scaley " + player.sackDescript() + " hugs your " + player.ballsDescript() + " tightly against your body.", false);
-					if (player.skinType == SKIN_TYPE_GOO) 
-						outputText("An oozing, semi-solid sack with " + player.ballsDescript() + " swings heavily beneath your " + player.multiCockDescriptLight() + ".", false);
+			// Balls //
+			if (player.balls > 0) {
+				if (player.findStatusEffect(StatusEffects.Uniball) >= 0) {
+					outputText("Your [sack] clings tightly to your groin,"+(player.skinType == SKIN_TYPE_GOO ? " dripping and" : "")+" holding " + player.ballsDescript() + " snugly against you.");
+				} else {
+					if      (player.skinType == SKIN_TYPE_PLAIN)  outputText("A " + player.sackDescript() + " with " + player.ballsDescript() + " swings heavily");
+					else if (player.skinType == SKIN_TYPE_FUR)    outputText("A fuzzy " + player.sackDescript() + " filled with " + player.ballsDescript() + " swings low");
+					else if (player.skinType == SKIN_TYPE_GOO)    outputText("An oozing, semi-solid sack with " + player.ballsDescript() + " swings heavily");
+					else if (player.hasScales())                  outputText("A scaley " + player.sackDescript() + " hugs your " + player.ballsDescript() + " tightly against your body,");
+	
+					if (player.cocks.length == 0)  outputText(" under where a penis would normally grow.");
+					else                           outputText(" beneath your " + player.multiCockDescriptLight() + ".")
 				}
 				outputText("  You estimate each of them to be about " + num_inches_and_centimetres(player.ballSize) + " across\n");
-			}	
-			//VAGOOZ
+			}
+
+			// Vagina //
 			if (player.vaginas.length > 0) 
 			{
 				if (player.gender == 2 && player.isTaur()) 
