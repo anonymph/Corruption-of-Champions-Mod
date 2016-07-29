@@ -1118,12 +1118,10 @@ package classes
 			if (player.cocks.length + player.vaginas.length == 0) 
 				outputText("\nYou have a curious lack of any sexual endowments.\n");
 			
-			//BUNGHOLIO
+			// Asshole //
 			if (player.ass) 
-			{
-				outputText("\n", false);
-				outputText("You have one " + player.assholeDescript() + ", placed between your butt-cheeks where it belongs.\n", false);
-			}
+				outputText("\nYou have one [asshole], placed between your butt-cheeks where it belongs.\n");
+
 			//Piercings!
 			if (player.eyebrowPierced > 0) 
 				outputText("\nA solitary " + player.eyebrowPShort + " adorns your eyebrow, looking very stylish.", false);
