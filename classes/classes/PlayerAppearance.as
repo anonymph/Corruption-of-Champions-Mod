@@ -714,47 +714,39 @@ package classes
 			if (player.ass) 
 				outputText("\nYou have one [asshole], placed between your butt-cheeks where it belongs.\n");
 
-			//Piercings!
-			if (player.eyebrowPierced > 0) 
-				outputText("\nA solitary " + player.eyebrowPShort + " adorns your eyebrow, looking very stylish.", false);
-			if (player.earsPierced > 0) 
-				outputText("\nYour ears are pierced with " + player.earsPShort + ".", false);
-			if (player.nosePierced > 0) 
-				outputText("\nA " + player.nosePShort + " dangles from your nose.", false);
-			if (player.lipPierced > 0) 
-				outputText("\nShining on your lip, a " + player.lipPShort + " is plainly visible.", false);
-			if (player.tonguePierced > 0) 
-				outputText("\nThough not visible, you can plainly feel your " + player.tonguePShort + " secured in your tongue.", false);
-			if (player.nipplesPierced == 3) 
-				outputText("\nYour " + player.nippleDescript(0) + "s ache and tingle with every step, as your heavy " + player.nipplesPShort + " swings back and forth.", false);
-			else if (player.nipplesPierced > 0) 
-				outputText("\nYour " + player.nippleDescript(0) + "s are pierced with " + player.nipplesPShort + ".", false);
-			if (player.totalCocks() > 0) 
-			{
-				if (player.cocks[0].pierced > 0) 
-				{
-					outputText("\nLooking positively perverse, a " + player.cocks[0].pShortDesc + " adorns your " + player.cockDescript(0) + ".", false);
-				}
+			// Piercings //
+			if (player.eyebrowPierced > 0)
+				outputText("\nA solitary " + player.eyebrowPShort + " adorns your eyebrow, looking very stylish.");
+			if (player.earsPierced > 0)
+				outputText("\nYour ears are pierced with " + player.earsPShort + ".");
+			if (player.nosePierced > 0)
+				outputText("\nA " + player.nosePShort + " dangles from your nose.");
+			if (player.lipPierced > 0)
+				outputText("\nShining on your lip, a " + player.lipPShort + " is plainly visible.");
+			if (player.tonguePierced > 0)
+				outputText("\nThough not visible, you can plainly feel your " + player.tonguePShort + " secured in your tongue.");
+
+			if      (player.nipplesPierced == 3)  outputText("\nYour [nipple]s ache and tingle with every step, as your heavy " + player.nipplesPShort + " swings back and forth."); // This is inaccessible?
+			else if (player.nipplesPierced > 0)   outputText("\nYour [nipple]s are pierced with " + player.nipplesPShort + ".");
+
+			if (player.cocks.length > 0 && player.cocks[0].pierced > 0)
+				outputText("\nLooking positively perverse, a " + player.cocks[0].pShortDesc + " adorns your [cock].");
+			if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00286] == 1)
+				outputText("\nA magical, ruby-studded bar pierces your belly button, allowing you to summon Ceraph on a whim.");
+			if (player.vaginas.length > 0) {
+				if (player.vaginas[0].labiaPierced > 0)
+					outputText("\nYour [vagina] glitters with the " + player.vaginas[0].labiaPShort + " hanging from your lips.");
+				if (player.vaginas[0].clitPierced > 0)
+					outputText("\nImpossible to ignore, your [clit] glitters with its " + player.vaginas[0].clitPShort + ".");
 			}
-			if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00286] == 1) 
-				outputText("\nA magical, ruby-studded bar pierces your belly button, allowing you to summon Ceraph on a whim.", false);
-			if (player.hasVagina()) 
-			{
-				if (player.vaginas[0].labiaPierced > 0) 
-					outputText("\nYour " + player.vaginaDescript(0) + " glitters with the " + player.vaginas[0].labiaPShort + " hanging from your lips.", false);
-				if (player.vaginas[0].clitPierced > 0) 
-					outputText("\nImpossible to ignore, your " + player.clitDescript() + " glitters with its " + player.vaginas[0].clitPShort + ".", false);
-			}
-			//MONEY!
-			if (player.gems == 0) 
-				outputText("\n\n<b>Your money-purse is devoid of any currency.", false);
-			else if (player.gems == 1) 
-				outputText("\n\n<b>You have " + addComma(Math.floor(player.gems)) + " shining gem, collected in your travels.", false);
-			else if (player.gems > 1) 
-				outputText("\n\n<b>You have " + addComma(Math.floor(player.gems)) + " shining gems, collected in your travels.", false);
-			else {
-				outputText("\n\n<b>Something is wrong with your gems!</b>");
-			}
+
+			// Gems //
+			if      (player.gems == 0)  outputText("\n\n<b>Your money-purse is devoid of any currency.</b>");
+			else if (player.gems == 1)  outputText("\n\n<b>You have a single shining gem.</b>");
+			else if (player.gems > 1)   outputText("\n\n<b>You have " + addComma(Math.floor(player.gems)) + " shining gems, collected in your travels.</b>");
+			else                        outputText("\n\n<b>ERROR: Somehow you've gone in gem debt. Your balance is at "+player.gems+" gems. Please report this issue on the github.</b>");
+
+			// Do menu shit //
 			menu();
 			doNext(playerMenu);
 			flushOutputTextToGUI();
