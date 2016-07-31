@@ -41,6 +41,14 @@ package classes
 			else                            return "" + value + "-inch";
 		}
 
+		private static const PREGNANCY_NATIVES:Array = [
+			PregnancyStore.PREGNANCY_IZMA,		PregnancyStore.PREGNANCY_MOUSE,
+			PregnancyStore.PREGNANCY_AMILY,		PregnancyStore.PREGNANCY_JOJO,
+			PregnancyStore.PREGNANCY_EMBER,		PregnancyStore.PREGNANCY_BENOIT,
+			PregnancyStore.PREGNANCY_COTTON,	PregnancyStore.PREGNANCY_URTA,
+			PregnancyStore.PREGNANCY_MINERVA,	PregnancyStore.PREGNANCY_BEHEMOTH
+		]
+
 		/*** Text methods ***/
 
 		public function appearance():void {
@@ -810,18 +818,14 @@ package classes
 				outputText("  " + Num2Text(player.legCount)+ " digitigrade legs form below your [hips], ending in cloven hooves.");
 			if (player.findPerk(PerkLib.Incorporeality) >= 0)
 				outputText("  Of course, your " + player.legs() + " are partially transparent due to their ghostly nature.", false); // isn't goo transparent anyway?
-			
 			outputText("\n", false);
-			if (player.findStatusEffect(StatusEffects.GooStuffed) >= 0)
 			
-			{
+			// Pregnancy //
+			if (player.findStatusEffect(StatusEffects.GooStuffed) >= 0)
 				outputText("\n<b>Your gravid-looking belly is absolutely stuffed full of goo. There's no way you can get pregnant like this, but at the same time, you look like some fat-bellied breeder.</b>\n");
-			}
-			//Pregnancy Shiiiiiitz
-			if ((player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) || (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR) || player.isPregnant()) 
-			{
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) 
-				{
+			if ((player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) || (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR) || player.isPregnant())  {
+				// I think we are missing some butt pregancies???
+				if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) {
 					var belly_size:Number = player.statusEffectv3(StatusEffects.Eggs)
 					                      + player.statusEffectv2(StatusEffects.Eggs) * 10
                                           + player.pregnancyIncubation <= 20 ? 10 : 0;
@@ -831,117 +835,49 @@ package classes
 					else if (belly_size < 20)  outputText(" watermelon.</b>");
 					else if (belly_size < 30)  outputText(" beach ball.</b>");
 					else                       outputText(" large medicine ball.</b>");
-				}
-				//Satur preggos - only shows if bigger than regular pregnancy or not pregnancy
-				else if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR && player.buttPregnancyIncubation > player.pregnancyIncubation) 
-				{
-					if (player.buttPregnancyIncubation < 125 && player.buttPregnancyIncubation >= 75) 
-					{
-						outputText("<b>You've got the beginnings of a small pot-belly.</b>", false);
+				} else if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR && player.buttPregnancyIncubation > player.pregnancyIncubation && player.buttPregnancyIncubation >= 30) {
+					// Satur preggos - only shows if bigger than regular pregnancy or not pregnancy
+					// If player.buttPregnancyIncubation < 30, it goes down to describing protuding belly.
+					if      (player.buttPregnancyIncubation >= 75)  outputText("<b>You've got the beginnings of a small pot-belly.</b>");
+					else if (player.buttPregnancyIncubation >= 50)  outputText("<b>The unmistakable bulge of pregnancy is visible in your tummy, yet it feels odd inside you - wrong somehow.</b>");	
+					else if (player.buttPregnancyIncubation >= 30)  outputText("<b>Your stomach is painfully distended by your pregnancy, making it difficult to walk normally.</b>");
+					else {
+						// No easy way to avoid this code dublication.
+						outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with ");
+						if (inCollection(player.pregnancyType, PREGNANCY_NATIVES))         outputText("the spawn of one of this land's natives.</b>");
+						else if (player.pregnancyType == PregnancyStore.PREGNANCY_MARBLE)  outputText("Marble's precious child.</b>");
+						else                                                               outputText("the unclean spawn of some monster or beast.</b>");
 					}
-					else if (player.buttPregnancyIncubation >= 50) 
-					{
-						outputText("<b>The unmistakable bulge of pregnancy is visible in your tummy, yet it feels odd inside you - wrong somehow.</b>", false);	
-					}
-					else if (player.buttPregnancyIncubation >= 30) 
-					{
-						outputText("<b>Your stomach is painfully distended by your pregnancy, making it difficult to walk normally.</b>", false);
-					}
-					else 
-					{ //Surely Benoit and Cotton deserve their place in this list
-						if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA || player.pregnancyType == PregnancyStore.PREGNANCY_MOUSE || player.pregnancyType == PregnancyStore.PREGNANCY_AMILY || player.pregnancyType == PregnancyStore.PREGNANCY_JOJO && (flags[kFLAGS.JOJO_STATUS] <= 0 || flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) || player.pregnancyType == PregnancyStore.PREGNANCY_EMBER || player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT || player.pregnancyType == PregnancyStore.PREGNANCY_COTTON || player.pregnancyType == PregnancyStore.PREGNANCY_URTA || player.pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH) 
-							outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with the spawn of one of this land's natives.</b>", false);
-						else if (player.pregnancyType != PregnancyStore.PREGNANCY_MARBLE) 
-							outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with the unclean spawn of some monster or beast.</b>", false);
-						else outputText("\n<b>Your belly protrudes unnaturally far forward, bulging outwards with Marble's precious child.</b>", false);
-					}
-				}
-				//URTA PREG
-				else if (player.pregnancyType == PregnancyStore.PREGNANCY_URTA) 
-				{
-					if (player.pregnancyIncubation <= 432 && player.pregnancyIncubation > 360)
-					{
-						outputText("<b>Your belly is larger than it used to be.</b>\n", false);
-					}
-					if (player.pregnancyIncubation <= 360 && player.pregnancyIncubation > 288) 
-					{
-						outputText("<b>Your belly is more noticeably distended.   You're pretty sure it's Urta's.</b>", false);
-					}
-					if (player.pregnancyIncubation <= 288 && player.pregnancyIncubation > 216) 
-					{
-						outputText("<b>The unmistakable bulge of pregnancy is visible in your tummy, and the baby within is kicking nowadays.</b>", false);	
-					}
-					if (player.pregnancyIncubation <= 216 && player.pregnancyIncubation > 144) 
-					{
-						outputText("<b>Your belly is large and very obviously pregnant to anyone who looks at you.  It's gotten heavy enough to be a pain to carry around all the time.</b>", false);		
-					}
-					if (player.pregnancyIncubation <= 144 && player.pregnancyIncubation > 72) 
-					{
-						outputText("<b>It would be impossible to conceal your growing pregnancy from anyone who glanced your way.  It's large and round, frequently moving.</b>", false);
-					}
-					if (player.pregnancyIncubation <= 72 && player.pregnancyIncubation > 48) 
-					{
-						outputText("<b>Your stomach is painfully distended by your pregnancy, making it difficult to walk normally.</b>", false);
-					}
-					if (player.pregnancyIncubation <= 48) 
-					{
-						outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with the spawn of one of this land's natives.</b>", false);
-					}
-				}
-				else if (player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) 
-				{
-					if (player.buttPregnancyIncubation >= 8) 
-						outputText("<b>Your stomach is so full of frog eggs that you look about to birth at any moment, your belly wobbling and shaking with every step you take, packed with frog ovum.</b>");
-					else outputText("<b>You're stuffed so full with eggs that your belly looks obscenely distended, huge and weighted with the gargantuan eggs crowding your gut. They make your gait a waddle and your gravid tummy wobble obscenely.</b>");
-				}
-				else if (player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) { //Belly size remains constant throughout the pregnancy
+				} else if (player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
+					if (player.buttPregnancyIncubation >= 8)  outputText("<b>Your stomach is so full of frog eggs that you look about to birth at any moment, your belly wobbling and shaking with every step you take, packed with frog ovum.</b>");
+					else                                      outputText("<b>You're stuffed so full with eggs that your belly looks obscenely distended, huge and weighted with the gargantuan eggs crowding your gut. They make your gait a waddle and your gravid tummy wobble obscenely.</b>");
+				} else if (player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) {
+					// Belly size remains constant throughout the pregnancy
 					outputText("<b>Your belly remains swollen like a watermelon. ");
-					if (player.pregnancyIncubation <= 100)
-						outputText("It's full of liquid, though unlike a normal pregnancy the passenger you’re carrying is tiny.</b>");
-					else if (player.pregnancyIncubation <= 140)
-						outputText("It feels like it’s full of thick syrup or jelly.</b>");
-					else outputText("It still feels like there’s a solid ball inside your womb.</b>");    
-				}
-				else 
-				{
-					if (player.pregnancyIncubation <= 336 && player.pregnancyIncubation > 280)
-					{
-						outputText("<b>Your belly is larger than it used to be.</b>", false);
-					}
-					if (player.pregnancyIncubation <= 280 && player.pregnancyIncubation > 216) 
-					{
-						outputText("<b>Your belly is more noticeably distended.   You are probably pregnant.</b>", false);
-					}
-					if (player.pregnancyIncubation <= 216 && player.pregnancyIncubation > 180) 
-					{
-						outputText("<b>The unmistakable bulge of pregnancy is visible in your tummy.</b>", false);	
-					}
-					if (player.pregnancyIncubation <= 180 && player.pregnancyIncubation > 120) 
-					{
-						outputText("<b>Your belly is very obviously pregnant to anyone who looks at you.</b>", false);		
-					}
-					if (player.pregnancyIncubation <= 120 && player.pregnancyIncubation > 72) 
-					{
-						outputText("<b>It would be impossible to conceal your growing pregnancy from anyone who glanced your way.</b>", false);
-					}
-					if (player.pregnancyIncubation <= 72 && player.pregnancyIncubation > 48) 
-					{
-						outputText("<b>Your stomach is painfully distended by your pregnancy, making it difficult to walk normally.</b>", false);
-					}
-					if (player.pregnancyIncubation <= 48) 
-					{ //Surely Benoit and Cotton deserve their place in this list
-						if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA || player.pregnancyType == PregnancyStore.PREGNANCY_MOUSE || player.pregnancyType == PregnancyStore.PREGNANCY_AMILY || (player.pregnancyType == PregnancyStore.PREGNANCY_JOJO && flags[kFLAGS.JOJO_STATUS] <= 0) || player.pregnancyType == PregnancyStore.PREGNANCY_EMBER || player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT || player.pregnancyType == PregnancyStore.PREGNANCY_COTTON || player.pregnancyType == PregnancyStore.PREGNANCY_URTA || player.pregnancyType == PregnancyStore.PREGNANCY_MINERVA || player.pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH) 
-							outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with the spawn of one of this land's natives.</b>", false);
-						else if (player.pregnancyType != PregnancyStore.PREGNANCY_MARBLE) 
-							outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with the unclean spawn of some monster or beast.</b>", false);
-						else outputText("\n<b>Your belly protrudes unnaturally far forward, bulging outwards with Marble's precious child.</b>", false);
+					if      (player.pregnancyIncubation > 140)  outputText("It still feels like there’s a solid ball inside your womb.</b>");
+					else if (player.pregnancyIncubation > 100)  outputText("It feels like it’s full of thick syrup or jelly.</b>");
+					else                                        outputText("It's full of liquid, though unlike a normal pregnancy the passenger you’re carrying is tiny.</b>");
+				} else {
+					if      (player.pregnancyIncubation > 280)  outputText("<b>Your belly is larger than it used to be.</b>");
+					else if (player.pregnancyIncubation > 216)  outputText("<b>Your belly is more noticeably distended.   You are probably pregnant.</b>"						+ (player.pregnancyType == PregnancyStore.PREGNANCY_URTA ? "<b>   You're pretty sure it's Urta's.</b>" : "") );
+					else if (player.pregnancyIncubation > 180)  outputText("<b>The unmistakable bulge of pregnancy is visible in your tummy.</b>"								+ (player.pregnancyType == PregnancyStore.PREGNANCY_URTA ? "<b>   The baby within is kicking nowadays.</b>" : "") );	
+					else if (player.pregnancyIncubation > 120)  outputText("<b>Your belly is very obviously pregnant to anyone who looks at you.</b>"							+ (player.pregnancyType == PregnancyStore.PREGNANCY_URTA ? "<b>   It's gotten heavy enough to be a pain to carry around all the time.</b>" : "") );		
+					else if (player.pregnancyIncubation > 72)   outputText("<b>It would be impossible to conceal your growing pregnancy from anyone who glanced your way.</b>"	+ (player.pregnancyType == PregnancyStore.PREGNANCY_URTA ? "<b>   It's large and round, frequently moving.</b>" : "") );
+					else if (player.pregnancyIncubation > 48)   outputText("<b>Your stomach is painfully distended by your pregnancy, making it difficult to walk normally.</b>");
+					else {
+						outputText("\n<b>Your belly protrudes unnaturally far forward, bulging with ");
+						if (inCollection(player.pregnancyType, PREGNANCY_NATIVES))         outputText("the spawn of one of this land's natives.</b>");
+						else if (player.pregnancyType == PregnancyStore.PREGNANCY_MARBLE)  outputText("Marble's precious child.</b>");
+						else                                                               outputText("the unclean spawn of some monster or beast.</b>");
 					}
 				}
-				outputText("\n", false);
+				outputText("\n");
 			}
-			outputText("\n", false);
+			outputText("\n");
+
+			// Gill Variation //
 			if (player.gills) 
-				outputText("A pair of feathery gills are growing out just below your neck, spreading out horizontally and draping down your chest.  They allow you to stay in the water for quite a long time.  ", false);
+				outputText("A pair of feathery gills are growing out just below your neck, spreading out horizontally and draping down your chest.  They allow you to stay in the water for quite a long time.  ");
 
 			// Breasts //
 			if (player.breastRows.length > 1)
