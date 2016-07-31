@@ -471,39 +471,26 @@ package classes
 			}
 			//BODY PG HERE
 			outputText("\n\nYou have a humanoid shape with the usual torso, arms, hands, and fingers.", false);
-			//WINGS!
-			if (player.wingType == WING_TYPE_BEE_LIKE_SMALL) 
-				outputText("  A pair of tiny-yet-beautiful bee-wings sprout from your back, too small to allow you to fly.", false);
-			if (player.wingType == WING_TYPE_BEE_LIKE_LARGE) 
-				outputText("  A pair of large bee-wings sprout from your back, reflecting the light through their clear membranes beautifully.  They flap quickly, allowing you to easily hover in place or fly.", false);
-			if (player.wingType == WING_TYPE_BAT_LIKE_TINY) 
-				outputText("  A pair of tiny bat-like demon-wings sprout from your back, flapping cutely, but otherwise being of little use.", false);
-			if (player.wingType == WING_TYPE_BAT_LIKE_LARGE) 
-				outputText("  A pair of large bat-like demon-wings fold behind your shoulders.  With a muscle-twitch, you can extend them, and use them to soar gracefully through the air.", false);
-			if (player.wingType == WING_TYPE_SHARK_FIN) 
-				outputText("  A large shark-like fin has sprouted between your shoulder blades.  With it you have far more control over swimming underwater.", false);
-			if (player.wingType == WING_TYPE_FEATHERED_LARGE) 
-				outputText("  A pair of large, feathery wings sprout from your back.  Though you usually keep the " + player.furColor + "-colored wings folded close, they can unfurl to allow you to soar as gracefully as a harpy.", false);
-			if (player.wingType == WING_TYPE_DRACONIC_SMALL) 
-				outputText("  Small, vestigial wings sprout from your shoulders.  They might look like bat's wings, but the membranes are covered in fine, delicate scales.");
-			else if (player.wingType == WING_TYPE_DRACONIC_LARGE) 
-				outputText("  Magnificent wings sprout from your shoulders.  When unfurled they stretch further than your arm span, and a single beat of them is all you need to set out toward the sky.  They look a bit like bat's wings, but the membranes are covered in fine, delicate scales and a wicked talon juts from the end of each bone.");
-			else if (player.wingType == WING_TYPE_GIANT_DRAGONFLY) 
-				outputText("  Giant dragonfly wings hang from your shoulders.  At a whim, you could twist them into a whirring rhythm fast enough to lift you off the ground and allow you to fly.");
+			
+			// Wing Descriptions //
+			if      (player.wingType == WING_TYPE_BEE_LIKE_SMALL)   outputText("  A pair of tiny-yet-beautiful bee-wings sprout from your back, too small to allow you to fly.");
+			else if (player.wingType == WING_TYPE_BEE_LIKE_LARGE)   outputText("  A pair of large bee-wings sprout from your back, reflecting the light through their clear membranes beautifully.  They flap quickly, allowing you to easily hover in place or fly.");
+			else if (player.wingType == WING_TYPE_BAT_LIKE_TINY)    outputText("  A pair of tiny bat-like demon-wings sprout from your back, flapping cutely, but otherwise being of little use.");
+			else if (player.wingType == WING_TYPE_BAT_LIKE_LARGE)   outputText("  A pair of large bat-like demon-wings fold behind your shoulders.  With a muscle-twitch, you can extend them, and use them to soar gracefully through the air.");
+			else if (player.wingType == WING_TYPE_SHARK_FIN)        outputText("  A large shark-like fin has sprouted between your shoulder blades.  With it you have far more control over swimming underwater.");
+			else if (player.wingType == WING_TYPE_FEATHERED_LARGE)  outputText("  A pair of large, feathery wings sprout from your back.  Though you usually keep the " + player.furColor + "-colored wings folded close, they can unfurl to allow you to soar as gracefully as a harpy.");
+			else if (player.wingType == WING_TYPE_DRACONIC_SMALL)   outputText("  Small, vestigial wings sprout from your shoulders.  They might look like bat's wings, but the membranes are covered in fine, delicate scales.");
+			else if (player.wingType == WING_TYPE_DRACONIC_LARGE)   outputText("  Magnificent wings sprout from your shoulders.  When unfurled they stretch further than your arm span, and a single beat of them is all you need to set out toward the sky.  They look a bit like bat's wings, but the membranes are covered in fine, delicate scales and a wicked talon juts from the end of each bone.");
+			else if (player.wingType == WING_TYPE_GIANT_DRAGONFLY)  outputText("  Giant dragonfly wings hang from your shoulders.  At a whim, you could twist them into a whirring rhythm fast enough to lift you off the ground and allow you to fly.");
 
-			//Wing arms
-			if (player.armType == ARM_TYPE_HARPY) 
-				outputText("  Feathers hang off your arms from shoulder to wrist, giving them a slightly wing-like look.", false);
-			else if (player.armType == ARM_TYPE_SPIDER) 
-				outputText("  Shining black exoskeleton  covers your arms from the biceps down, resembling a pair of long black gloves from a distance.", false);	
-			else if (player.armType == ARM_TYPE_SALAMANDER)
-				outputText("  Shining thick, leathery red scales cover your arms from the biceps down and your fingernails are now short, fiery-red curved claws.", false);
-			else if (player.armType == ARM_TYPE_PREDATOR)
-				outputText("  Your arms are covered by " + player.skinFurScales() + " and your fingernails are now " + player.claws() + ".", false);
-			//Done with head bits. Move on to body stuff
-			//Horse lowerbody, other lowerbody texts appear lower
+			// Wing arm variations //
+			if      (player.armType == ARM_TYPE_HARPY)       outputText("  Feathers hang off your arms from shoulder to wrist, giving them a slightly wing-like look.");
+			else if (player.armType == ARM_TYPE_SPIDER)      outputText("  Shining black exoskeleton  covers your arms from the biceps down, resembling a pair of long black gloves from a distance.");	
+			else if (player.armType == ARM_TYPE_SALAMANDER)  outputText("  Shining thick, leathery red scales cover your arms from the biceps down and your fingernails are now short, fiery-red curved claws.");
+			else if (player.armType == ARM_TYPE_PREDATOR)    outputText("  Your arms are covered by [skinfurscales] and your fingernails are now " + player.claws() + ".");
 
 			// Taur & Drider Lowerbody //
+			// Non-Taur&Drider lowerbody stuff appears lower down.
 			if (player.isTaur()) {
 				if      (player.lowerBody == LOWER_BODY_TYPE_HOOFED)  outputText("  From the waist down you have the body of a horse, with all " + num2Text(player.legCount)+ " legs capped by hooves.");
 				else if (player.lowerBody == LOWER_BODY_TYPE_PONY)    outputText("  From the waist down you have an incredibly cute and cartoonish parody of a horse's body, with all " + num2Text(player.legCount)+ " legs ending in flat, rounded feet.");
@@ -635,6 +622,7 @@ package classes
 			}
 
 			// Lowerbody Descriptions //
+			// Taur&Drider lowerbody stuff appears higher up.
 			if      (player.lowerBody == LOWER_BODY_TYPE_HUMAN)                  outputText("  " + Num2Text(player.legCount)+ " normal human legs grow down from your waist, ending in normal human feet.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_FERRET)                 outputText("  " + Num2Text(player.legCount)+ " furry, digitigrade legs form below your [hips].  The fur is thinner on the feet, and your toes are tipped with claws.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_HOOFED)                 outputText("  Your " + num2Text(player.legCount)+ " legs are muscled and jointed oddly, covered in fur, and end in a bestial hooves.");
