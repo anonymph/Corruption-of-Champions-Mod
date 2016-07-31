@@ -665,115 +665,46 @@ package classes
 						outputText(" is marvelously large, but completely stacked with muscle.", false);
 				}
 			}
-			//TAILS
-			if (player.tailType == TAIL_TYPE_HORSE) 
-				outputText("  A long " + player.hairColor + " horsetail hangs from your " + player.buttDescript() + ", smooth and shiny.", false);
-			if (player.tailType == TAIL_TYPE_FERRET)
-				outputText("  A long ferret tail sprouts from above your [butt].  It is thin, tapered, and covered in shaggy " + player.furColor + " fur.", false);
-			if (player.tailType == TAIL_TYPE_DOG) 
-				outputText("  A fuzzy " + player.furColor + " dogtail sprouts just above your " + player.buttDescript() + ", wagging to and fro whenever you are happy.", false);
-			if (player.tailType == TAIL_TYPE_DEMONIC) 
-				outputText("  A narrow tail ending in a spaded tip curls down from your " + player.buttDescript() + ", wrapping around your " + player.leg() + " sensually at every opportunity.", false);
-			if (player.tailType == TAIL_TYPE_COW) 
-				outputText("  A long cowtail with a puffy tip swishes back and forth as if swatting at flies.", false);
-			if (player.tailType == TAIL_TYPE_SPIDER_ADBOMEN) 
-			{
-				outputText("  A large, spherical spider-abdomen has grown out from your backside, covered in shiny black chitin.  Though it's heavy and bobs with every motion, it doesn't seem to slow you down.", false);
-				if (player.tailVenom > 50 && player.tailVenom < 80) 
-					outputText("  Your bulging arachnid posterior feels fairly full of webbing.", false);
-				if (player.tailVenom >= 80 && player.tailVenom < 100) 
-					outputText("  Your arachnid rear bulges and feels very full of webbing.", false);
-				if (player.tailVenom == 100) 
-					outputText("  Your swollen spider-butt is distended with the sheer amount of webbing it's holding.", false);
+
+			// Tail Descriptions //
+			if      (player.tailType == TAIL_TYPE_HORSE)       outputText("  A long [haircolor] horsetail hangs from your [butt], smooth and shiny.");
+			else if (player.tailType == TAIL_TYPE_FERRET)      outputText("  A long ferret tail sprouts from above your [butt].  It is thin, tapered, and covered in shaggy " + player.furColor + " fur.");
+			else if (player.tailType == TAIL_TYPE_DOG)         outputText("  A fuzzy " + player.furColor + " dogtail sprouts just above your [butt], wagging to and fro whenever you are happy.");
+			else if (player.tailType == TAIL_TYPE_DEMONIC)     outputText("  A narrow tail ending in a spaded tip curls down from your [butt], wrapping around your [leg] sensually at every opportunity.");
+			else if (player.tailType == TAIL_TYPE_COW)         outputText("  A long cowtail with a puffy tip swishes back and forth as if swatting at flies.");
+			else if (player.tailType == TAIL_TYPE_SHARK)       outputText("  A long shark-tail trails down from your backside, swaying to and fro while giving you a dangerous air.");
+			else if (player.tailType == TAIL_TYPE_CAT)         outputText("  A soft " + player.furColor + " cat-tail sprouts just above your [butt], curling and twisting with every step to maintain perfect balance.");
+			else if (player.tailType == TAIL_TYPE_LIZARD)      outputText("  A tapered tail hangs down from just above your " + player.assDescript() + ".  It sways back and forth, assisting you with keeping your balance.");
+			else if (player.tailType == TAIL_TYPE_SALAMANDER)  outputText("  A tapered, covered in red scales tail hangs down from just above your " + player.assDescript() + ".  It sways back and forth, assisting you with keeping your balance. When you are in battle or when you want could set ablaze whole tail in red-hot fire.");
+			else if (player.tailType == TAIL_TYPE_RABBIT)      outputText("  A short, soft bunny tail sprouts just above your " + player.assDescript() + ", twitching constantly whenever you don't think about it.");
+			else if (player.tailType == TAIL_TYPE_HARPY)       outputText("  A tail of feathers fans out from just above your " + player.assDescript() + ", twitching instinctively to help guide you if you were to take flight.");
+			else if (player.tailType == TAIL_TYPE_KANGAROO)    outputText("  A conical, " + (player.skinType == SKIN_TYPE_GOO ? "gooey, " + player.skinTone : "furry, " + player.furColor) + ", tail extends from your " + player.assDescript() + ", bouncing up and down as you move and helping to counterbalance you.");
+			else if (player.tailType == TAIL_TYPE_FOX)         outputText("  " + (player.tailVenom <= 1 ? "A" : Num2Text(player.tailVenom)) + " swishing " + player.furColor + " fox's tails extend from your " + player.assDescript() + ", curling around your body - the soft fur feels lovely.");
+			else if (player.tailType == TAIL_TYPE_DRACONIC)    outputText("  A thin, scaly, prehensile reptilian tail, almost as long as you are tall, swings behind you like a living bullwhip.  Its tip menaces with spikes of bone, meant to deliver painful blows.");		
+			else if (player.tailType == TAIL_TYPE_RACCOON)     outputText("  A black-and-" + player.furColor + "-ringed raccoon tail waves behind you.");
+			else if (player.tailType == TAIL_TYPE_MOUSE)       outputText("  A naked, " + player.skinTone + " mouse tail pokes from your butt, dragging on the ground and twitching occasionally.");
+			else if (player.tailType == TAIL_TYPE_BEHEMOTH)    outputText("  A long seemingly-tapering tail pokes from your butt, ending in spikes just like behemoth's.");
+			else if (player.tailType == TAIL_TYPE_PIG)         outputText("  A short, curly pig tail sprouts from just above your butt.");
+			else if (player.tailType == TAIL_TYPE_SCORPION)    outputText("  A chitinous scorpion tail sprouts from just above your butt, ready to dispense venom.");
+			else if (player.tailType == TAIL_TYPE_GOAT)        outputText("  A very short, stubby goat tail sprouts from just above your butt.");
+			else if (player.tailType == TAIL_TYPE_RHINO)       outputText("  A ropey rhino tail sprouts from just above your butt, swishing from time to time.");
+			else if (player.tailType == TAIL_TYPE_ECHIDNA)     outputText("  A stumpy echidna tail forms just about your [ass].");
+			else if (player.tailType == TAIL_TYPE_DEER)        outputText("  A very short, stubby deer tail sprouts from just above your butt.");
+			else if (player.tailType == TAIL_TYPE_SPIDER_ADBOMEN) {
+				outputText("  A large, spherical spider-abdomen has grown out from your backside, covered in shiny black chitin.  Though it's heavy and bobs with every motion, it doesn't seem to slow you down.");
+				if      (player.tailVenom < 50)   {}
+				else if (player.tailVenom < 80)   outputText("  Your bulging arachnid posterior feels fairly full of webbing.");
+				else if (player.tailVenom < 100)  outputText("  Your arachnid rear bulges and feels very full of webbing.");
+				else                              outputText("  Your swollen spider-butt is distended with the sheer amount of webbing it's holding.");
+			} else if (player.tailType == TAIL_TYPE_BEE_ABDOMEN) {
+				outputText("  A large insectile bee-abdomen dangles from just above your backside, bobbing with its own weight as you shift.  It is covered in hard chitin with black and yellow stripes, and tipped with a dagger-like stinger.");
+				if      (player.tailVenom < 50)   {}
+				else if (player.tailVenom < 80)   outputText("  A single drop of poison hangs from your exposed stinger.");
+				else if (player.tailVenom < 100)  outputText("  Poisonous bee venom coats your stinger completely.");
+				else                              outputText("  Venom drips from your poisoned stinger regularly.");
+			} else {
+				outputText("  <b> Shit, we don't have a description for your tail. Please file an issue on github, and note this number: " + player.tailType + ", thanks! </b>");
 			}
-			if (player.tailType == TAIL_TYPE_BEE_ABDOMEN) 
-			{
-				outputText("  A large insectile bee-abdomen dangles from just above your backside, bobbing with its own weight as you shift.  It is covered in hard chitin with black and yellow stripes, and tipped with a dagger-like stinger.", false);
-				if (player.tailVenom > 50 && player.tailVenom < 80) 
-					outputText("  A single drop of poison hangs from your exposed stinger.", false);
-				if (player.tailVenom >= 80 && player.tailVenom < 100) 
-					outputText("  Poisonous bee venom coats your stinger completely.", false);
-				if (player.tailVenom == 100) 
-					outputText("  Venom drips from your poisoned stinger regularly.", false);
-			}
-			if (player.tailType == TAIL_TYPE_SHARK) 
-			{
-				outputText("  A long shark-tail trails down from your backside, swaying to and fro while giving you a dangerous air.", false);
-			}
-			if (player.tailType == TAIL_TYPE_CAT) 
-			{
-				outputText("  A soft " + player.furColor + " cat-tail sprouts just above your " + player.buttDescript() + ", curling and twisting with every step to maintain perfect balance.", false);
-			}
-			if (player.tailType == TAIL_TYPE_LIZARD) 
-			{
-				outputText("  A tapered tail hangs down from just above your " + player.assDescript() + ".  It sways back and forth, assisting you with keeping your balance.", false);
-			}
-			if(player.tailType == TAIL_TYPE_SALAMANDER) 
-			{
-				outputText("  A tapered, covered in red scales tail hangs down from just above your " + player.assDescript() + ".  It sways back and forth, assisting you with keeping your balance. When you are in battle or when you want could set ablaze whole tail in red-hot fire.", false);
-			}
-			if (player.tailType == TAIL_TYPE_RABBIT) 
-				outputText("  A short, soft bunny tail sprouts just above your " + player.assDescript() + ", twitching constantly whenever you don't think about it.", false);
-			else if (player.tailType == TAIL_TYPE_HARPY) 
-				outputText("  A tail of feathers fans out from just above your " + player.assDescript() + ", twitching instinctively to help guide you if you were to take flight.", false);
-			else if (player.tailType == TAIL_TYPE_KANGAROO) 
-			{
-				outputText("  A conical, ", false);
-				if (player.skinType == SKIN_TYPE_GOO) 
-					outputText("gooey, " + player.skinTone, false);
-				else outputText("furry, " + player.furColor, false);
-				outputText(", tail extends from your " + player.assDescript() + ", bouncing up and down as you move and helping to counterbalance you.", false);
-			}
-			else if (player.tailType == TAIL_TYPE_FOX) 
-			{
-				if (player.tailVenom <= 1) 
-					outputText("  A swishing " + player.furColor + " fox's brush extends from your " + player.assDescript() + ", curling around your body - the soft fur feels lovely.");
-				else outputText("  " + Num2Text(player.tailVenom) + " swishing " + player.furColor + " fox's tails extend from your " + player.assDescript() + ", curling around your body - the soft fur feels lovely.");
-			}
-			else if (player.tailType == TAIL_TYPE_DRACONIC) 
-			{
-				outputText("  A thin, scaly, prehensile reptilian tail, almost as long as you are tall, swings behind you like a living bullwhip.  Its tip menaces with spikes of bone, meant to deliver painful blows.");		
-			}
-			//appearance
-			else if (player.tailType == TAIL_TYPE_RACCOON) 
-			{
-				outputText("  A black-and-" + player.furColor + "-ringed raccoon tail waves behind you.");
-			}
-			else if (player.tailType == TAIL_TYPE_MOUSE) 
-			{
-				//appearance
-				outputText("  A naked, " + player.skinTone + " mouse tail pokes from your butt, dragging on the ground and twitching occasionally.");
-			}
-			//<mod>
-			else if (player.tailType == TAIL_TYPE_BEHEMOTH) 
-			{
-				outputText("  A long seemingly-tapering tail pokes from your butt, ending in spikes just like behemoth's.");
-			}
-			else if (player.tailType == TAIL_TYPE_PIG) 
-			{
-				outputText("  A short, curly pig tail sprouts from just above your butt.");
-			}
-			else if (player.tailType == TAIL_TYPE_SCORPION) 
-			{
-				outputText("  A chitinous scorpion tail sprouts from just above your butt, ready to dispense venom.");
-			}
-			else if (player.tailType == TAIL_TYPE_GOAT) 
-			{
-				outputText("  A very short, stubby goat tail sprouts from just above your butt.");
-			}
-			else if (player.tailType == TAIL_TYPE_RHINO) 
-			{
-				outputText("  A ropey rhino tail sprouts from just above your butt, swishing from time to time.");
-			}
-			else if (player.tailType == TAIL_TYPE_ECHIDNA) 
-			{
-				outputText("  A stumpy echidna tail forms just about your [ass].");
-			}
-			else if (player.tailType == TAIL_TYPE_DEER) 
-			{
-				outputText("  A very short, stubby deer tail sprouts from just above your butt.");
-			}
-			//</mod>
 
 			// Lowerbody Descriptions //
 			if      (player.lowerBody == LOWER_BODY_TYPE_HUMAN)                  outputText("  " + Num2Text(player.legCount)+ " normal human legs grow down from your waist, ending in normal human feet.");
@@ -796,7 +727,7 @@ package classes
 			else if (player.lowerBody == LOWER_BODY_TYPE_DRAGON)                 outputText("  " + Num2Text(player.legCount)+ " human-like legs grow down from your [hips], sheathed in scales and ending in clawed feet.  There are three long toes on the front, and a small hind-claw on the back.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_RACCOON)                outputText("  Your " + num2Text(player.legCount)+ " legs, though covered in fur, are humanlike.  Long feet on the ends bear equally long toes, and the pads on the bottoms are quite sensitive to the touch.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_CLOVEN_HOOFED)          outputText("  " + Num2Text(player.legCount)+ " digitigrade legs form below your [hips], ending in cloven hooves.");
-			else                                                                 outputText("  <b> Shit, we don't have a description for your [legs]. Please file an issue on github, and note this number: " + player.lowerBody + ", thanks! </b>")
+			else                                                                 outputText("  <b> Shit, we don't have a description for your [legs]. Please file an issue on github, and note this number: " + player.lowerBody + ", thanks! </b>");
 
 			if (player.findPerk(PerkLib.Incorporeality) >= 0)
 				outputText("  Of course, your [legs] are partially transparent due to their "+(player.lowerBody == LOWER_BODY_TYPE_GOO ? "ectoplasmic":"ghostly")+" nature.");
