@@ -513,156 +513,89 @@ package classes
 			}
 			if (player.isDrider()) 
 				outputText("  Where your legs would normally start you have grown the body of a spider, with " + num2Text(player.legCount) + " spindly legs that sprout from its sides.");
-			//Hip info only displays if you aren't a centaur. 
-			if (!player.isTaur()) 
-			{
-				if (player.thickness > 70) 
-				{
-					outputText("  You have " + player.hipDescript(), false);
-					if (player.hipRating < 6) 
-					{
-						if (player.tone < 65) 
-							outputText(" buried under a noticeable muffin-top, and", false);
-						else outputText(" that blend into your pillar-like waist, and", false);
+
+			// Hip descriptions //
+			if (!player.isTaur()) {
+				outputText("  You have [hips]");
+				if (player.thickness > 70) {
+					if (player.hipRating < 6) {
+						if   (player.tone < 65)  outputText(" buried under a noticeable muffin-top");
+						else                     outputText(" that blend into your pillar-like waist");
 					}
-					if (player.hipRating >= 6 && player.hipRating < 10) 
-						outputText(" that blend into the rest of your thick form, and", false);
-					if (player.hipRating >= 10 && player.hipRating < 15) 
-						outputText(" that would be much more noticeable if you weren't so wide-bodied, and", false);
-					if (player.hipRating >= 15 && player.hipRating < 20) 
-						outputText(" that sway and emphasize your thick, curvy shape, and", false);
-					if (player.hipRating >= 20) 
-						outputText(" that sway hypnotically on your extra-curvy frame, and", false);
-				}
-				else if (player.thickness < 30) 
-				{
-					outputText("  You have " + player.hipDescript(), false);
-					if (player.hipRating < 6) 
-						outputText(" that match your trim, lithe body, and", false);
-					if (player.hipRating >= 6 && player.hipRating < 10) 
-						outputText(" that sway to and fro, emphasized by your trim body, and", false);
-					if (player.hipRating >= 10 && player.hipRating < 15) 
-						outputText(" that swell out under your trim waistline, and", false);
-					if (player.hipRating >= 15 && player.hipRating < 20) 
-						outputText(", emphasized by your narrow waist, and", false);
-					if (player.hipRating >= 20) 
-						outputText(" that swell disproportionately wide on your lithe frame, and", false);
-				}
-				//STANDARD
-				else 
-				{
-					outputText("  You have " + player.hipDescript(), false);
-					if (player.hipRating < 6) 
-						outputText(", and", false);
-					if (player.femininity > 50) 
-					{
-						if (player.hipRating >= 6 && player.hipRating < 10) 
-							outputText(" that draw the attention of those around you, and", false);
-						if (player.hipRating >= 10 && player.hipRating < 15) 
-							outputText(" that make you walk with a sexy, swinging gait, and", false);
-						if (player.hipRating >= 15 && player.hipRating < 20) 
-							outputText(" that make it look like you've birthed many children, and", false);
-						if (player.hipRating >= 20) 
-							outputText(" that make you look more like an animal waiting to be bred than any kind of human, and", false);
-					}
-					else 
-					{
-						if (player.hipRating >= 6 && player.hipRating < 10) 
-							outputText(" that give you a graceful stride, and", false);
-						if (player.hipRating >= 10 && player.hipRating < 15) 
-							outputText(" that add a little feminine swing to your gait, and", false);
-						if (player.hipRating >= 15 && player.hipRating < 20) 
-							outputText(" that force you to sway and wiggle as you move, and", false);
-						if (player.hipRating >= 20) 
-						{
-							outputText(" that give your ", false);
-							if (player.balls > 0) 
-								outputText("balls plenty of room to breathe", false);
-							else if (player.hasCock()) 
-								outputText(player.multiCockDescript() + " plenty of room to swing", false);
-							else if (player.hasVagina()) 
-								outputText(player.vaginaDescript() + " a nice, wide berth", false);
-							else outputText("vacant groin plenty of room", false);
-							outputText(", and", false);
+					else if (player.hipRating < 10)  outputText(" that blend into the rest of your thick form");
+					else if (player.hipRating < 15)  outputText(" that would be much more noticeable if you weren't so wide-bodied");
+					else if (player.hipRating < 20)  outputText(" that sway and emphasize your thick, curvy shape");
+					else                             outputText(" that sway hypnotically on your extra-curvy frame");
+				} else if (player.thickness < 30) {
+					if      (player.hipRating < 6)   outputText(" that match your trim, lithe body");
+					else if (player.hipRating < 10)  outputText(" that sway to and fro, emphasized by your trim body");
+					else if (player.hipRating < 15)  outputText(" that swell out under your trim waistline");
+					else if (player.hipRating < 20)  outputText(", emphasized by your narrow waist");
+					else                             outputText(" that swell disproportionately wide on your lithe frame");
+				} else {
+					//STANDARD
+					if (player.hipRating < 6) {
+					} else if (player.femininity > 50) {
+						if      (player.hipRating < 10)  outputText(" that draw the attention of those around you");
+						else if (player.hipRating < 15)  outputText(" that make you walk with a sexy, swinging gait");
+						else if (player.hipRating < 20)  outputText(" that make it look like you've birthed many children");
+						else                             outputText(" that make you look more like an animal waiting to be bred than any kind of human");
+					} else {
+						if      (player.hipRating < 10)  outputText(" that give you a graceful stride");
+						else if (player.hipRating < 15)  outputText(" that add a little feminine swing to your gait");
+						else if (player.hipRating < 20)  outputText(" that force you to sway and wiggle as you move");
+						else {
+							outputText(" that give your ");
+							if      (player.balls > 0)    outputText("balls plenty of room to breathe");
+							else if (player.hasCock())    outputText(player.multiCockDescript() + " plenty of room to swing");
+							else if (player.hasVagina())  outputText("[vagina] a nice, wide berth");
+							else                          outputText("vacant groin plenty of room");
 						}
 					}
 				}
+				outputText(", and");
 			}
-			//ASS
-			//Horse version
-			if (player.isTaur()) 
-			{
-				//FATBUTT
-				if (player.tone < 65) 
-				{
-					outputText("  Your " + player.buttDescript(), false);
-					if (player.buttRating < 4) 
-						outputText(" is lean, from what you can see of it.", false);
-					if (player.buttRating >= 4 && player.buttRating < 6) 
-						outputText(" looks fairly average.", false);
-					if (player.buttRating >= 6 && player.buttRating <10) 
-						outputText(" is fairly plump and healthy.", false);
-					if (player.buttRating >= 10 && player.buttRating < 15) 
-						outputText(" jiggles a bit as you trot around.", false);
-					if (player.buttRating >= 15 && player.buttRating < 20) 
-						outputText(" jiggles and wobbles as you trot about.", false);
-					if (player.buttRating >= 20) 
-						outputText(" is obscenely large, bordering freakish, even for a horse.", false);
+
+			// Ass descriptions //
+			if (player.isTaur()) {
+				// Taurs
+				outputText("  Your [butt]");
+				if (player.tone < 65) {
+					//FATBUTT
+					if      (player.buttRating < 4)   outputText(" is lean, from what you can see of it.");
+					else if (player.buttRating < 6)   outputText(" looks fairly average.");
+					else if (player.buttRating < 10)  outputText(" is fairly plump and healthy.");
+					else if (player.buttRating < 15)  outputText(" jiggles a bit as you trot around.");
+					else if (player.buttRating < 20)  outputText(" jiggles and wobbles as you trot about.");
+					else                              outputText(" is obscenely large, bordering freakish, even for a horse.");
+				} else {
+					//GIRL LOOK AT DAT BOOTY
+					if      (player.buttRating < 4)   outputText(" is barely noticeable, showing off the muscles of your haunches.");
+					else if (player.buttRating < 6)   outputText(" matches your toned equine frame quite well.");
+					else if (player.buttRating < 10)  outputText(" gives hints of just how much muscle you could put into a kick.");
+					else if (player.buttRating < 15)  outputText(" surges with muscle whenever you trot about.");
+					else if (player.buttRating < 20)  outputText(" flexes its considerable mass as you move.");
+					else                              outputText(" is stacked with layers of muscle, huge even for a horse.");
 				}
-				//GIRL LOOK AT DAT BOOTY
-				else 
-				{
-					outputText("  Your " + player.buttDescript(), false);
-					if (player.buttRating < 4) 
-						outputText(" is barely noticeable, showing off the muscles of your haunches.", false);
-					if (player.buttRating >= 4 && player.buttRating < 6) 
-						outputText(" matches your toned equine frame quite well.", false);
-					if (player.buttRating >= 6 && player.buttRating <10) 
-						outputText(" gives hints of just how much muscle you could put into a kick.", false);
-					if (player.buttRating >= 10 && player.buttRating < 15) 
-						outputText(" surges with muscle whenever you trot about.", false);
-					if (player.buttRating >= 15 && player.buttRating < 20) 
-						outputText(" flexes its considerable mass as you move.", false);
-					if (player.buttRating >= 20) 
-						outputText(" is stacked with layers of muscle, huge even for a horse.", false);
-				}
-			}
-			//Non-horse PCs
-			else 
-			{
-				//TUBBY ASS
-				if (player.tone < 60) 
-				{
-					outputText(" your " + player.buttDescript(), false);
-					if (player.buttRating < 4) 
-						outputText(" looks great under your gear.", false);
-					if (player.buttRating >= 4 && player.buttRating < 6) 
-						outputText(" has the barest amount of sexy jiggle.", false);
-					if (player.buttRating >= 6 && player.buttRating <10) 
-						outputText(" fills out your clothing nicely.", false);
-					if (player.buttRating >= 10 && player.buttRating < 15) 
-						outputText(" wobbles enticingly with every step.", false);
-					if (player.buttRating >= 15 && player.buttRating < 20) 
-						outputText(" wobbles like a bowl full of jello as you walk.", false);
-					if (player.buttRating >= 20) 
-						outputText(" is obscenely large, bordering freakish, and makes it difficult to run.", false);
-				}
-				//FITBUTT
-				else 
-				{
-					outputText(" your " + player.buttDescript(), false);
-					if (player.buttRating < 4) 
-						outputText(" molds closely against your form.", false);
-					if (player.buttRating >= 4 && player.buttRating < 6) 
-						outputText(" contracts with every motion, displaying the detailed curves of its lean musculature.", false);
-					if (player.buttRating >= 6 && player.buttRating <10) 
-						outputText(" fills out your clothing nicely.", false);
-					if (player.buttRating >= 10 && player.buttRating < 15) 
-						outputText(" stretches your gear, flexing it with each step.", false);
-					if (player.buttRating >= 15 && player.buttRating < 20) 
-						outputText(" threatens to bust out from under your kit each time you clench it.", false);
-					if (player.buttRating >= 20) 
-						outputText(" is marvelously large, but completely stacked with muscle.", false);
+			} else {
+				//Non-horse PCs
+				outputText(" your [butt]");
+				if (player.tone < 60) {
+					//TUBBY ASS
+					if      (player.buttRating < 4)   outputText(" looks great under your gear.");
+					else if (player.buttRating < 6)   outputText(" has the barest amount of sexy jiggle.");
+					else if (player.buttRating < 10)  outputText(" fills out your clothing nicely.");
+					else if (player.buttRating < 15)  outputText(" wobbles enticingly with every step.");
+					else if (player.buttRating < 20)  outputText(" wobbles like a bowl full of jello as you walk.");
+					else                              outputText(" is obscenely large, bordering freakish, and makes it difficult to run.");
+				} else {
+					//FITBUTT
+					if      (player.buttRating < 4)   outputText(" molds closely against your form.");
+					else if (player.buttRating < 6)   outputText(" contracts with every motion, displaying the detailed curves of its lean musculature.");
+					else if (player.buttRating < 10)  outputText(" fills out your clothing nicely.");
+					else if (player.buttRating < 15)  outputText(" stretches your gear, flexing it with each step.");
+					else if (player.buttRating < 20)  outputText(" threatens to bust out from under your kit each time you clench it.");
+					else                              outputText(" is marvelously large, but completely stacked with muscle.");
 				}
 			}
 
