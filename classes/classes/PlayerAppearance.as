@@ -377,18 +377,16 @@ package classes
 				}
 			}
 			
-			//Beards!
+			// Beard Description //
 			if (player.beardLength > 0) {
-				outputText("  You have a " + player.beardDescript() + " ");
-				if (player.beardStyle != BEARD_GOATEE) {
-					outputText("covering your ");
-					if (rand(2) == 0) outputText("jaw");
-					else outputText("chin and cheeks")
-				}
+				outputText("  You have a " + player.beardDescript());
+				if (player.beardStyle == BEARD_GOATEE)
+					outputText(" protruding from your chin.");
 				else {
-					outputText("protruding from your chin");
+					outputText(" covering your ");
+					if   (rand(2) == 0)  outputText(" jaw.");
+					else                 outputText(" chin and cheeks.");
 				}
-				outputText(".");
 			}
 			
 			// Tongue Description //
