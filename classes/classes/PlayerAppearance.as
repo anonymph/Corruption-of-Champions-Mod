@@ -502,16 +502,13 @@ package classes
 				outputText("  Your arms are covered by " + player.skinFurScales() + " and your fingernails are now " + player.claws() + ".", false);
 			//Done with head bits. Move on to body stuff
 			//Horse lowerbody, other lowerbody texts appear lower
-			if (player.isTaur()) 
-			{
-				if (player.lowerBody == LOWER_BODY_TYPE_HOOFED) 
-					outputText("  From the waist down you have the body of a horse, with all " + num2Text(player.legCount)+ " legs capped by hooves.", false);
-				else if (player.lowerBody == LOWER_BODY_TYPE_PONY) 
-					outputText("  From the waist down you have an incredibly cute and cartoonish parody of a horse's body, with all " + num2Text(player.legCount)+ " legs ending in flat, rounded feet.", false);
-				else
-					outputText("  Where your legs would normally start you have grown the body of a feral animal, with all " + num2Text(player.legCount)+ " legs.", false);
-			}
-			if (player.isDrider()) 
+
+			// Taur & Drider Lowerbody //
+			if (player.isTaur()) {
+				if      (player.lowerBody == LOWER_BODY_TYPE_HOOFED)  outputText("  From the waist down you have the body of a horse, with all " + num2Text(player.legCount)+ " legs capped by hooves.");
+				else if (player.lowerBody == LOWER_BODY_TYPE_PONY)    outputText("  From the waist down you have an incredibly cute and cartoonish parody of a horse's body, with all " + num2Text(player.legCount)+ " legs ending in flat, rounded feet.");
+				else                                                  outputText("  Where your legs would normally start you have grown the body of a feral animal, with all " + num2Text(player.legCount)+ " legs.");
+			} else if (player.isDrider()) 
 				outputText("  Where your legs would normally start you have grown the body of a spider, with " + num2Text(player.legCount) + " spindly legs that sprout from its sides.");
 
 			// Hip descriptions //
@@ -635,8 +632,6 @@ package classes
 				else if (player.tailVenom < 80)   outputText("  A single drop of poison hangs from your exposed stinger.");
 				else if (player.tailVenom < 100)  outputText("  Poisonous bee venom coats your stinger completely.");
 				else                              outputText("  Venom drips from your poisoned stinger regularly.");
-			} else {
-				outputText("  <b> Shit, we don't have a description for your tail. Please file an issue on github, and note this number: " + player.tailType + ", thanks! </b>");
 			}
 
 			// Lowerbody Descriptions //
@@ -660,7 +655,6 @@ package classes
 			else if (player.lowerBody == LOWER_BODY_TYPE_DRAGON)                 outputText("  " + Num2Text(player.legCount)+ " human-like legs grow down from your [hips], sheathed in scales and ending in clawed feet.  There are three long toes on the front, and a small hind-claw on the back.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_RACCOON)                outputText("  Your " + num2Text(player.legCount)+ " legs, though covered in fur, are humanlike.  Long feet on the ends bear equally long toes, and the pads on the bottoms are quite sensitive to the touch.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_CLOVEN_HOOFED)          outputText("  " + Num2Text(player.legCount)+ " digitigrade legs form below your [hips], ending in cloven hooves.");
-			else                                                                 outputText("  <b> Shit, we don't have a description for your [legs]. Please file an issue on github, and note this number: " + player.lowerBody + ", thanks! </b>");
 
 			if (player.findPerk(PerkLib.Incorporeality) >= 0)
 				outputText("  Of course, your [legs] are partially transparent due to their "+(player.lowerBody == LOWER_BODY_TYPE_GOO ? "ectoplasmic":"ghostly")+" nature.");
