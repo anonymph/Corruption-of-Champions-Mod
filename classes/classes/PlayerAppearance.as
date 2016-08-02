@@ -279,8 +279,10 @@ package classes
 				outputText(" come with the typical second set of eyelids, allowing you to blink twice as much as others.");
 			}
 		
-			if (player.eyeCount == 4)
-				outputText("  In addition to your primary two eyes, you have a second, smaller pair on your forehead.")
+			// Would supporting `player.eyeCount == 1` be going too far?
+			if      (player.eyeCount == 3)  outputText("  Sitting squarely in your forehead you've got a third eye.")
+			else if (player.eyeCount == 4)  outputText("  In addition to your primary two eyes, you have a second, smaller pair on your forehead.")
+			else if (player.eyeCount >  4)  outputText("  In addition to your primary two eyes, you have "+num2Text(player.eyeCount/2-1)+" smaller pairs of eyes on your forehead.")
 
 			//Hair
 			//if bald
