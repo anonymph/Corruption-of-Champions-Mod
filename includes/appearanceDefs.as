@@ -67,7 +67,7 @@ public static const TONGUE_ECHIDNA:int                                          
 
 // eyeType
 public static const EYES_HUMAN:int                                                  =   0;
-public static const EYES_FOUR_SPIDER_EYES:int                                       =   1;
+public static const EYES_FOUR_SPIDER_EYES:int                                       =   1; // DEPRECATED
 public static const EYES_BLACK_EYES_SAND_TRAP:int                                   =   2;
 public static const EYES_LIZARD:int                                                 =   3;
 public static const EYES_DRAGON:int                                                 =   4; // Slightly different description/TF and *maybe* in the future(!) grant different perks/combat abilities
@@ -463,4 +463,3 @@ public static const BREAST_CUP_HYPER_ZZZ_LARGE:int									= 198;
 public static const BREAST_CUP_JACQUES00:int										= 199; // <-- Jacques00-cup
 
 // End Description constants
-

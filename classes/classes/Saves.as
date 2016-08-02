@@ -1591,11 +1591,14 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 			player.femininity = 50;
 		else
 			player.femininity = saveFile.data.femininity;
+
 		//EYES
-		if (saveFile.data.eyeType == undefined)
-			player.eyeType = EYES_HUMAN;
-		else
-			player.eyeType = saveFile.data.eyeType;
+		player.eyeType = saveFile.data.eyeType || EYES_HUMAN;
+		if (player.eyeType == EYES_FOUR_SPIDER_EYES) {
+			player.eyeCount = 4;
+			player.eyeType  = EYES_HUMAN;
+		}
+
 		//BEARS
 		if (saveFile.data.beardLength == undefined)
 			player.beardLength = 0;

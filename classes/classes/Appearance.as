@@ -2252,7 +2252,6 @@
 		public static const DEFAULT_EYES_NAMES:Object = createMapFromPairs(
 				[
 					[EYES_HUMAN, "human"],
-					[EYES_FOUR_SPIDER_EYES, "4 spider"],
 					[EYES_BLACK_EYES_SAND_TRAP, "sandtrap black"],
 					[EYES_LIZARD, "lizard"],
 					[EYES_DRAGON, "dragon"],

@@ -266,9 +266,7 @@ package classes
 			//M/F stuff!
 			outputText("  It has " + player.faceDesc() + ".", false);
 			//Eyes
-			if (player.eyeType == EYES_FOUR_SPIDER_EYES) 
-				outputText("  In addition to your primary two eyes, you have a second, smaller pair on your forehead.", false);
-			else if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) 
+			if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) 
 				outputText("  Your eyes are solid spheres of inky, alien darkness.");
 			else if (player.faceType != FACE_CAT && player.hasReptileEyes())
 			{
@@ -280,6 +278,9 @@ package classes
 				}
 				outputText(" come with the typical second set of eyelids, allowing you to blink twice as much as others.");
 			}
+		
+			if (player.eyeCount == 4)
+				outputText("  In addition to your primary two eyes, you have a second, smaller pair on your forehead.")
 
 			//Hair
 			//if bald

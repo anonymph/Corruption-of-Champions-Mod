@@ -1032,7 +1032,7 @@
 					+(Appearance.DEFAULT_FACE_NAMES[faceType]||("faceType#"+faceType))+" face, "
 					+(Appearance.DEFAULT_EARS_NAMES[earType]||("earType#"+earType))+" ears, "
 					+(Appearance.DEFAULT_TONGUE_NAMES[tongueType]||("tongueType#"+tongueType))+" tongue and "
-					+(Appearance.DEFAULT_EYES_NAMES[eyeType]||("eyeType#"+eyeType))+" eyes.\n";
+					+eyeCount+" "+(Appearance.DEFAULT_EYES_NAMES[eyeType]||("eyeType#"+eyeType))+" eyes.\n";
 			result += Hehas;
 			if (tailType == TAIL_TYPE_NONE) result += "no tail, ";
 			else result+=(Appearance.DEFAULT_TAIL_NAMES[tailType]||("tailType#"+tailType))+" tail with venom="+tailVenom+" and recharge="+tailRecharge+", ";

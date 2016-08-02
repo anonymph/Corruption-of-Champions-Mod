@@ -1874,13 +1874,15 @@ package classes
 				player.faceType = FACE_HUMAN;
 			else // totally random one
 				player.faceType = rand(20)+1; // since it is not a enum, it is impossible to make it auto-ajust...
-				
-			if (player.faceType == FACE_SPIDER_FANGS && rand(2) == 0)
-					player.eyeType = EYES_FOUR_SPIDER_EYES; // 50% to have spider eyes with spider fangs
-			else if (rand(20) == 0) // 5% for inhuman eyes otherwise
-				if (rand(2) == 0)
-					player.eyeType = EYES_FOUR_SPIDER_EYES;
-				else
+			
+			if (player.faceType == FACE_SPIDER_FANGS && rand(2) == 0) {
+					player.eyeCount = 4;           // 50% to have spider eyes with spider fangs
+					player.eyeType = EYES_HUMAN;   // Sorry to fuck this up D:
+			} else if (rand(20) == 0) // 5% for inhuman eyes otherwise
+				if (rand(2) == 0) {
+					player.eyeCount = 4;
+					player.eyeType = EYES_HUMAN;
+				} else
 					player.eyeType = EYES_BLACK_EYES_SAND_TRAP;
 
 			if (player.faceType == FACE_HUMAN && rand(2)!=0) // if human face, 50% to have human ears

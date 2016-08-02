@@ -1872,8 +1872,8 @@ package classes.Scenes.Places.Bazaar
 				player.gills = false;
 				changes++;
 			}
-			if (rand(3) == 0 && changes < changeLimit && player.eyeType == EYES_FOUR_SPIDER_EYES) {
-				outputText("\n\nYour two forehead eyes start throbbing painfully, your sight in them eventually going dark. You touch your forehead to inspect your eyes, only to find out that they have disappeared. <b>You only have two eyes now!</b>");
+			if (rand(3) == 0 && changes < changeLimit && player.eyeCount >= 4) {
+				outputText("\n\nYour "+(num2Text(player.eyeCount-2))+" forehead eyes start throbbing painfully, your sight in them eventually going dark.  You touch your forehead to inspect your eyes, only to find out that they have disappeared.  <b>You only have two eyes now!</b>");
 				player.eyeType == EYES_HUMAN;
 				changes++;
 			}

@@ -348,8 +348,9 @@ package classes
 		//Head ornaments. Definitely need to convert away from hard coded types.
 		public var antennae:Number = ANTENNAE_NONE;
 
-		//Eyetype
-		public var eyeType:Number = EYES_HUMAN;
+		//Eyes
+		public var eyeType:Number  = EYES_HUMAN;
+		public var eyeCount:Number = 2; // Almost want to make it `int`, who has 1.5 eyes?
 
 		//TongueType
 		public var tongueType:Number = TONGUE_HUMAN;

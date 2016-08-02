@@ -19,6 +19,26 @@
 //const EGGS_BOUGHT:int = 653;
 //const BIKINI_ARMOR_BONUS:int = 769;
 
+		private function removeOddEyes(player:Player):void {
+			if (player.eyeType == EYES_HUMAN && player.eyeCount == 2)
+				return;  // No need to stick around, if eyes are normal.
+
+			if   (player.eyeType == EYES_BLACK_EYES_SAND_TRAP)  outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
+			else                                                outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your [feet] from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.");
+
+			if      (player.eyeCount == 1)                              outputText("  You've grown an extra eye, and regained your depth perception!");
+			else if (player.eyeCount == 3)                              outputText("  Your third eye disappeared!");
+			else if (player.eyeCount == 4)                              outputText("  Your extra row of eyes are gone!");
+			else if (player.eyeCount >= 4 && player.eyeCount % 2 == 0)  outputText("  Your "+num2Text(player.eyeCount/2-1)+" extra rows of eyes are gone!");
+
+			if   (player.eyeType != EYES_HUMAN)  outputText("  <b>You have"+(player.eyeCount == 2 ? "" : " two")+" normal, humanoid eyes again.</b>");
+			else                                 outputText("  <b>You have "+(player.eyeCount > 2 ? "but two" : "two entire")+" eyes, yet again.</b>");
+
+			// Stat fuckery
+			player.eyeCount = 2;
+			player.eyeType = EYES_HUMAN;
+		}
+
 //Cerulean P.
 		public function ceruleanPotion(player:Player):void
 		{
@@ -1234,16 +1254,8 @@
 				player.legCount = 4;
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//HorseFace - Req's Fur && Ears
@@ -2154,16 +2166,8 @@
 				}
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//Master Furry Appearance Order:
@@ -3704,16 +3708,8 @@
 				player.antennae = ANTENNAE_NONE;
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//-Remove extra breast rows
@@ -4036,16 +4032,8 @@
 				changes++;
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//Tail TF
@@ -4422,16 +4410,8 @@
 				changes++;
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//-Gain human ears (If you have human face)
@@ -5299,16 +5279,8 @@
 				changes++;
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType != EYES_HUMAN && !player.hasReptileEyes()) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2) && !player.hasReptileEyes()) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//-Ears become smaller nub-like openings?
@@ -5583,16 +5555,8 @@
 				changes++;
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(4) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(4) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//Human face
@@ -6237,16 +6201,8 @@
 				changes++;
 			}
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//****************
@@ -6432,16 +6388,8 @@
 			//-Remove feathery hair
 			removeFeatheryHair();
 			//Remove odd eyes
-			if (changes < changeLimit && rand(5) == 0 && player.eyeType > EYES_HUMAN) {
-				if (player.eyeType == EYES_BLACK_EYES_SAND_TRAP) {
-					outputText("\n\nYou feel a twinge in your eyes and you blink.  It feels like black cataracts have just fallen away from you, and you know without needing to see your reflection that your eyes have gone back to looking human.");
-				}
-				else {
-					outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-					if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-					outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				}
-				player.eyeType = EYES_HUMAN;
+			if (changes < changeLimit && rand(5) == 0 && (player.eyeType != EYES_HUMAN || player.eyeCount != 2)) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//****************
@@ -6770,7 +6718,8 @@
 			}
 			//eyes!
 			if (player.skinType == SKIN_TYPE_PLAIN && (player.faceType != FACE_SPIDER_FANGS || player.faceType != FACE_HUMAN) && player.eyeType == EYES_HUMAN && rand(4) == 0 && changes < changeLimit) {
-				player.eyeType = EYES_FOUR_SPIDER_EYES;
+				player.eyeCount = 4;
+				player.eyeType  = EYES_HUMAN;
 				changes++;
 				outputText("\n\nYou suddenly get the strangest case of double vision.  Stumbling and blinking around, you clutch at your face, but you draw your hands back when you poke yourself in the eye.  Wait, those fingers were on your forehead!  You tentatively run your fingertips across your forehead, not quite believing what you felt.  <b>There's a pair of eyes on your forehead, positioned just above your normal ones!</b>  This will take some getting used to!", false);
 				dynStats("int", 5);
@@ -8511,11 +8460,8 @@
 				changes++;
 			}
 			//Remove odd eyes
-			if (player.eyeType == EYES_FOUR_SPIDER_EYES && rand(2) == 0 && changes < changeLimit) {
-				outputText("\n\nYou blink and stumble, a wave of vertigo threatening to pull your " + player.feet() + " from under you.  As you steady and open your eyes, you realize something seems different.  Your vision is changed somehow.", false);
-				if (player.eyeType == EYES_FOUR_SPIDER_EYES) outputText("  Your multiple, arachnid eyes are gone!</b>", false);
-				outputText("  <b>You have normal, humanoid eyes again.</b>", false);
-				player.eyeType = EYES_HUMAN;
+			if (player.eyeCount != 2 && rand(2) == 0 && changes < changeLimit) {
+				removeOddEyes(player);
 				changes++;
 			}
 			//PC Trap Effects
@@ -9297,11 +9243,10 @@
 				player.hairType = HAIR_NORMAL;
 				changes++;
 			}
-			//If the PC has four eyes:
-			if (player.eyeType == EYES_FOUR_SPIDER_EYES && rand(3) == 0 && changes < changeLimit)
-			{
-				outputText("\n\nYour two forehead eyes start throbbing painfully, your sight in them eventually going dark.  You touch your forehead to inspect your eyes, only to find out that they have disappeared.  <b>You only have two eyes now!</b>");
-				player.eyeType = 0;
+			//If the PC has four or more eyes:
+			if (player.eyeCount >= 4 && rand(3) == 0 && changes < changeLimit) {
+				outputText("\n\nYour "+(num2Text(player.eyeCount-2))+" forehead eyes start throbbing painfully, your sight in them eventually going dark.  You touch your forehead to inspect your eyes, only to find out that they have disappeared.  <b>You only have two eyes now!</b>");
+				player.eyeCount = 2;
 				changes++;
 			}
 			//Go into heat
