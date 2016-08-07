@@ -146,78 +146,66 @@ package classes
 		
 		public function thickenCock(increase:Number):Number
 		{
-			var amountGrown:Number = 0;
-			var temp:Number = 0;
-			if (increase > 0)
-			{
-				while (increase > 0)
-				{
-					if (increase < 1)
-						temp = increase;
-					else
-						temp = 1;
+			var thickness_at_start:Number = cockThickness;
+			var thick_delta:Number = 0;
+
+			if (increase > 0) {
+				for (;increase > 0; increase--) {
+					thick_delta = Math.min(1, increase)
+
 					//Cut thickness growth for huge dicked
 					if (cockThickness > 1 && cockLength < 12)
-					{
-						temp /= 4;
-					}
+						thick_delta /= 4;
 					if (cockThickness > 1.5 && cockLength < 18)
-						temp /= 5;
+						thick_delta /= 5;
 					if (cockThickness > 2 && cockLength < 24)
-						temp /= 5;
+						thick_delta /= 5;
 					if (cockThickness > 3 && cockLength < 30)
-						temp /= 5;
+						thick_delta /= 5;
+
 					//proportional thickness diminishing returns.
 					if (cockThickness > cockLength * .15)
-						temp /= 3;
+						thick_delta /= 3;
 					if (cockThickness > cockLength * .20)
-						temp /= 3;
+						thick_delta /= 3;
 					if (cockThickness > cockLength * .30)
-						temp /= 5;
+						thick_delta /= 5;
+
 					//massive thickness limiters
 					if (cockThickness > 4)
-						temp /= 2;
+						thick_delta /= 2;
 					if (cockThickness > 5)
-						temp /= 2;
+						thick_delta /= 2;
 					if (cockThickness > 6)
-						temp /= 2;
+						thick_delta /= 2;
 					if (cockThickness > 7)
-						temp /= 2;
+						thick_delta /= 2;
+
 					//Start adding up bonus length
-					amountGrown += temp;
-					cockThickness += temp;
-					temp = 0;
-					increase--;
+					cockThickness += thick_delta;
 				}
-				increase = 0;
-			}
-			else if (increase < 0)
-			{
-				while (increase < 0)
-				{
-					temp = -1;
+			} else if (increase < 0) {
+				for (;increase < 0; increase++) {
+					thick_delta = Math.max(-1, increase);
+
 					//Cut length growth for huge dicked
 					if (cockThickness <= 1)
-						temp /= 2;
+						thick_delta /= 2;
 					if (cockThickness < 2 && cockLength < 10)
-						temp /= 2;
+						thick_delta /= 2;
+
 					//Cut again for massively dicked
 					if (cockThickness < 3 && cockLength < 18)
-						temp /= 2;
+						thick_delta /= 2;
 					if (cockThickness < 4 && cockLength < 24)
-						temp /= 2;
-					//MINIMUM Thickness of OF .5!
-					if (cockThickness <= .5)
-						temp = 0;
-					//Start adding up bonus length
-					amountGrown += temp;
-					cockThickness += temp;
-					temp = 0;
-					increase++;
+						thick_delta /= 2;
+
+					//Start adding up bonus length, MINIMUM Thickness of OF .5!
+					cockThickness = Math.max(0.5, cockThickness + thick_delta);
 				}
 			}
-			trace("thickenCock called and thickened by: " + amountGrown);
-			return amountGrown;
+			trace("thickenCock called and thickened by: " + (cockThickness - thickness_at_start));
+			return cockThickness - thickness_at_start;
 		}	
 		
 		public function get cockLength():Number 
