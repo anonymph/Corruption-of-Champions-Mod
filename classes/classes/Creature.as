@@ -3329,19 +3329,17 @@ package classes
 			return tongueType == TONGUE_DEMONIC || tongueType == TONGUE_DRACONIC || tongueType == TONGUE_ECHIDNA;
 		}
 		
-		public function damageToughnessModifier(displayMode:Boolean = false):Number {
-			//Return 0 if Kaizo
-			if (flags[kFLAGS.KAIZO_MODE] > 0) return 0;
-			//Calculate
-			var temp:Number = 0;
-			if (tou < 25) temp = (tou * 0.4);
-			else if (tou < 50) temp = 10 + ((tou-25) * 0.3);
-			else if (tou < 75) temp = 17.5 + ((tou-50) * 0.2);
-			else if (tou < 100) temp = 22.5 + ((tou-75) * 0.1);
-			else temp = 25;
-			//displayMode is for stats screen.
-			if (displayMode) return temp;
-			else return rand(temp);
+		public function damageToughnessModifier():Number {
+			// Return 0 if Kaizo
+			if (flags[kFLAGS.KAIZO_MODE] > 0)
+				return  0.0;
+			
+			// Calculate
+			if      (tou <  25)  return  0.0 + (tou - 00) * 0.4;
+			else if (tou <  50)  return 10.0 + (tou - 25) * 0.3;
+			else if (tou <  75)  return 17.5 + (tou - 50) * 0.2;
+			else if (tou < 100)  return 22.5 + (tou - 75) * 0.1;
+			else                 return 25.0;
 		}
 		
 		public function damagePercent(displayMode:Boolean = false, applyModifiers:Boolean = false):Number {
@@ -3350,8 +3348,7 @@ package classes
 			//--BASE--
 			//Toughness modifier.
 			if (!displayMode) {
-				mult -= damageToughnessModifier();
-				if (mult < 75) mult = 75;
+				mult = Math.max( 75, mult - rand(damageToughnessModifier()) );
 			}
 			//Modify armor rating based on weapons.
 			if (applyModifiers) {
