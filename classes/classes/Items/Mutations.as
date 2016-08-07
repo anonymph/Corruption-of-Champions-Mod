@@ -257,13 +257,12 @@
 					dynStats("sen", 1, "lus", 1);
 				}
 				if (player.averageNipplesPerBreast() < 1) {
-					outputText("A dark spot appears on each breast, rapidly forming into a sensitive nipple.  ", false);
-					temp = player.breastRows.length;
-					while (temp > 0) {
-						temp--;
+					outputText("A dark spot appears on each breast, rapidly forming into a sensitive nipple.  ");
+					for (var index:int = 0; index < player.breastRows.length; index++) {
 						//If that breast didnt have nipples reset length
-						if (player.breastRows[0].nipplesPerBreast < 1) player.breastRows[0].nippleLength = .2;
-						player.breastRows[0].nipplesPerBreast = 1;
+						if (player.breastRows[index].nipplesPerBreast < 1)
+							player.breastRows[index].nippleLength = .2;
+						player.breastRows[index].nipplesPerBreast = 1;
 					}
 					dynStats("sen", 2, "lus", 1);
 				}
