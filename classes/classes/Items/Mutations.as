@@ -88,174 +88,150 @@
 		/* ITEMZZZZZ FUNCTIONS GO HERE */
 		public function incubiDraft(tainted:Boolean,player:Player):void
 		{
-			var tfSource:String = "incubiDraft";
-			if (!tainted) tfSource += "-purified";
-			player.slimeFeed();
-			var temp2:Number = 0;
-			var temp3:Number = 0;
-			var rando:Number = rand(100);
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) rando += 10;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) rando -= 10;
-			outputText("The draft is slick and sticky, ", true);
-			if (player.cor <= 33) outputText("just swallowing it makes you feel unclean.", false);
-			if (player.cor > 33 && player.cor <= 66) outputText("reminding you of something you just can't place.", false);
-			if (player.cor > 66) outputText("deliciously sinful in all the right ways.", false);
-			if (player.cor >= 90) outputText("  You're sure it must be distilled from the cum of an incubus.", false);
-			//Lowlevel changes
-			if (rando < 50) {
-				if (player.cocks.length == 1) {
-					if (player.cocks[0].cockType != CockTypesEnum.DEMON) outputText("\n\nYour " + player.cockDescript(0) + " becomes shockingly hard.  It turns a shiny inhuman purple and spasms, dribbling hot demon-like cum as it begins to grow.", false);
-					else outputText("\n\nYour " + player.cockDescript(0) + " becomes shockingly hard.  It dribbles hot demon-like cum as it begins to grow.", false);
-					if (rand(4) == 0) temp = player.increaseCock(0, 3);
-					else temp = player.increaseCock(0, 1);
-					dynStats("int", 1, "lib", 2, "sen", 1, "lust", 5 + temp * 3, "cor", tainted ? 1 : 0);
-					if (temp < .5) outputText("  It stops almost as soon as it starts, growing only a tiny bit longer.", false);
-					if (temp >= .5 && temp < 1) outputText("  It grows slowly, stopping after roughly half an inch of growth.", false);
-					if (temp >= 1 && temp <= 2) outputText("  The sensation is incredible as more than an inch of lengthened dick-flesh grows in.", false);
-					if (temp > 2) outputText("  You smile and idly stroke your lengthening " + player.cockDescript(0) + " as a few more inches sprout.", false);
-					if (tainted) dynStats("int", 1, "lib", 2, "sen", 1, "lus", 5 + temp * 3, "cor", 1);
-					else dynStats("int", 1, "lib", 2, "sen", 1, "lus", 5 + temp * 3);
-					if (player.cocks[0].cockType != CockTypesEnum.DEMON) outputText("  With the transformation complete, your " + player.cockDescript(0) + " returns to its normal coloration.", false);
-					else outputText("  With the transformation complete, your " + player.cockDescript(0) + " throbs in an almost happy way as it goes flaccid once more.", false);
-				}
-				if (player.cocks.length > 1) {
-					temp = player.cocks.length;
-					temp2 = 0;
-					//Find shortest cock
-					while (temp > 0) {
-						temp--;
-						if (player.cocks[temp].cockLength <= player.cocks[temp2].cockLength) {
-							temp2 = temp;
-						}
-					}
-					if (int(Math.random() * 4) == 0) temp3 = player.increaseCock(temp2, 3);
-					else temp3 = player.increaseCock(temp2, 1);
-					if (tainted) dynStats("int", 1, "lib", 2, "sen", 1, "lus", 5 + temp * 3, "cor", 1);
-					else dynStats("int", 1, "lib", 2, "sen", 1, "lus", 5 + temp * 3);
-					//Grammar police for 2 cocks
-					if (player.cockTotal() == 2) outputText("\n\nBoth of your " + player.multiCockDescriptLight() + " become shockingly hard, swollen and twitching as they turn a shiny inhuman purple in color.  They spasm, dripping thick ropes of hot demon-like pre-cum along their lengths as your shortest " + player.cockDescript(temp2) + " begins to grow.", false);
-					//For more than 2
-					else outputText("\n\nAll of your " + player.multiCockDescriptLight() + " become shockingly hard, swollen and twitching as they turn a shiny inhuman purple in color.  They spasm, dripping thick ropes of hot demon-like pre-cum along their lengths as your shortest " + player.cockDescript(temp2) + " begins to grow.", false);
-
-					if (temp3 < .5) outputText("  It stops almost as soon as it starts, growing only a tiny bit longer.", false);
-					if (temp3 >= .5 && temp3 < 1) outputText("  It grows slowly, stopping after roughly half an inch of growth.", false);
-					if (temp3 >= 1 && temp3 <= 2) outputText("  The sensation is incredible as more than an inch of lengthened dick-flesh grows in.", false);
-					if (temp3 > 2) outputText("  You smile and idly stroke your lengthening " + player.cockDescript(temp2) + " as a few more inches sprout.", false);
-					outputText("  With the transformation complete, your " + player.multiCockDescriptLight() + " return to their normal coloration.", false);
-				}
-				//NO CAWKS?
-				if (player.cocks.length == 0) {
-					player.createCock();
-					player.cocks[0].cockLength = rand(3) + 4;
-					player.cocks[0].cockThickness = 1;
-					outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ", false);
-					outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  Eventually the orgasm ends as your " + player.cockDescript(0) + " fades to a more normal " + player.skinTone + " tone.", false);
-					if (tainted) dynStats("lib", 3, "sen", 5, "lus", 10, "cor", 5);
-					else dynStats("lib", 3, "sen", 5, "lus", 10);
-				}
-				//TIT CHANGE 25% chance of shrinkage
-				if (rand(4) == 0)
-				{
-					if (!flags[kFLAGS.HYPER_HAPPY])
-					{
-						player.shrinkTits();
-					}
-				}
-			}
-			//Mid-level changes
-			if (rando >= 50 && rando < 93) {
-				if (player.cocks.length > 1) {
-					outputText("\n\nYour cocks fill to full-size... and begin growing obscenely.  ", false);
-					temp = player.cocks.length;
-					while (temp > 0) {
-						temp--;
-						temp2 = player.increaseCock(temp, rand(3) + 2);
-						temp3 = player.cocks[temp].thickenCock(1);
-						if (temp3 < .1) player.cocks[temp].cockThickness += .05;
-					}
-					player.lengthChange(temp2, player.cocks.length);
-					//Display the degree of thickness change.
-					if (temp3 >= 1) {
-						if (player.cocks.length == 1) outputText("\n\nYour cock spreads rapidly, swelling an inch or more in girth, making it feel fat and floppy.", false);
-						else outputText("\n\nYour cocks spread rapidly, swelling as they grow an inch or more in girth, making them feel fat and floppy.", false);
-					}
-					if (temp3 <= .5) {
-						if (player.cocks.length > 1) outputText("\n\nYour cocks feel swollen and heavy. With a firm, but gentle, squeeze, you confirm your suspicions. They are definitely thicker.", false);
-						else outputText("\n\nYour cock feels swollen and heavy. With a firm, but gentle, squeeze, you confirm your suspicions. It is definitely thicker.", false);
-					}
-					if (temp3 > .5 && temp2 < 1) {
-						if (player.cocks.length == 1) outputText("\n\nYour cock seems to swell up, feeling heavier. You look down and watch it growing fatter as it thickens.", false);
-						if (player.cocks.length > 1) outputText("\n\nYour cocks seem to swell up, feeling heavier. You look down and watch them growing fatter as they thicken.", false);
-					}
-					if (tainted) dynStats("lib", 3, "sen", 5, "lus", 10, "cor", 3);
-					else dynStats("lib", 3, "sen", 5, "lus", 10);
-				}
-				if (player.cocks.length == 1) {
-					outputText("\n\nYour cock fills to its normal size and begins growing... ", false);
-					temp3 = player.cocks[0].thickenCock(1);
-					temp2 = player.increaseCock(0, rand(3) + 2);
-					player.lengthChange(temp2, 1);
-					//Display the degree of thickness change.
-					if (temp3 >= 1) {
-						if (player.cocks.length == 1) outputText("  Your cock spreads rapidly, swelling an inch or more in girth, making it feel fat and floppy.", false);
-						else outputText("  Your cocks spread rapidly, swelling as they grow an inch or more in girth, making them feel fat and floppy.", false);
-					}
-					if (temp3 <= .5) {
-						if (player.cocks.length > 1) outputText("  Your cocks feel swollen and heavy. With a firm, but gentle, squeeze, you confirm your suspicions. They are definitely thicker.", false);
-						else outputText("  Your cock feels swollen and heavy. With a firm, but gentle, squeeze, you confirm your suspicions. It is definitely thicker.", false);
-					}
-					if (temp3 > .5 && temp2 < 1) {
-						if (player.cocks.length == 1) outputText("  Your cock seems to swell up, feeling heavier. You look down and watch it growing fatter as it thickens.", false);
-						if (player.cocks.length > 1) outputText("  Your cocks seem to swell up, feeling heavier. You look down and watch them growing fatter as they thicken.", false);
-					}
-					if (tainted) dynStats("lib", 3, "sen", 5, "lus", 10, "cor", 3);
-					else dynStats("lib", 3, "sen", 5, "lus", 10);
-				}
-				if (player.cocks.length == 0) {
-					player.createCock();
-					player.cocks[0].cockLength = rand(3) + 4;
-					player.cocks[0].cockThickness = 1;
-					outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ", false);
-					outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  Eventually the orgasm ends as your " + player.cockDescript(0) + " fades to a more normal " + player.skinTone + " tone.", false);
-					if (tainted) dynStats("lib", 3, "sen", 5, "lus", 10, "cor", 3);
-					else dynStats("lib", 3, "sen", 5, "lus", 10);
-				}
-				//Shrink breasts a more
-				//TIT CHANGE 50% chance of shrinkage
-				if (rand(2) == 0)
-				{
-					if (!flags[kFLAGS.HYPER_HAPPY])
-					{
-						player.shrinkTits();
-					}
-				}
-			}
-			//High level change
-			if (rando >= 93) {
-				if (player.cockTotal() < 10) {
-					if (int(Math.random() * 10) < int(player.cor / 25)) {
-						outputText("\n\n", false);
-						growDemonCock(rand(2) + 2);
-						if (tainted) dynStats("lib", 3, "sen", 5, "lus", 10, "cor", 5);
-						else dynStats("lib", 3, "sen", 5, "lus", 10);
-					}
-					else {
-						growDemonCock(1);
-					}
-				}
-				if (!flags[kFLAGS.HYPER_HAPPY])
-				{
-					player.shrinkTits();
-					player.shrinkTits();
-				}
-			}
-			if (rand(5) == 0) updateOvipositionPerk(tfSource);
-			//Demonic changes - higher chance with higher corruption.
-			if (rand(40) + player.cor / 3 > 35 && tainted) demonChanges(player);
-			player.genderCheck();
-			if (rand(4) == 0 && tainted) outputText(player.modFem(5, 2), false);
-			if (rand(4) == 0 && tainted) outputText(player.modThickness(30, 2), false);
-			player.refillHunger(10);
+		    var width_delta:Number = 0;
+		    var length_delta:Number;
+		    
+		    var rando:Number = rand(100);
+		    if (player.findPerk(PerkLib.HistoryAlchemist) >= 0)
+		        rando += 10;
+		    if (player.findPerk(PerkLib.TransformationResistance) >= 0)
+		        rando -= 10;
+		    
+		    // Intro and drinking
+		    clearOutput();
+		    outputText("The draft is slick and sticky, ");
+		    if      (player.cor <= 33)  outputText("just swallowing it makes you feel unclean.");
+		    else if (player.cor <= 66)  outputText("reminding you of something you just can't place.");
+		    else                        outputText("deliciously sinful in all the right ways.");
+		    if (player.cor >= 90)
+		        outputText("  You're sure it must be distilled from the cum of an incubus.");
+		    
+		    // Lowlevel changes //
+		    if (rando < 50) {
+		        
+		        // No Cock
+		        if (player.cocks.length == 0) {
+		            // Stats
+		            player.createCock(rand(3) + 4, 1);  // Create cock, with length in range [4,6] and width 1.
+		            dynStats("lib", 3, "sen", 5, "lus", 10, "cor", tainted ? 5 : 0);
+		            
+		            // Describe stuff
+		            outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ");
+		            outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  Eventually the orgasm ends as your [cock] fades to a more normal " + player.skinTone + " tone.");
+		            
+		        // Has cock(s)
+		        } else {
+		            // Stats
+		            var cock_index:int = player.shortestCockIndex();
+		            length_delta = player.increaseCock(cock_index, rand(4) == 0 ? 3 : 1);  // 1/4 chance of increasing by 3, 3/4 chance of increasing by 1.
+		            dynStats("int", 1, "lib", 2, "sen", 1, "lus", 5 + length_delta * 3, "cor", tainted ? 1 : 0);
+		            
+		            // Strange color
+		            if      (player.cocks.length > 1)
+		                outputText("\n\n"+(player.cocks.length == 2 ? "Both" : "All")+" of your [cocks] become shockingly hard, swollen and twitching as they turn a shiny inhuman purple in color.  They spasm, dripping thick ropes of hot demon-like pre-cum along their lengths as your shortest " + player.cockDescript(cock_index) + " begins to grow.");
+		            else if (player.cocks[0].cockType != CockTypesEnum.DEMON)
+		                outputText("\n\nYour [cock] becomes shockingly hard.  It turns a shiny inhuman purple and spasms, dribbling hot demon-like cum as it begins to grow.");
+		            else
+		            outputText("\n\nYour [cock] becomes shockingly hard.  It dribbles hot demon-like cum as it begins to grow.");
+		            
+		            // Describe lengthing
+		            if      (length_delta <= 0.5)  outputText("  It stops almost as soon as it starts, growing only a tiny bit longer.");
+		            else if (length_delta <= 1)    outputText("  It grows slowly, stopping after roughly half an inch of growth.");
+		            else if (length_delta <= 2)    outputText("  The sensation is incredible as more than an inch of lengthened dick-flesh grows in.");
+		            else                           outputText("  You smile and idly stroke your lengthening " + player.cockDescript(cock_index) + " as a few more inches sprout.");
+		            
+		            // Return to color
+		            if (player.cocks.length > 1)
+		                outputText("  With the transformation complete, your [cocks] return to their normal coloration.");
+		            if   (player.cocks[0].cockType != CockTypesEnum.DEMON)  outputText("  With the transformation complete, your [cock] returns to its normal coloration.");
+		            else                                                    outputText("  With the transformation complete, your [cock] throbs in an almost happy way as it goes flaccid once more.");
+		        }
+		        
+		        // Tit change, 25% chance of shrinkage
+		        if (rand(4) == 0 && !flags[kFLAGS.HYPER_HAPPY]) {
+		            player.shrinkTits();
+		        }
+		        
+		        // Mid-level changes //
+		    } else if (rando < 93) {
+		        // No Cock
+		        if (player.cocks.length == 0) {
+		            // Stats
+		            player.createCock(rand(3) + 4, 1);  // Create cock, with length in range [4,6] and width 1.
+		            dynStats("lib", 3, "sen", 5, "lus", 10, "cor", tainted ? 5 : 0);
+		            
+		            // Text
+		            outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ");
+		            outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  Eventually the orgasm ends as your [cock] fades to a more normal " + player.skinTone + " tone.");
+		            
+		        // Has cock(s)
+		        } else {
+		            if   (player.cocks.length > 1)  outputText("\n\nYour cock fills to its normal size and begins growing... ");
+		            else                            outputText("\n\nYour cocks fill to full-size... and begin growing obscenely.  ");
+		            
+		            // Iterate through cocks and grow them.
+		            for (var index:int = 0; index < player.cocks.length; index++) {
+		                width_delta = player.cocks[index].thickenCock(index);
+		                length_delta = player.increaseCock(index, rand(3) + 2);
+		                if (width_delta < 0.1 && player.cocks.length > 1)
+		                    player.cocks[index].cockThickness += 0.05;  // Why special treatment for multicocked?
+		            }
+		            player.lengthChange(length_delta, player.cocks.length);
+		            
+		            //Display the degree of thickness change.
+		            if (width_delta <= 0.5) {
+		                if   (player.cocks.length == 1)  outputText("  Your cock feels swollen and heavy. With a firm, but gentle, squeeze, you confirm your suspicions. It is definitely thicker.");
+		                else                             outputText("  Your cocks feel swollen and heavy. With a firm, but gentle, squeeze, you confirm your suspicions. They are definitely thicker.");
+		            } else if (width_delta <= 1) {
+		                if   (player.cocks.length == 1)  outputText("  Your cock seems to swell up, feeling heavier. You look down and watch it growing fatter as it thickens.");
+		                else                             outputText("  Your cocks seem to swell up, feeling heavier. You look down and watch them growing fatter as they thicken.");
+		            } else {
+		                if   (player.cocks.length == 1)  outputText("  Your cock spreads rapidly, swelling an inch or more in girth, making it feel fat and floppy.");
+		                else                             outputText("  Your cocks spread rapidly, swelling as they grow an inch or more in girth, making them feel fat and floppy.");
+		            }
+		            dynStats("lib", 3, "sen", 5, "lus", 10, "cor", tainted ? 3 : 0);
+		        }
+		        
+		        // Tit change, 50% chance of shrinkage
+		        if (rand(2) == 0 && !flags[kFLAGS.HYPER_HAPPY]) {
+		            player.shrinkTits();
+		        }
+		        
+		    // High level change //
+		    } else {
+		        if (player.cocks.length < 10) {
+		            if ( 10 * Math.random() < player.cor / 25 ) {
+		                outputText("\n\n");
+		                growDemonCock(rand(2) + 2);
+		                dynStats("lib", 3, "sen", 5, "lus", 10, "cor", tainted ? 5 : 0);
+		            } else {
+		                growDemonCock(1);
+		            }
+		        }
+		        if (!flags[kFLAGS.HYPER_HAPPY]) {
+		            player.shrinkTits();
+		            player.shrinkTits();
+		        }
+		    }
+		    
+		    // Oviposition Perk update.
+		    if (rand(5) == 0) {
+		        var tfSource:String = "incubiDraft";
+		        if (!tainted)
+		            tfSource += "-purified";
+		        updateOvipositionPerk(tfSource);
+		    }
+		    
+		    //Demonic changes - higher chance with higher corruption.
+		    if (rand(40) + player.cor / 3 > 35 && tainted)
+		        demonChanges(player);
+		    player.genderCheck();
+		    if (rand(4) == 0 && tainted)
+		        outputText(player.modFem(5, 2));
+		    if (rand(4) == 0 && tainted)
+		        outputText(player.modThickness(30, 2));
+		    player.refillHunger(10);
+		    player.slimeFeed();
 		}
 
 		public function growDemonCock(growCocks:Number):void
