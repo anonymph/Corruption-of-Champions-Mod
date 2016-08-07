@@ -175,8 +175,8 @@ package classes.Items.Consumables
 				else outputText("breast.");
 				changes++;
 				//Loop through and reset nipples
-				for (var temp:int = 0; temp < player.breastRows.length; temp++) {
-					player.breastRows[temp].nipplesPerBreast = 1;
+				for (var index:int = 0; index < player.breastRows.length; index++) {
+					player.breastRows[index].nipplesPerBreast = 1;
 				}
 			}
 			//Lose reptile oviposition!
