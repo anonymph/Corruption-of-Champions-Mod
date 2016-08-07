@@ -122,12 +122,9 @@
 		            dynStats("int", 1, "lib", 2, "sen", 1, "lus", 5 + length_delta * 3, "cor", tainted ? 1 : 0);
 		            
 		            // Strange color
-		            if      (player.cocks.length > 1)
-		                outputText("\n\n"+(player.cocks.length == 2 ? "Both" : "All")+" of your [cocks] become shockingly hard, swollen and twitching as they turn a shiny inhuman purple in color.  They spasm, dripping thick ropes of hot demon-like pre-cum along their lengths as your shortest " + player.cockDescript(cock_index) + " begins to grow.");
-		            else if (player.cocks[0].cockType != CockTypesEnum.DEMON)
-		                outputText("\n\nYour [cock] becomes shockingly hard.  It turns a shiny inhuman purple and spasms, dribbling hot demon-like cum as it begins to grow.");
-		            else
-		            outputText("\n\nYour [cock] becomes shockingly hard.  It dribbles hot demon-like cum as it begins to grow.");
+		            if      (player.cocks.length > 1)                          outputText("\n\n"+(player.cocks.length == 2 ? "Both" : "All")+" of your [cocks] become shockingly hard, swollen and twitching as they turn a shiny inhuman purple in color.  They spasm, dripping thick ropes of hot demon-like pre-cum along their lengths as your shortest " + player.cockDescript(cock_index) + " begins to grow.");
+		            else if (player.cocks[0].cockType != CockTypesEnum.DEMON)  outputText("\n\nYour [cock] becomes shockingly hard.  It turns a shiny inhuman purple and spasms, dribbling hot demon-like cum as it begins to grow.");
+		            else                                                       outputText("\n\nYour [cock] becomes shockingly hard.  It dribbles hot demon-like cum as it begins to grow.");
 		            
 		            // Describe lengthing
 		            if      (length_delta <= 0.5)  outputText("  It stops almost as soon as it starts, growing only a tiny bit longer.");
@@ -136,10 +133,9 @@
 		            else                           outputText("  You smile and idly stroke your lengthening " + player.cockDescript(cock_index) + " as a few more inches sprout.");
 		            
 		            // Return to color
-		            if (player.cocks.length > 1)
-		                outputText("  With the transformation complete, your [cocks] return to their normal coloration.");
-		            if   (player.cocks[0].cockType != CockTypesEnum.DEMON)  outputText("  With the transformation complete, your [cock] returns to its normal coloration.");
-		            else                                                    outputText("  With the transformation complete, your [cock] throbs in an almost happy way as it goes flaccid once more.");
+		            if      (player.cocks.length > 1)                          outputText("  With the transformation complete, your [cocks] return to their normal coloration.");
+		            else if (player.cocks[0].cockType != CockTypesEnum.DEMON)  outputText("  With the transformation complete, your [cock] returns to its normal coloration.");
+		            else                                                       outputText("  With the transformation complete, your [cock] throbs in an almost happy way as it goes flaccid once more.");
 		        }
 		        
 		        // Tit change, 25% chance of shrinkage

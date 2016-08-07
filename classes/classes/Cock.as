@@ -151,7 +151,7 @@ package classes
 
 			if (increase > 0) {
 				for (;increase > 0; increase--) {
-					thick_delta = Math.min(1, increase)
+					thick_delta = Math.min(1, increase);
 
 					//Cut thickness growth for huge dicked
 					if (cockThickness > 1 && cockLength < 12)
