@@ -2616,53 +2616,49 @@
 
 		public static function biggestBreastSizeDescript(creature:Creature):String
 		{
-			var temp14:int = Math.random() * 3;
 			var descript:String = "";
-			var temp142:int = creature.biggestTitRow();
-			//ERROR PREVENTION
-			if (creature.breastRows.length - 1 < temp142) {
-				CoC_Settings.error("");
-				return "<b>ERROR, biggestBreastSizeDescript() working with invalid breastRow</b>";
+			var tit_index:int = creature.biggestTitRow();  // in range [0, nr tit rows]
+
+			// Non-existant tits //
+			if (creature.breastRows[tit_index].breastRating < 1)
+				return "flat breasts";
+
+			// 50% chance of size //
+			if (rand(2) == 0)
+				descript += breastSize(creature.breastRows[tit_index].breastRating);
+			
+			// Noun //
+			var noun_rando:int = rand(10);
+			// Simple
+			if        (noun_rando == 0)  descript += "breasts";
+			else if   (noun_rando == 1)  descript += "breasts";
+			else if   (noun_rando == 2)  descript += "tits";
+			else if   (noun_rando == 3)  descript += "tits";
+			else if   (noun_rando == 4)  descript += "tits";
+
+			// Depending upon lactation
+			else if   (noun_rando == 5) {
+				if (creature.breastRows[tit_index].lactationMultiplier > 2)  descript += "milk-udders";
+				else                                                         descript += "breasts";
+			} else if (noun_rando == 6) {
+				if      (creature.breastRows[tit_index].lactationMultiplier < 1)    descript += "jugs";
+				else if (creature.breastRows[tit_index].lactationMultiplier < 2.5)  descript += "milk jugs";
+				else                                                                descript += "udders";
+
+			// Depending upon size.
+			} else if (noun_rando == 7) {
+				if (creature.breastRows[tit_index].lactationMultiplier > 1.5)
+					descript += "milky ";
+				if (creature.breastRows[tit_index].breastRating > 4)  descript += "tits";
+				else                                                  descript += "breasts";
+			} else if (noun_rando == 8) {
+				if (creature.breastRows[tit_index].breastRating > 6)  descript += "love-pillows";
+				else                                                  descript += "boobs";
+			} else if (noun_rando == 9) {
+				if (creature.breastRows[tit_index].breastRating > 6)  descript += "tits";
+				else                                                  descript += "breasts";
 			}
-			else if (temp142 < 0) {
-				CoC_Settings.error("");
-				return "ERROR SHIT SON!  BIGGESTBREASTSIZEDESCRIPT PASSED NEGATIVE!";
-			}
-			if (creature.breastRows[temp142].breastRating < 1) return "flat breasts";
-			//50% of the time size-descript them
-			if (rand(2) == 0) descript += breastSize(creature.breastRows[temp142].breastRating);
-			//Nouns!
-			temp14 = rand(10);
-			if (temp14 == 0) descript += "breasts";
-			if (temp14 == 1) {
-				if (creature.breastRows[temp142].lactationMultiplier > 2) descript += "milk-udders";
-				else descript += "breasts";
-			}
-			if (temp14 == 2) {
-				if (creature.breastRows[temp142].lactationMultiplier > 1.5) descript += "milky ";
-				if (creature.breastRows[temp142].breastRating > 4) descript += "tits";
-				else descript += "breasts";
-			}
-			if (temp14 == 3) {
-				//if (creature.breastRows[temp142].breastRating > 6) descript += "rack";
-				descript += "breasts";
-			}
-			if (temp14 == 4) descript += "tits";
-			if (temp14 == 5) descript += "tits";
-			if (temp14 == 6) descript += "tits";
-			if (temp14 == 7) {
-				if (creature.breastRows[temp142].lactationMultiplier >= 1 && creature.breastRows[temp142].lactationMultiplier < 2.5) descript += "milk jugs";
-				if (creature.breastRows[temp142].lactationMultiplier >= 2.5) descript += "udders";
-				if (creature.breastRows[temp142].lactationMultiplier < 1) descript += "jugs";
-			}
-			if (temp14 == 8) {
-				if (creature.breastRows[temp142].breastRating > 6) descript += "love-pillows";
-				else descript += "boobs";
-			}
-			if (temp14 == 9) {
-				if (creature.breastRows[temp142].breastRating > 6) descript += "tits";
-				else descript += "breasts";
-			}
+
 			return descript;
 		}
 
