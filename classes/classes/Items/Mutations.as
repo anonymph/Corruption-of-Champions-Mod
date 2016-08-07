@@ -111,14 +111,9 @@
 		        
 		        // No Cock
 		        if (player.cocks.length == 0) {
-		            // Stats
-		            player.createCock(rand(3) + 4, 1);  // Create cock, with length in range [4,6] and width 1.
+					growDemonCocks(1);  // Grow cock, if have none.
 		            dynStats("lib", 3, "sen", 5, "lus", 10, "cor", tainted ? 5 : 0);
-		            
-		            // Describe stuff
-		            outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ");
-		            outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  Eventually the orgasm ends as your [cock] fades to a more normal " + player.skinTone + " tone.");
-		            
+
 		        // Has cock(s)
 		        } else {
 		            // Stats
@@ -156,13 +151,8 @@
 		    } else if (rando < 93) {
 		        // No Cock
 		        if (player.cocks.length == 0) {
-		            // Stats
-		            player.createCock(rand(3) + 4, 1);  // Create cock, with length in range [4,6] and width 1.
+					growDemonCocks(1);  // Grow cock, if have none.
 		            dynStats("lib", 3, "sen", 5, "lus", 10, "cor", tainted ? 5 : 0);
-		            
-		            // Text
-		            outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ");
-		            outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  Eventually the orgasm ends as your [cock] fades to a more normal " + player.skinTone + " tone.");
 		            
 		        // Has cock(s)
 		        } else {
@@ -202,10 +192,10 @@
 		        if (player.cocks.length < 10) {
 		            if ( 10 * Math.random() < player.cor / 25 ) {
 		                outputText("\n\n");
-		                growDemonCock(rand(2) + 2);
+		                growDemonCocks(rand(3) + 2); // Range [2,4]
 		                dynStats("lib", 3, "sen", 5, "lus", 10, "cor", tainted ? 5 : 0);
 		            } else {
-		                growDemonCock(1);
+		                growDemonCocks(1);
 		            }
 		        }
 		        if (!flags[kFLAGS.HYPER_HAPPY]) {
@@ -234,26 +224,17 @@
 		    player.slimeFeed();
 		}
 
-		public function growDemonCock(growCocks:Number):void
+		private function growDemonCocks(newCocks:Number):void
 		{
-			temp = 0;
-			while (growCocks > 0) {
-				player.createCock();
-				trace("COCK LENGTH: " + player.cocks[length - 1].cockLength);
-				player.cocks[player.cocks.length - 1].cockLength = rand(3) + 4;
-				player.cocks[player.cocks.length - 1].cockThickness = .75;
-				trace("COCK LENGTH: " + player.cocks[length - 1].cockLength);
-				growCocks--;
-				temp++;
-			}
-			outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ", false);
-			if (temp == 1) {
-				outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  In time it fades to a more normal coloration and human-like texture.  ", false);
-			}
-			else {
-				outputText("The skin bulges obscenely, darkening and splitting around " + num2Text(temp) + " of your new dicks.  For an instant they turn a demonic purple and dribble in thick spasms of scalding demon-cum.  After, they return to a more humanoid coloration.  ", false);
-			}
-			if (temp > 4) outputText("Your tender bundle of new cocks feels deliciously sensitive, and you cannot stop yourself from wrapping your hands around the slick demonic bundle and pleasuring them.\n\nNearly an hour later, you finally pull your slick body away from the puddle you left on the ground.  When you look back, you notice it has already been devoured by the hungry earth.", false);
+			for (var i:int = 0; i < newCocks; i++)
+				player.createCock(rand(3) + 4, 0.75);
+			
+			outputText("\n\nYou shudder as a pressure builds in your crotch, peaking painfully as a large bulge begins to push out from your body.  ");
+			if (newCocks == 1)  outputText("The skin seems to fold back as a fully formed demon-cock bursts forth from your loins, drizzling hot cum everywhere as it orgasms.  In time it fades to a more normal coloration and human-like texture.  ");
+			else                outputText("The skin bulges obscenely, darkening and splitting around " + num2Text(newCocks) + " of your new dicks.  For an instant they turn a demonic purple and dribble in thick spasms of scalding demon-cum.  After, they return to a more humanoid coloration.  ");
+
+			if (newCocks >= 4)
+				outputText("Your tender bundle of new cocks feels deliciously sensitive, and you cannot stop yourself from wrapping your hands around the slick demonic bundle and pleasuring them.\n\nNearly an hour later, you finally pull your slick body away from the puddle you left on the ground.  When you look back, you notice it has already been devoured by the hungry earth.");
 			player.orgasm();
 		}
 
