@@ -994,30 +994,26 @@ package classes
 			return cocks[index].cockLength;
 		}
 		
-		public function twoDickRadarSpecial(width:int):Boolean
+		/* Checks if the two thinnest cocks fit.
+		*/
+		public function twoDickRadarSpecial(max_width:int):Boolean
 		{
-			//No two dicks?  FUCK OFF
-			if (cockTotal() < 2)
+			// Only for multicock'ed
+			if (cocks.length < 2)
 				return false;
-			
-			//Set up vars
-			//Get thinnest, work done already
-			var thinnest:int = thinnestCockIndex();
-			var thinnest2:int = 0;
-			//For ze loop
-			var temp:int = 0;
-			//Make sure they arent the same at initialization
-			if (thinnest2 == thinnest)
-				thinnest2 = 1;
-			//Loop through to find 2nd thinnest
-			while (temp < cocks.length)
-			{
-				if (cocks[thinnest2].cockThickness > cocks[temp].cockThickness && temp != thinnest)
-					thinnest2 = temp;
-				temp++;
+
+			// Init vars, and make sure they aren't equal.
+			var thinnest:int   = thinnestCockIndex();
+			var thinnest2:int  = (thinnest + 1) % cocks.length;
+
+			// Find second thinnest cock.
+			for (var index:int = 0; index < cocks.length; index++) {
+				if (cocks[index].cockThickness < cocks[thinnest2].cockThickness && index != thinnest)
+					thinnest2 = index;
 			}
-			//If the two thicknesses added together are less than the arg, true, else false
-			return cocks[thinnest].cockThickness + cocks[thinnest2].cockThickness < width;
+
+			// Do they fit?
+			return cocks[thinnest].cockThickness + cocks[thinnest2].cockThickness < max_width;
 		}
 		
 		public function totalCockThickness():Number
