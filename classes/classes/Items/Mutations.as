@@ -374,6 +374,8 @@
 
 		public function minotaurBlood(player:Player):void
 		{
+			var index:int;
+			var cock_index:int;
 			var tfSource:String = "minotaurBlood";
 			player.slimeFeed();
 			//Changes done
@@ -542,10 +544,10 @@
 
 					// Multiple Rows
 					} else {
-						var nr_breasts_shrunk = 0;
+						var nr_breasts_shrunk:int = 0;
 						if (player.biggestTitSize() >= 1)
 							outputText("\n");
-						for (var index:int = 0; index < player.breastRows.length; index++) {
+						for (index = 0; index < player.breastRows.length; index++) {
 							if (player.breastRows[index].breastRating >= 1) {
 								player.breastRows[index].breastRating--;
 								nr_breasts_shrunk++;
@@ -565,8 +567,8 @@
 			}
 			//Boosts cock size up to 36"x5".
 			if (changes < changeLimit && rand(2) == 0 && player.cocks.length > 0) {
-				var cock_index:int = -1;
-				for (var index:int = 0; index < player.cocks.length; index++) {
+				cock_index = -1;
+				for (index = 0; index < player.cocks.length; index++) {
 					if (player.cocks[index].cockType == CockTypesEnum.HORSE && (player.cocks[index].cockLength < 36 || player.cocks[index].cockThickness < 5)) {
 						cock_index = index;
 						break;
@@ -592,8 +594,8 @@
 
 			//Morph dick to horsediiiiick
 			if (player.cocks.length > 0 && rand(2) == 0 && changes < changeLimit) {
-				var cock_index:int = -1;
-				for (var index:int = 0; index < player.cocks.length; index++) {
+				cock_index = -1;
+				for (index = 0; index < player.cocks.length; index++) {
 					if (player.cocks[index].cockType != CockTypesEnum.HORSE) {
 						cock_index = index;
 						break;
