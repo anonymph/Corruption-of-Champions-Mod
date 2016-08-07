@@ -49,24 +49,25 @@
 //Vitality Tincture
 		public function vitalityTincture(player:Player):void
 		{
+			// Intro
+			clearOutput();
+			outputText("You down the contents of the bottle. The liquid is thick and tastes remarkably like cherries. Within moments, you feel much more fit and healthy.");
 			
-			player.slimeFeed();
-			outputText("You down the contents of the bottle. The liquid is thick and tastes remarkably like cherries. Within moments, you feel much more fit and healthy.", true);
-			//str change
-			temp = rand(3);
-			dynStats("str", temp);
-			//Garunteed toughness if no str
-			if (temp == 0) {
-				temp = rand(3);
-				if (temp == 0) temp = 1;
-			}
-			else temp = rand(3);
-			//tou change
-			dynStats("tou", temp);
-			//Chance of fitness change
-			if (HPChange(50, false)) outputText("  Any aches, pains and bruises you have suffered no longer hurt and you feel much better.", false);
-			if (rand(3) == 0) outputText(player.modTone(95, 3), false);
+			// STR change. Range [0,2]
+			var delta_stat:Number = rand(3);
+			dynStats("str", delta_stat);
+
+			// TOU change. Range [0,2], [1,2] if STR changed by 0.
+			delta_stat = Math.max( rand(3), delta_stat == 0 ? 1 : 0 );
+			dynStats("tou", delta_stat);
+
+			// Chance of fitness change
+			if (HPChange(50, false))
+				outputText("  Any aches, pains and bruises you have suffered no longer hurt and you feel much better.");
+			if (rand(3) == 0)
+				outputText(player.modTone(95, 3));
 			player.refillHunger(10);
+			player.slimeFeed();
 		}
 
 //Scholar's Tea
