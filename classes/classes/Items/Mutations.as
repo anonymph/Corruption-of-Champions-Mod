@@ -386,12 +386,10 @@
 			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
 			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
 			if (changeLimit == 1) changeLimit = 2;
-			//Temporary storage
-			var temp:Number = 0;
-			var temp2:Number = 0;
-			var temp3:Number = 0;
-			//Set up output
-			outputText("You drink the bubbling red fluid, tasting the tangy iron after-taste.", true);
+
+			// Intro, and setup output.
+			clearOutput();
+			outputText("You drink the bubbling red fluid, tasting the tangy iron after-taste.");
 			//STATS
 			//Strength h
 			if (rand(3) == 0 && changes < changeLimit) {
@@ -529,112 +527,90 @@
 				}
 				//Shrink boobages till they are normal
 				else if (rand(2) == 0 && changes < changeLimit && player.breastRows.length > 0) {
-					//Single row
+					// Single row
 					if (player.breastRows.length == 1) {
-						//Shrink if bigger than B cups
-						if (player.breastRows[0].breastRating >= 1) {
-							temp = 1;
-							player.breastRows[0].breastRating--;
-							//Shrink again if huuuuge
-							if (player.breastRows[0].breastRating > 8) {
-								temp++;
-								player.breastRows[0].breastRating--;
-							}
-							//Talk about shrinkage
-							if (temp == 1) outputText("\n\nYou feel a weight lifted from you, and realize your " + player.breastDescript(0) + " have shrunk to " + player.breastCup(0) + "s.", false);
-							if (temp == 2) outputText("\n\nYou feel significantly lighter.  Looking down, you realize your breasts are MUCH smaller, down to " + player.breastCup(0) + "s.", false);
+
+						if (player.breastRows[0].breastRating > 8) {
+							player.breastRows[0].breastRating -= 2;
+							outputText("\n\nYou feel significantly lighter.  Looking down, you realize your breasts are MUCH smaller, down to " + player.breastCup(0) + "s.");
+							changes++;
+						} else if (player.breastRows[0].breastRating >= 1) {
+							player.breastRows[0].breastRating -= 1;
+							outputText("\n\nYou feel a weight lifted from you, and realize your " + player.breastDescript(0) + " have shrunk to " + player.breastCup(0) + "s.");
 							changes++;
 						}
 
-					}
-					//multiple
-					else {
-						//temp2 = amount changed
-						//temp3 = counter
-						temp = 0;
-						temp2 = 0;
-						temp3 = 0;
-						if (player.biggestTitSize() >= 1) outputText("\n", false);
-						while (temp3 < player.breastRows.length) {
-							if (player.breastRows[temp3].breastRating >= 1) {
-								player.breastRows[temp3].breastRating--;
-								temp2++;
-								outputText("\n", false);
+					// Multiple Rows
+					} else {
+						var nr_breasts_shrunk = 0;
+						if (player.biggestTitSize() >= 1)
+							outputText("\n");
+						for (var index:int = 0; index < player.breastRows.length; index++) {
+							if (player.breastRows[index].breastRating >= 1) {
+								player.breastRows[index].breastRating--;
+								nr_breasts_shrunk++;
 								//If this isn't the first change...
-								if (temp2 > 1) outputText("...and y", false);
-								else outputText("Y", false);
-								outputText("our " + player.breastDescript(temp3) + " shrink, dropping to " + player.breastCup(temp3) + "s.", false);
+								if (nr_breasts_shrunk > 1)  outputText("\n...and your ");
+								else                        outputText("\nYour ");
+								outputText(player.breastDescript(index) + " shrink, dropping to " + player.breastCup(index) + "s.");
 							}
-							temp3++;
 						}
-						if (temp2 == 2) outputText("\nYou feel so much lighter after the change.", false);
-						if (temp2 == 3) outputText("\nWithout the extra weight you feel particularly limber.", false);
-						if (temp2 >= 4) outputText("\nIt feels as if the weight of the world has been lifted from your shoulders, or in this case, your chest.", false);
-						if (temp2 > 0) changes++;
+						if      (nr_breasts_shrunk == 2)  outputText("\nYou feel so much lighter after the change.");
+						else if (nr_breasts_shrunk == 3)  outputText("\nWithout the extra weight you feel particularly limber.");
+						else if (nr_breasts_shrunk >= 4)  outputText("\nIt feels as if the weight of the world has been lifted from your shoulders, or in this case, your chest.");
+						if (nr_breasts_shrunk > 0)
+							changes++;
 					}
 				}
 			}
 			//Boosts cock size up to 36"x5".
 			if (changes < changeLimit && rand(2) == 0 && player.cocks.length > 0) {
-				var selectedCock:int = -1;
-				for (var i:int = 0; i < player.cocks.length; i++)
-				{
-					if (player.cocks[i].cockType == CockTypesEnum.HORSE && (player.cocks[i].cockLength < 36 || player.cocks[i].cockThickness < 5))
-					{
-						selectedCock = i;
+				var cock_index:int = -1;
+				for (var index:int = 0; index < player.cocks.length; index++) {
+					if (player.cocks[index].cockType == CockTypesEnum.HORSE && (player.cocks[index].cockLength < 36 || player.cocks[index].cockThickness < 5)) {
+						cock_index = index;
 						break;
 					}
 				}
 				
 				//Length first
-				if (selectedCock != -1) {
-					//Thickness too if small enough
-					if (player.cocks[selectedCock].cockThickness < 5) {
-						//Increase by 2 + rand(8), and store the actual amount in temp
-						temp = player.increaseCock(selectedCock, 2 + rand(8));
-						temp += player.cocks[selectedCock].thickenCock(1);
-						//Comment on length changes
-						if (temp > 6) outputText("\n\nGasping in sudden pleasure, your " + player.cockDescript(selectedCock) + " surges free of its sheath, emerging with over half a foot of new dick-flesh.", false);
-						if (temp <= 6 && temp >= 3) outputText("\n\nYou pant in delight as a few inches of " + player.cockDescript(selectedCock) + " pop free from your sheath, the thick new horse-flesh still slick and sensitive.", false);
-						if (temp < 3) outputText("\n\nGroaning softly, you feel a pleasurable change in your groin.  Looking down, you see [oneCock] grow slightly longer.", false);
-						//Add a blurb about thickness...
-						outputText("  To your delight and surprise, you discover it has grown slightly thicker as well!", false);
-					}
-					//Just length...
-					else {
-						//Increase by 2 + rand(8), and store the actual amount in temp
-						temp = player.increaseCock(selectedCock, 2 + rand(8));
-						//Comment on length changes
-						if (temp > 6) outputText("\n\nGasping in sudden pleasure, your " + player.cockDescript(selectedCock) + " surges free of its sheath, emerging with over half a foot of new dick-flesh.", false);
-						if (temp <= 6 && temp >= 3) outputText("\n\nYou pant in delight as a few inches of " + player.cockDescript(selectedCock) + " pop free from your sheath, the thick new horse-flesh still slick and sensitive.", false);
-						if (temp < 3) outputText("\n\nGroaning softly, you feel a pleasurable change in your groin.  Looking down, you see [oneCock] grow slightly longer.", false);
-					}
+				if (cock_index != -1) {
 					changes++;
+					var thicken_cock:Boolean = (player.cocks[cock_index].cockThickness < 5);
+					var size_change:Number = player.increaseCock(cock_index, 2 + rand(8)); // Increase by amount in range [2,9]
+					if (thicken_cock)
+						size_change += player.cocks[cock_index].thickenCock(1);
+					// Length change
+					if      (size_change <  3)  outputText("\n\nGroaning softly, you feel a pleasurable change in your groin.  Looking down, you see [oneCock] grow slightly longer.");
+					else if (size_change <= 6)  outputText("\n\nYou pant in delight as a few inches of " + player.cockDescript(cock_index) + " pop free from your sheath, the thick new horse-flesh still slick and sensitive.");
+					else                        outputText("\n\nGasping in sudden pleasure, your " + player.cockDescript(cock_index) + " surges free of its sheath, emerging with over half a foot of new dick-flesh.");
+					// Thickness change
+					if (thicken_cock)
+						outputText("  To your delight and surprise, you discover it has grown slightly thicker as well!");
 				}
 			}
+
 			//Morph dick to horsediiiiick
 			if (player.cocks.length > 0 && rand(2) == 0 && changes < changeLimit) {
-				var selectedCockValue:int = -1; //Changed as selectedCock and i caused duplicate var warnings
-				for (var indexI:int = 0; indexI < player.cocks.length; indexI++)
-				{
-					if (player.cocks[indexI].cockType != CockTypesEnum.HORSE)
-					{
-						selectedCockValue = indexI;
+				var cock_index:int = -1;
+				for (var index:int = 0; index < player.cocks.length; index++) {
+					if (player.cocks[index].cockType != CockTypesEnum.HORSE) {
+						cock_index = index;
 						break;
 					}
 				}
 				
-				if (selectedCockValue != -1) {
-					//Text for humandicks or others
-					if (player.cocks[selectedCockValue].cockType == CockTypesEnum.HUMAN || player.cocks[selectedCockValue].cockType.Index > 2) outputText("\n\nYour " + player.cockDescript(selectedCockValue) + " begins to feel strange... you pull down your pants to take a look and see it darkening as you feel a tightness near the base where your skin seems to be bunching up.  A sheath begins forming around your cock's base, tightening and pulling your cock inside its depths.  A hot feeling envelops your member as it suddenly grows into a horse penis, dwarfing its old size.  The skin is mottled brown and black and feels more sensitive than normal.  Your hands are irresistibly drawn to it, and you jerk yourself off, splattering cum with intense force.", false);
-					//Text for dogdicks
-					if (player.cocks[selectedCockValue].cockType == CockTypesEnum.DOG) outputText("\n\nYour " + Appearance.cockNoun(CockTypesEnum.DOG) + " begins to feel odd...  You pull down your clothes to take a look and see it darkening.  You feel a growing tightness in the tip of your " + Appearance.cockNoun(CockTypesEnum.DOG) + " as it flattens, flaring outwards.  Your cock pushes out of your sheath, inch after inch of animal-flesh growing beyond its traditional size.  You notice your knot vanishing, the extra flesh pushing more fresh horsecock out from your sheath.  <b>Your hands are drawn to the strange new " + Appearance.cockNoun(CockTypesEnum.HORSE) + "</b>, and you jerk yourself off, splattering thick ropes of cum with intense force.", false);
-					player.cocks[selectedCockValue].cockType = CockTypesEnum.HORSE;
-					player.increaseCock(selectedCockValue, 4);
+				if (cock_index != -1) {
+					if (player.cocks[cock_index].cockType == CockTypesEnum.DOG)  outputText("\n\nYour " + Appearance.cockNoun(CockTypesEnum.DOG) + " begins to feel odd...  You pull down your clothes to take a look and see it darkening.  You feel a growing tightness in the tip of your " + Appearance.cockNoun(CockTypesEnum.DOG) + " as it flattens, flaring outwards.  Your cock pushes out of your sheath, inch after inch of animal-flesh growing beyond its traditional size.  You notice your knot vanishing, the extra flesh pushing more fresh horsecock out from your sheath.  <b>Your hands are drawn to the strange new " + Appearance.cockNoun(CockTypesEnum.HORSE) + "</b>, and you jerk yourself off, splattering thick ropes of cum with intense force.");
+					else                                                         outputText("\n\nYour " + player.cockDescript(cock_index) + " begins to feel strange... you pull down your pants to take a look and see it darkening as you feel a tightness near the base where your skin seems to be bunching up.  A sheath begins forming around your cock's base, tightening and pulling your cock inside its depths.  A hot feeling envelops your member as it suddenly grows into a horse penis, dwarfing its old size.  The skin is mottled brown and black and feels more sensitive than normal.  Your hands are irresistibly drawn to it, and you jerk yourself off, splattering cum with intense force.");
+
+					player.cocks[cock_index].cockType = CockTypesEnum.HORSE;
+					player.increaseCock(cock_index, 4);
 					dynStats("lib", 5, "sen", 4, "lus", 35);
 					outputText("<b>  You now have a");
-					if (player.countCocksOfType(CockTypesEnum.HORSE) > 1) outputText("nother")
-					outputText(" horse-penis.</b>", false);
+					if (player.countCocksOfType(CockTypesEnum.HORSE) > 1)
+						outputText("nother")
+					outputText(" horse-penis.</b>");
 					changes++;
 				}
 			}
@@ -657,17 +633,17 @@
 			//Tail, Ears, Hooves, Horns, Height (no prereq), Face
 			//+height up to 9 foot
 			if (changes < changeLimit && rand(1.7) == 0 && player.tallness < 108) {
-				temp = rand(5) + 3;
-				//Slow rate of growth near ceiling
-				if (player.tallness > 90) temp = Math.floor(temp / 2);
-				//Never 0
-				if (temp == 0) temp = 1;
-				//Flavor texts.  Flavored like 1950's cigarettes. Yum.
-				if (temp < 5) outputText("\n\nYou shift uncomfortably as you realize you feel off balance.  Gazing down, you realize you have grown SLIGHTLY taller.", false);
-				if (temp >= 5 && temp < 7) outputText("\n\nYou feel dizzy and slightly off, but quickly realize it's due to a sudden increase in height.", false);
-				if (temp == 7) outputText("\n\nStaggering forwards, you clutch at your head dizzily.  You spend a moment getting your balance, and stand up, feeling noticeably taller.", false);
-				player.tallness += temp;
+				// Change height
+				var height_growth:int = rand(5) + 3;
+				if (player.tallness > 90)  //Slow rate of growth near ceiling
+					height_growth = Math.floor(height_growth / 2);
+				player.tallness += height_growth;
 				changes++;
+
+				// Describe change
+				if      (height_growth < 5)  outputText("\n\nYou shift uncomfortably as you realize you feel off balance.  Gazing down, you realize you have grown SLIGHTLY taller.");
+				else if (height_growth < 7)  outputText("\n\nYou feel dizzy and slightly off, but quickly realize it's due to a sudden increase in height.");
+				else                         outputText("\n\nStaggering forwards, you clutch at your head dizzily.  You spend a moment getting your balance, and stand up, feeling noticeably taller.");
 			}
 			//Face change, requires Ears + Height + Hooves
 			if (player.earType == EARS_COW && player.lowerBody == LOWER_BODY_TYPE_HOOFED && player.tallness >= 90
@@ -680,7 +656,6 @@
 			}
 			//+mino horns require ears/tail
 			if (changes < changeLimit && rand(3) == 0 && player.earType == EARS_COW && player.tailType == TAIL_TYPE_COW) {
-				temp = 1;
 				//New horns or expanding mino horns
 				if (player.hornType == HORNS_COW_MINOTAUR || player.hornType == HORNS_NONE) {
 					//Get bigger if player has horns
@@ -701,24 +676,28 @@
 						}
 						//Males horns get 'uge.
 						else {
-							temp = 1 + rand(3);
-							player.horns += temp;
-							if (temp == 0) changes--;
-							if (temp == 1) outputText("\n\nAn aching pressure builds in your temples as you feel your horns push another inch of length from your skull.  ", false);
-							if (temp == 2) outputText("\n\nA powerful headache momentarily doubles you over.  With painful slowness, you feel your horns push another two inches of length out from your brow, gradually thickening as they grow.  ", false);
-							if (temp == 3) outputText("\n\nAgony overwhelms you as a headache of terrifying intensity sweeps through your skull.  You squeeze your eyes shut from the pain, but it does little to help.  The torture intensifies before finally diminishing as you feel an inch or two of new horn force its way out of your forehead.  The headache remains despite this, and desperate for relief, you grab hold of your horns and tug, pulling another inch of new horn free.  At last the pain fades, leaving you with significantly enhanced head-spikes.  ", false);
-							if (player.horns < 3) outputText("They are the size of tiny nubs.", false);
-							if (player.horns >= 3 && player.horns < 6) outputText("They are similar to what you would see on a young bull.", false);
-							if (player.horns >= 6 && player.horns < 12) outputText("They look like the horns on a grown bull, big enough and dangerous enough to do some damage.", false);
-							if (player.horns >= 12 && player.horns < 20) outputText("They are large and wicked looking.", false);
-							if (player.horns >= 20) outputText("They are huge, heavy, and tipped with dangerous points.", false);
-							//boys get a cum refill sometimes
+							changes++;
+							var horn_growth:int = 1 + rand(3); // In range [1,3]
+							player.horns += horn_growth;
+
+							// Describe growing more horns.
+							if      (horn_growth == 1)  outputText("\n\nAn aching pressure builds in your temples as you feel your horns push another inch of length from your skull.  ");
+							else if (horn_growth == 2)  outputText("\n\nA powerful headache momentarily doubles you over.  With painful slowness, you feel your horns push another two inches of length out from your brow, gradually thickening as they grow.  ");
+							else if (horn_growth == 3)  outputText("\n\nAgony overwhelms you as a headache of terrifying intensity sweeps through your skull.  You squeeze your eyes shut from the pain, but it does little to help.  The torture intensifies before finally diminishing as you feel an inch or two of new horn force its way out of your forehead.  The headache remains despite this, and desperate for relief, you grab hold of your horns and tug, pulling another inch of new horn free.  At last the pain fades, leaving you with significantly enhanced head-spikes.  ");
+
+							// Describe current state of the horns.
+							if      (player.horns < 3)   outputText("They are the size of tiny nubs.");
+							else if (player.horns < 6)   outputText("They are similar to what you would see on a young bull.");
+							else if (player.horns < 12)  outputText("They look like the horns on a grown bull, big enough and dangerous enough to do some damage.");
+							else if (player.horns < 20)  outputText("They are large and wicked looking.");
+							else                         outputText("They are huge, heavy, and tipped with dangerous points.");
+
+							// Boys get a cum refill sometimes
 							if (rand(2) == 0 && changes < changeLimit) {
-								outputText("  Your headache clears as lust washes through you unnaturally.  You feel as if you haven't cum in months.", false);
+								outputText("  Your headache clears as lust washes through you unnaturally.  You feel as if you haven't cum in months.");
 								player.hoursSinceCum += 200;
 								dynStats("lus", 20);
 							}
-							changes++;
 						}
 					}
 					//If no horns yet..
