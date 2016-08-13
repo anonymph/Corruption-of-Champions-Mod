@@ -508,50 +508,11 @@ package classes.Scenes
 						}
 					}
 				}
-				//Frog Eggs
-				else if (player.pregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
-					if (player.pregnancyIncubation == 8) {
-						//Egg Maturing
-						if (player.hasVagina()) {
-							outputText("\nYour gut churns, and with a squelching noise, a torrent of transparent slime gushes from your [vagina].  You immediately fall to your knees, landing wetly amidst the slime.  The world around briefly flashes with unbelievable colors, and you hear someone giggling.\n\nAfter a moment, you realize that it’s you.");
-							//pussy:
-							if (player.hasVagina()) outputText("  Against your [vagina], the slime feels warm and cold at the same time, coaxing delightful tremors from your [clit].");
-							//[balls:
-							else if (player.balls > 0) outputText("  Slathered in hallucinogenic frog slime, your balls tingle, sending warm pulses of pleasure all the way up into your brain.");
-							//genderless: 
-							else outputText("  Your [vagina] begins twitching, aching for something to push through it over and over again.");
-							outputText("  Seated in your own slime, you moan softly, unable to keep your hands off yourself.");
-							dynStats("lus=", player.maxLust(), "resisted", false);
-							displayedUpdate = true;
-						}
-						else {
-							outputText("\nYour gut churns, but after a moment it settles. Your belly does seem a bit bigger and more gravid afterward, like you're filling up with fluid without any possible vent. You suddenly wonder if losing your pussy was such a great idea.");
-							displayedUpdate = true;
-						}
-					}
-				}
 			}
 
 			// Describe incubation for butt //
 
 			if (player.buttPregnancyIncubation > 1) {
-				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
-					if (player.buttPregnancyIncubation == 8) {
-						//Egg Maturing
-						outputText("\nYour gut churns, and with a squelching noise, a torrent of transparent slime gushes from your ass.  You immediately fall to your knees, landing wetly amidst the slime.  The world around briefly flashes with unbelievable colors, and you hear someone giggling.\n\nAfter a moment, you realize that it’s you.");
-						//pussy:
-						if (player.hasVagina()) outputText("  Against your [vagina], the slime feels warm and cold at the same time, coaxing delightful tremors from your [clit].");
-						//[balls:
-						else if (player.balls > 0) outputText("  Slathered in hallucinogenic frog slime, your balls tingle, sending warm pulses of pleasure all the way up into your brain.");
-						//[cock:
-						else if (player.hasCock()) outputText("  Splashing against the underside of your " + player.multiCockDescriptLight() + ", the slime leaves a warm, oozy sensation that makes you just want to rub [eachCock] over and over and over again.");
-						//genderless: 
-						else outputText("  Your asshole begins twitching, aching for something to push through it over and over again.");
-						outputText("  Seated in your own slime, you moan softly, unable to keep your hands off yourself.");
-						dynStats("lus=", player.maxLust(), "resisted", false);
-						displayedUpdate = true;
-					}
-				}
 				//Pregnancy 4 Satyrs
 				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR) {
 					//Stage 1: 
@@ -660,12 +621,6 @@ package classes.Scenes
 				getGame().bog.phoukaScene.phoukaPregBirth();
 				displayedUpdate = true;
 				player.knockUpForce(); //Clear Pregnancy
-			}
-			//Give birf if its time... to ANAL EGGS
-			if (player.buttPregnancyIncubation == 1 && player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
-				getGame().bog.frogGirlScene.birthFrogEggsAnal();
-				displayedUpdate = true;
-				player.buttKnockUpForce(); //Clear Butt Pregnancy
 			}
 			//Give birf if its time... to ANAL EGGS
 			if (player.buttPregnancyIncubation == 1 && player.buttPregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS) {
@@ -790,20 +745,18 @@ package classes.Scenes
 					getGame().bazaar.benoit.popOutBenoitEggs();
 				}
 			}
-			//Give birf if its time... to FROG EGGS
-			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
-				getGame().bog.frogGirlScene.layFrogEggs();
-				displayedUpdate = true;
-				player.knockUpForce(); //Clear Pregnancy
-			}
 
 			// Section of nice butt pregnancies //
 			
+			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL)
+				displayedUpdate = frogButtPregnancy()
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_BUNNY)
 				displayedUpdate = bunnyButtPregnancy()
 
 			// Section of nice vagina pregnancies //
 
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL)
+				displayedUpdate = frogPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_BUNNY)
 				displayedUpdate = bunnyPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_ANEMONE)
@@ -836,6 +789,31 @@ package classes.Scenes
 
 /****** Butt Pregnancies ******************************************************/
 
+
+/*	Scene describing frog egg butt pregnancy update.
+		*/
+		private function frogButtPregnancy ():Boolean {
+		    
+		    // Birth scenes //
+		    if (player.pregnancyIncubation == 1) {
+		        getGame().bog.frogGirlScene.birthFrogEggsAnal();
+		        player.buttKnockUpForce(); //Clear Butt Pregnancy
+		        return true;
+		        
+		        // Incubation //
+		    } else if (player.pregnancyIncubation == 8) {
+		        outputText("\nYour gut churns, and with a squelching noise, a torrent of transparent slime gushes from your ass.  You immediately fall to your knees, landing wetly amidst the slime.  The world around briefly flashes with unbelievable colors, and you hear someone giggling.\n\nAfter a moment, you realize that it’s you.");
+		        if      (player.vaginas.length > 0)  outputText("  Against your [vagina], the slime feels warm and cold at the same time, coaxing delightful tremors from your [clit].");
+		        else if (player.balls > 0)           outputText("  Slathered in hallucinogenic frog slime, your balls tingle, sending warm pulses of pleasure all the way up into your brain.");
+		        else if (player.cocks.length > 0)    outputText("  Splashing against the underside of your [cocks], the slime leaves a warm, oozy sensation that makes you just want to rub [eachCock] over and over and over again.");
+		        else                                 outputText("  Your asshole begins twitching, aching for something to push through it over and over again.");
+		        outputText("  Seated in your own slime, you moan softly, unable to keep your hands off yourself.");
+		        dynStats("lus=", player.maxLust(), "resisted", false);
+		        return true;
+		    }
+		    return false;
+		}
+
 		/*	Scene describing bunny butt pregnancy update.
 		*/
 		private function bunnyButtPregnancy ():Boolean {
@@ -863,6 +841,33 @@ package classes.Scenes
 
 
 /****** Vagina Pregnancies ****************************************************/
+
+		/*	Scene describing frog egg pregnancy update.
+		*/
+		private function frogPregnancy ():Boolean {
+		    // Birth scenes //
+		    if (player.pregnancyIncubation == 1) {
+				getGame().bog.frogGirlScene.layFrogEggs();
+				player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    
+		    // Incubation //
+		    } else if (player.pregnancyIncubation == 8) {
+				//Egg Maturing
+				if (player.hasVagina()) {
+					outputText("\nYour gut churns, and with a squelching noise, a torrent of transparent slime gushes from your [vagina].  You immediately fall to your knees, landing wetly amidst the slime.  The world around briefly flashes with unbelievable colors, and you hear someone giggling.\n\nAfter a moment, you realize that it’s you.");
+					outputText("  Against your [vagina], the slime feels warm and cold at the same time, coaxing delightful tremors from your [clit].");
+					if (player.balls > 0)  outputText("  Slathered in hallucinogenic frog slime, your balls tingle, sending warm pulses of pleasure all the way up into your brain.");
+					else                   outputText("  Your [vagina] begins twitching, aching for something to push through it over and over again.");
+					outputText("  Seated in your own slime, you moan softly, unable to keep your hands off yourself.");
+					dynStats("lus=", player.maxLust(), "resisted", false);
+				} else {
+					outputText("\nYour gut churns, but after a moment it settles. Your belly does seem a bit bigger and more gravid afterward, like you're filling up with fluid without any possible vent. You suddenly wonder if losing your pussy was such a great idea.");
+				}
+				return true;
+			}
+		    return false;
+		}
 
 		/*	Scene describing bunny pregnancy update.
 		*/
