@@ -415,81 +415,11 @@ package classes.Scenes
 						displayedUpdate = true;
 					}
 				}
-				//Pregnancy 4 Satyrs
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_SATYR) {
-					//Stage 1: 
-					if (player.pregnancyIncubation == 150) {
-						outputText("\n<b>You find that you're feeling quite sluggish these days; you just don't have as much energy as you used to.  You're also putting on weight.</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 2: 
-					if (player.pregnancyIncubation == 125) {
-						outputText("\n<b>Your belly is getting bigger and bigger.  Maybe your recent urges are to blame for this development?</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 3: 
-					if (player.pregnancyIncubation == 100) {
-						outputText("\n<b>You can feel the strangest fluttering sensations in your distended belly; it must be a pregnancy.  You should eat more and drink plenty of wine so your baby can grow properly.  Wait, wine...?</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 4: 
-					if (player.pregnancyIncubation == 75) {
-						outputText("\n<b>Sometimes you feel a bump in your pregnant belly.  You wonder if it's your baby complaining about your moving about.</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 5: 
-					if (player.pregnancyIncubation == 50) {
-						outputText("\n<b>With your bloating gut, you are loathe to exert yourself in any meaningful manner; you feel horny and hungry all the time...</b>\n");
-						displayedUpdate = true;
-						//temp min lust up +5
-					}
-					//Stage 6: 
-					if (player.pregnancyIncubation == 30) {
-						outputText("\n<b>The baby you're carrying constantly kicks your belly in demand for food and wine, and you feel sluggish and horny.  You can't wait to birth this little one so you can finally rest for a while.</b>\n");
-						displayedUpdate = true;
-						//temp min lust up addl +5
-					}
-				}
 			}
 
 			// Describe incubation for butt //
 
 			if (player.buttPregnancyIncubation > 1) {
-				//Pregnancy 4 Satyrs
-				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR) {
-					//Stage 1: 
-					if (player.buttPregnancyIncubation == 150) {
-						outputText("\n<b>You find that you're feeling quite sluggish these days; you just don't have as much energy as you used to.  You're also putting on weight.</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 2: 
-					if (player.buttPregnancyIncubation == 125) {
-						outputText("\n<b>Your belly is getting bigger and bigger.  Maybe your recent urges are to blame for this development?</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 3: 
-					if (player.buttPregnancyIncubation == 100) {
-						outputText("\n<b>You can feel the strangest fluttering sensations in your distended belly; it must be a pregnancy.  You should eat more and drink plenty of wine so your baby can grow properly.  Wait, wine...?</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 4: 
-					if (player.buttPregnancyIncubation == 75) {
-						outputText("\n<b>Sometimes you feel a bump in your pregnant belly.  You wonder if it's your baby complaining about your moving about.</b>\n");
-						displayedUpdate = true;
-					}
-					//Stage 5: 
-					if (player.buttPregnancyIncubation == 50) {
-						outputText("\n<b>With your bloating gut, you are loathe to exert yourself in any meaningful manner; you feel horny and hungry all the time...</b>\n");
-						displayedUpdate = true;
-						//temp min lust up +5
-					}
-					//Stage 6: 
-					if (player.buttPregnancyIncubation == 30) {
-						outputText("\n<b>The baby you're carrying constantly kicks your belly in demand for food and wine, and you feel sluggish and horny.  You can't wait to birth this little one so you can finally rest for a while.</b>\n");
-						displayedUpdate = true;
-						//temp min lust up addl +5
-					}
-				}
 				//DRIDAH BUTT Pregnancy!
 				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS) {	
 					if (player.buttPregnancyIncubation == 199) {
@@ -665,29 +595,20 @@ package classes.Scenes
 				displayedUpdate = true;
 				getGame().highMountains.basiliskScene.basiliskBirth();
 			}
-			//Satyr vag preg
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_SATYR && player.pregnancyIncubation == 1) {
-				player.knockUpForce(); //Clear Pregnancy
-				displayedUpdate = true;
-				getGame().plains.satyrScene.satyrBirth(true);
-			}
-			//Satyr butt preg
-			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR && player.buttPregnancyIncubation == 1) {
-				player.buttKnockUpForce(); //Clear Butt Pregnancy
-				displayedUpdate = true;
-				getGame().plains.satyrScene.satyrBirth(false);
-			}
 			
-
 			// Section of nice butt pregnancies //
 			
+			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR)
+				displayedUpdate = satyrGenericPregnancy(false);
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL)
-				displayedUpdate = frogButtPregnancy()
+				displayedUpdate = frogButtPregnancy();
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_BUNNY)
-				displayedUpdate = bunnyButtPregnancy()
+				displayedUpdate = bunnyButtPregnancy();
 
 			// Section of nice vagina pregnancies //
-
+			
+			if (player.PregnancyType == PregnancyStore.PREGNANCY_SATYR)
+				displayedUpdate = satyrGenericPregnancy(true);
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT)
 				displayedUpdate = benoitPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL)
@@ -722,21 +643,61 @@ package classes.Scenes
 			return displayedUpdate;
 		}
 
-/****** Butt Pregnancies ******************************************************/
+/****** Generic Pregnancies ***************************************************/
 
+		/*	Scene describing satyr butt or vagina pregnancy update.
+		*/
+		private function satyrGenericPregnancy (in_vagina:Boolean):Boolean {
+			var progress:Number = in_vagina ? player.PregnancyIncubation : player.buttPregnancyIncubation
+
+		    // Birth scenes //
+		    if (progress == 1) {
+				getGame().plains.satyrScene.satyrBirth(in_vagina);
+				if   (in_vagina)  player.knockUpForce();     //Clear Pregnancy
+				else              player.buttKnockUpForce(); //Clear Butt Pregnancy
+				return true;
+		        
+		    // Incubation //
+		    } else if (progress == 150) {
+				outputText("\n<b>You find that you're feeling quite sluggish these days; you just don't have as much energy as you used to.  You're also putting on weight.</b>\n");
+				return true;
+			} else if (progress == 125) {
+				outputText("\n<b>Your belly is getting bigger and bigger.  Maybe your recent urges are to blame for this development?</b>\n");
+				return true;
+			} else if (progress == 100) {
+				outputText("\n<b>You can feel the strangest fluttering sensations in your distended belly; it must be a pregnancy.  You should eat more and drink plenty of wine so your baby can grow properly.  Wait, wine...?</b>\n");
+				return true;
+			} else if (progress == 75) {
+				outputText("\n<b>Sometimes you feel a bump in your pregnant belly.  You wonder if it's your baby complaining about your moving about.</b>\n");
+				return true;
+			} else if (progress == 50) {
+				outputText("\n<b>With your bloating gut, you are loathe to exert yourself in any meaningful manner; you feel horny and hungry all the time...</b>\n");
+				/* TODO: temp min lust up +5 */
+				return true;
+			} else if (progress == 30) {
+				outputText("\n<b>The baby you're carrying constantly kicks your belly in demand for food and wine, and you feel sluggish and horny.  You can't wait to birth this little one so you can finally rest for a while.</b>\n");
+				/* TODO: temp min lust up addl +5 */
+				return true;
+			}
+
+		    return false;
+		}
+
+
+/****** Butt Pregnancies ******************************************************/
 
 		/*	Scene describing frog egg butt pregnancy update.
 		*/
 		private function frogButtPregnancy ():Boolean {
 		    
 		    // Birth scenes //
-		    if (player.pregnancyIncubation == 1) {
+		    if (player.buttPregnancyIncubation == 1) {
 		        getGame().bog.frogGirlScene.birthFrogEggsAnal();
 		        player.buttKnockUpForce(); //Clear Butt Pregnancy
 		        return true;
 		        
 		        // Incubation //
-		    } else if (player.pregnancyIncubation == 8) {
+		    } else if (player.buttPregnancyIncubation == 8) {
 		        outputText("\nYour gut churns, and with a squelching noise, a torrent of transparent slime gushes from your ass.  You immediately fall to your knees, landing wetly amidst the slime.  The world around briefly flashes with unbelievable colors, and you hear someone giggling.\n\nAfter a moment, you realize that it’s you.");
 		        if      (player.vaginas.length > 0)  outputText("  Against your [vagina], the slime feels warm and cold at the same time, coaxing delightful tremors from your [clit].");
 		        else if (player.balls > 0)           outputText("  Slathered in hallucinogenic frog slime, your balls tingle, sending warm pulses of pleasure all the way up into your brain.");
