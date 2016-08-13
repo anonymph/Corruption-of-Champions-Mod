@@ -26,7 +26,6 @@ package classes.Scenes
 			// Variables //
 
 			var displayedUpdate:Boolean = false;
-			var pregText:String = "";
 
 			// Return if no pregnancy active //.
 
@@ -58,8 +57,9 @@ package classes.Scenes
 				if (player.fertility < 15) player.fertility++;
 				if (player.fertility < 25) player.fertility++;
 				if (player.fertility < 40) player.fertility++;
-				if (player.findStatusEffect(StatusEffects.Birthed) < 0) player.createStatusEffect(StatusEffects.Birthed,1,0,0,0);
-				else {
+				if (player.findStatusEffect(StatusEffects.Birthed) < 0) {
+					player.createStatusEffect(StatusEffects.Birthed,1,0,0,0);
+				} else {
 					player.addStatusValue(StatusEffects.Birthed,1,1);
 					if (player.findPerk(PerkLib.BroodMother) < 0 && player.statusEffectv1(StatusEffects.Birthed) >= 10) {
 						outputText("\n<b>You have gained the Brood Mother perk</b> (Pregnancies progress twice as fast as a normal woman's).\n", false);
@@ -68,128 +68,6 @@ package classes.Scenes
 				}
 			}
 
-			// Describe incubation for vaginas //
-
-			if (player.pregnancyIncubation > 1) {
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) {
-					displayedUpdate = getGame().bog.phoukaScene.phoukaPregUpdate();
-				}
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_EMBER) {
-					//Pregnancy notes: Egg Laying 
-					if (flags[kFLAGS.EMBER_OVIPOSITION] > 0) {
-						if (player.pregnancyIncubation == 330) pregText = "Your belly has swollen, becoming larger - proof that Ember's seed did its work.  The dragon seems to be constantly checking you out, as if looking for the signs of weight gain.";
-						if (player.pregnancyIncubation == 250) pregText = "Your belly grows ever bigger, making your pregnancy noticeable; your belly also feels somewhat solid.  Ember casts pleased glances in your direction, whenever " + getGame().emberScene.emberMF("he","she") + " thinks you're not looking.";
-						if (player.pregnancyIncubation == 170) {
-							pregText = "You've grown a lot.  Anyone is able to tell that you're pregnant with a single glance; and by the shape, you have no doubt that there's an egg in your womb; a big one.";
-							//(If Corruption < 40)
-							if (player.cor < 40) pregText += "  Part of you didn't really want to get knocked up, but it's for a good cause.  Besides, Ember looks very cute, trying to hide " + getGame().emberScene.emberMF("his","her") + " happiness whenever " + getGame().emberScene.emberMF("he","she") + " glances at your belly...";
-							//(If Corruption >= 40)
-							else if (player.cor < 75) pregText += "  Considering the size of the egg, you hope it doesn't hurt when your child comes out.  You hope Ember will help you through this.";
-							//(If Corruption >= 75)
-							else pregText += "  You think dreamily about the wild sex that helped conceive this little one.  Ember is such a great fuck.  Really, you're doing this world a favor by bringing more of Ember's offspring into it.";
-						}
-						if (player.pregnancyIncubation == 120) pregText = "Though you're sure that this is the time when a regular baby would start moving about, your own belly simply sits there, heavy and full.  You'd be worried if you didn't remember that Ember hatched from an egg.  Sometimes; a delightful, refreshing, chill spreads from your belly throughout your body; making you feel invigorated, ready for anything.";
-						if (player.pregnancyIncubation == 90) pregText = "You've somehow grown even larger, the egg's outline appearing through your tummy.  By now, you're quite bothered with how difficult it's getting to move.  Ember constantly shadows you around the camp, making sure you're all right, although if you ever question " + getGame().emberScene.emberMF("him","her") + " " + getGame().emberScene.emberMF("he","she") + "'ll just say you're both going in the same direction.";
-						if (player.pregnancyIncubation == 60) {
-							pregText = "The egg inside your belly seems to grow heavier each day that passes.  ";
-							//(If Corruption < 40)
-							if (player.cor < 40) pregText += "It's quite a burden that you're carrying.  Still, it's a worthwhile sacrifice to make in order to restore Ember's race.";
-							//(If Corruption >= 40)
-							else if (player.cor < 75) pregText += "You wonder how much longer you have to wait.  This egg is quite burdensome.  Part of you is scared of its size, the other part is delighted to have produced such a big egg.";
-							//If Corruption >= 75)
-							else pregText += "You're eager to give birth, just so you can get impregnated again.  Particularly because that means more wild sex with Ember.";
-						}
-						if (player.pregnancyIncubation == 30) {
-							pregText = "You rub your hands over your ripe belly, lost in the sensations of motherhood.  ";
-							dynStats("sen", 5, "lus", (5+player.sens/20));
-							//If Corruption < 40
-							if (player.cor < 40) pregText += "Despite your initial reluctance, you've come to find a very real pleasure in being pregnant.  You hope Ember will want to have more children in the future...";
-							//(If Corruption >= 40)
-							else if (player.cor < 75) pregText += "You smile, knowing you'll have your egg in your hands the next few days.  A part of you is almost sad that you'll be empty, but you can always entice Ember into getting you pregnant again.";
-							//(If Corruption >= 75)
-							else {
-								pregText += "You find yourself daydreaming about giving birth, your belly swollen huge - bigger than it currently is - and the orgasmic sensation of many large, round eggs sliding out of your [vagina].\n\nYou start to absently rub yourself as you envision eggs by the dozens coming from within you; you shall be mothergod for a whole new race of dragons...";
-								dynStats("lus", 35);
-							}
-							pregText += "\n\nEmber interrupts your musings with a question.  \"<i>How are you feeling? Do you need me to get you anything?</i>\"";
-							pregText += "\n\nThe dragon's question is uncharacteristic of " + getGame().emberScene.emberMF("him","her") + ".  Still, you do appreciate the attention you're getting, and so you ask Ember to fetch you some food and water.  The speed with which Ember dashes off to fulfill your requests is truly impressive!  In short moments Ember is back with a piece of roasted meat and a skin of water.";
-							pregText += "\n\nAs you eat and drink your fill, Ember uses one wing to shield you off the sun.  You're starting to really enjoy all the attention, but seeing Ember give up on " + getGame().emberScene.emberMF("his","her") + " usual antics is still very weird.";
-						}
-					}
-					//Pregnancy Notes: Live Birth 
-					else {
-						if (player.pregnancyIncubation == 330) pregText = "Your belly is a bit swollen - either you're eating too much or Ember's seed really did the job.";
-						if (player.pregnancyIncubation == 250) pregText = "Your belly grows ever bigger, making your pregnancy noticeable.  Ember shoots you quick looks, trying to hide " + getGame().emberScene.emberMF("his","her") + " smirk of success every time " + getGame().emberScene.emberMF("he","she") + " does.  You smirk right back at " + getGame().emberScene.emberMF("him","her") + ", and occasionally make a subtle show of your gravid form, just to see " + getGame().emberScene.emberMF("him","her") + " get turned on by the sight.";
-						if (player.pregnancyIncubation == 170) {
-							pregText = "You've grown a lot, anyone is able to tell that you're pregnant with a single glance.  ";
-							//If Corruption < 40
-							if (player.cor < 40) pregText += "Part of you didn't really want to get knocked up.  However, Ember's look of satisfaction whenever " + getGame().emberScene.emberMF("he","she") + " gazes your way is rewarding despite that.  Plus, it is for a good cause.  You smirk in satisfaction - with a couple of dragons at your beck and call, things will look very different indeed.";
-							//If Corruption >= 40
-							else if (player.cor < 75) pregText += "You grin, savoring the strange, erotic sensations from the life inside your burgeoning womb and the promise of motherhood.  Mmm, if it feels this good, maybe you should \"<i>encourage</i>\" Ember to get you pregnant again.";
-							else pregText += "You think dreamily about the wild sex that helped conceive this little one.  Ember is such a great fuck. Really, you're doing this world a favor by bringing more of Ember's offspring into it.";
-						}
-						if (player.pregnancyIncubation == 120) {
-							pregText = "Every once in awhile, you feel a kick from inside your bulging belly.  Right now, it's really kicking up a storm, and so you decide to sit down and take it easy.  You keep rubbing your belly, hoping to calm your child down and make it stop battering your innards.";
-							pregText += "\n\nEmber approaches you, and casually asks, \"<i>So... is it kicking already?</i>\"";
-							pregText += "\n\nYou admit that it is, stroking your stomach.  Casually, you ask if Ember would maybe like to touch your belly, wondering if " + getGame().emberScene.emberMF("he","she") + " will be able to bring " + getGame().emberScene.emberMF("him","her") + "self to do it.";
-							pregText += "\n\n\"<i>Yes! Of course!</i>\" Ember replies";
-							if (flags[kFLAGS.EMBER_ROUNDFACE] == 1) pregText += ", blush at " + getGame().emberScene.emberMF("his","her") + " own over-enthusiastic reply";
-							pregText += ".  You just smile encouragingly at the dragon " + getGame().emberScene.emberMF("-boy","herm") + " and lean back slightly, sticking out your gravid midriff in open encouragement to its " + getGame().emberScene.emberMF("father","mother") + " to try and connect with " + getGame().emberScene.emberMF("his","her") + " unborn child.";
-							pregText += "\n\nEmber sets a clawed hand on your belly, careful not to hurt you with " + getGame().emberScene.emberMF("his","her") + " claws.  Slowly " + getGame().emberScene.emberMF("he","she") + " rubs your belly, until " + getGame().emberScene.emberMF("he","she") + " feels a small kick and smiles in glee.  You smile at the look of joy on " + getGame().emberScene.emberMF("his","her") + " face, even as " + getGame().emberScene.emberMF("he","she") + " realizes what " + getGame().emberScene.emberMF("he","she") + "'s doing and embarrassedly mumbles an excuse and walks away.";
-						}
-						if (player.pregnancyIncubation == 90) {
-							pregText = "You stop for a moment and sit down on a nearby rock.  Your belly feels much heavier than usual, and just walking about has become a chore.  Ember takes notice of your tiredness and quickly closes the distance between you two.  \"<i>[name], are you feeling all right?</i>\"";
-							pregText += "\n\nYou tell " + getGame().emberScene.emberMF("him","her") + " that you are, just worn out.  It's not easy carrying " + getGame().emberScene.emberMF("his","her") + " child, after all.";
-							pregText += "\n\nEmber sighs in relief.  \"<i>Good, is there anything I can do for you?</i>\"";
-							pregText += "\n\nYou tap your lips thoughtfully, mulling it over.  ";
-							//(Low Corruption)
-							if (player.cor <= 33) pregText += "There really isn't anything you feel like you need right now... maybe some water?  Or maybe you could have Ember help you to your " + camp.homeDesc() + " for a quick rest?";
-							//(Medium Corruption)
-							else if (player.cor <= 66) pregText += "You wonder if you should take advantage of Ember - you've certainly been feeling a little on edge lately, and besides " + getGame().emberScene.emberMF("he","she") + " did say 'anything'.  You ponder this for a while longer.";
-							//High Corruptio
-							else pregText += "You  already thought up a perfect way for this sexy dragon to help you, but it's best not to rush.  It's not everyday that Ember says " + getGame().emberScene.emberMF("he","she") + "'ll do 'anything' for you.  A quick jab on your belly from your unborn child makes you recoil a bit though.  Maybe it would be better to wait until this little one is out of you, just so you can have another.  You ponder what to ask of " + getGame().emberScene.emberMF("him","her") + " a while longer.";
-							pregText += "\n\nFinally, you decide there really isn't anything Ember can help you with, and tell " + getGame().emberScene.emberMF("him","her") + " so.  Though " + getGame().emberScene.emberMF("he","she") + " had better be ready to do " + getGame().emberScene.emberMF("his","her") + " part when the baby is born and needs caring.";
-							if (flags[kFLAGS.EMBER_GENDER] == 1 && flags[kFLAGS.EMBER_MILK] > 0) pregText += "  You can't resist smirking and patting one of your shemale dragon's bountiful breasts, noting that maybe you should let him do all the breast-feeding.";
-							
-							pregText += "\n\n";
-							if (flags[kFLAGS.EMBER_ROUNDFACE] > 0) pregText += "Ember blushes.  ";
-							pregText += "\"<i>O-of course I'll do my part.  If you don't need me for anything, I'll be going then.</i>\" " + getGame().emberScene.emberMF("He","She") + " turns on " + getGame().emberScene.emberMF("his","her") + " heels and walks away.  You watch " + getGame().emberScene.emberMF("him","her") + " go, pat yourself on the stomach, then painstakingly hoist yourself back upright and go on your way.";
-						}
-						if (player.pregnancyIncubation == 60) {
-							pregText = "Besides being so huge you'd probably be asked if you were having twins back in Ingnam, your belly has grown stupidly heavy, ";
-							if (player.cor <= 33) pregText += "making you wonder more than ever if it really was a good idea to get pregnant with a dragon.  True, Ember looks ready to burst with pride at your fruitful bounty, but you feel ready to just plain burst yourself.";
-							else if (player.cor <= 66) pregText += "and you wonder how much longer you have to wait.  Despite being a bit bothersome, you're pleased your child is growing into a healthy, hopefully sexy, dragon; like its father.";
-							else pregText += "and you're eager to give birth, so you can get impregnated again.  Particularly because that means more rowdy fucking from Ember.";
-						}
-						if (player.pregnancyIncubation == 30) {
-							pregText = "You rub your hands over your gloriously full, ripe belly, lost in the sensations of motherhood.  ";
-							if (player.cor <= 33) pregText += "Despite your initial reluctance, you've come to find a very real pleasure in being pregnant.  You hope Ember will want to have more children in the future.";
-							else if (player.cor <= 66) pregText += "You smile, knowing you'll meet your child in the next few days.  A part of you is almost sad that you'll be empty, but you can always entice Ember into getting you pregnant again.";
-							else pregText += "You find yourself daydreaming about being the revered mother-queen of a huge army of dragons, visions of magnificent, sexy, scaly beasts sweeping across the land conquering it in your honor, offering up tribute to the ever-ripe womb that brought them forth; rolling around, as the musk of their fucking fills the air.  The image is so delicious you don't want to wake up from your fantasy.";
-						}
-					}
-					if (pregText != "") {
-						outputText("\n" + pregText + "\n");
-						displayedUpdate = true;
-					}
-				}
-			}
-
-			// Describe birth //
-
-			//Give birth to either a faerie or a phouka
-			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) {
-				getGame().bog.phoukaScene.phoukaPregBirth();
-				displayedUpdate = true;
-				player.knockUpForce(); //Clear Pregnancy
-			}
-			//Give birf to dragons
-			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_EMBER) {
-				getGame().emberScene.giveBirthToEmberKids();
-				displayedUpdate = true;
-				player.knockUpForce(); //Clear Pregnancy
-			}
-			
 			// Section of nice butt pregnancies //
 			
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP || player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP_FERTILE)
@@ -206,7 +84,11 @@ package classes.Scenes
 				displayedUpdate = bunnyButtPregnancy();
 
 			// Section of nice vagina pregnancies //
-	
+			
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE)
+				displayedUpdate = faeriePregnancy();
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_EMBER)
+				displayedUpdate = emberPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_URTA)
 				displayedUpdate = urtaPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_SAND_WITCH)
@@ -468,6 +350,114 @@ package classes.Scenes
 
 /****** Vagina Pregnancies ****************************************************/
 
+		/*	Scene describing faerie pregnancy update.
+		*/
+		private function faeriePregnancy ():Boolean {
+		    
+		    // Incubation //
+			if (player.pregnancyIncubation != 1) {
+				return getGame().bog.phoukaScene.phoukaPregUpdate();
+
+		    // Birth scenes //
+		    } else if (player.pregnancyIncubation == 1) {
+				getGame().bog.phoukaScene.phoukaPregBirth();
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    }
+		    return false;
+		}
+
+		/*	Scene describing Ember pregnancy update.
+		*/
+		private function emberPregnancy ():Boolean {
+		    
+		    // Incubation //
+		    if (player.pregnancyIncubation != 1) {
+		        if (flags[kFLAGS.EMBER_OVIPOSITION] > 0) {
+		            //Pregnancy notes: Egg Laying
+		            if      (player.pregnancyIncubation == 330)  outputText("Your belly has swollen, becoming larger - proof that Ember's seed did its work.  The dragon seems to be constantly checking you out, as if looking for the signs of weight gain.");
+		            else if (player.pregnancyIncubation == 250)  outputText("Your belly grows ever bigger, making your pregnancy noticeable; your belly also feels somewhat solid.  Ember casts pleased glances in your direction, whenever " + getGame().emberScene.emberMF("he","she") + " thinks you're not looking.");
+		            else if (player.pregnancyIncubation == 170) {
+		                outputText("You've grown a lot.  Anyone is able to tell that you're pregnant with a single glance; and by the shape, you have no doubt that there's an egg in your womb; a big one.");
+		                if      (player.cor < 40)  outputText("  Part of you didn't really want to get knocked up, but it's for a good cause.  Besides, Ember looks very cute, trying to hide " + getGame().emberScene.emberMF("his","her") + " happiness whenever " + getGame().emberScene.emberMF("he","she") + " glances at your belly...");
+		                else if (player.cor < 75)  outputText("  Considering the size of the egg, you hope it doesn't hurt when your child comes out.  You hope Ember will help you through this.");
+		                else                       outputText("  You think dreamily about the wild sex that helped conceive this little one.  Ember is such a great fuck.  Really, you're doing this world a favor by bringing more of Ember's offspring into it.");
+		            } else if (player.pregnancyIncubation == 120) outputText("Though you're sure that this is the time when a regular baby would start moving about, your own belly simply sits there, heavy and full.  You'd be worried if you didn't remember that Ember hatched from an egg.  Sometimes; a delightful, refreshing, chill spreads from your belly throughout your body; making you feel invigorated, ready for anything.");
+		            else if (player.pregnancyIncubation == 90) outputText("You've somehow grown even larger, the egg's outline appearing through your tummy.  By now, you're quite bothered with how difficult it's getting to move.  Ember constantly shadows you around the camp, making sure you're all right, although if you ever question " + getGame().emberScene.emberMF("him","her") + " " + getGame().emberScene.emberMF("he","she") + "'ll just say you're both going in the same direction.");
+		            else if (player.pregnancyIncubation == 60) {
+		                outputText("The egg inside your belly seems to grow heavier each day that passes.  ");
+		                if      (player.cor < 40)  outputText("It's quite a burden that you're carrying.  Still, it's a worthwhile sacrifice to make in order to restore Ember's race.");
+		                else if (player.cor < 75)  outputText("You wonder how much longer you have to wait.  This egg is quite burdensome.  Part of you is scared of its size, the other part is delighted to have produced such a big egg.");
+		                else                       outputText("You're eager to give birth, just so you can get impregnated again.  Particularly because that means more wild sex with Ember.");
+		            } else if (player.pregnancyIncubation == 30) {
+		                outputText("You rub your hands over your ripe belly, lost in the sensations of motherhood.  ");
+		                dynStats("sen", 5, "lus", (5+player.sens/20));
+		                if      (player.cor < 40)  outputText("Despite your initial reluctance, you've come to find a very real pleasure in being pregnant.  You hope Ember will want to have more children in the future...");
+		                else if (player.cor < 75)  outputText("You smile, knowing you'll have your egg in your hands the next few days.  A part of you is almost sad that you'll be empty, but you can always entice Ember into getting you pregnant again.");
+		                else {
+		                    outputText("You find yourself daydreaming about giving birth, your belly swollen huge - bigger than it currently is - and the orgasmic sensation of many large, round eggs sliding out of your [vagina].\n\nYou start to absently rub yourself as you envision eggs by the dozens coming from within you; you shall be mothergod for a whole new race of dragons...");
+		                    dynStats("lus", 35);
+		                }
+		                outputText("\n\nEmber interrupts your musings with a question.  \"<i>How are you feeling? Do you need me to get you anything?</i>\"");
+		                outputText("\n\nThe dragon's question is uncharacteristic of " + getGame().emberScene.emberMF("him","her") + ".  Still, you do appreciate the attention you're getting, and so you ask Ember to fetch you some food and water.  The speed with which Ember dashes off to fulfill your requests is truly impressive!  In short moments Ember is back with a piece of roasted meat and a skin of water.");
+		                outputText("\n\nAs you eat and drink your fill, Ember uses one wing to shield you off the sun.  You're starting to really enjoy all the attention, but seeing Ember give up on " + getGame().emberScene.emberMF("his","her") + " usual antics is still very weird.");
+		            }
+		        } else {
+		            //Pregnancy Notes: Live Birth
+		            if      (player.pregnancyIncubation == 330)  outputText("Your belly is a bit swollen - either you're eating too much or Ember's seed really did the job.");
+		            else if (player.pregnancyIncubation == 250)  outputText("Your belly grows ever bigger, making your pregnancy noticeable.  Ember shoots you quick looks, trying to hide " + getGame().emberScene.emberMF("his","her") + " smirk of success every time " + getGame().emberScene.emberMF("he","she") + " does.  You smirk right back at " + getGame().emberScene.emberMF("him","her") + ", and occasionally make a subtle show of your gravid form, just to see " + getGame().emberScene.emberMF("him","her") + " get turned on by the sight.");
+		            else if (player.pregnancyIncubation == 170) {
+		                outputText("You've grown a lot, anyone is able to tell that you're pregnant with a single glance.  ");
+		                if      (player.cor < 40)  outputText("Part of you didn't really want to get knocked up.  However, Ember's look of satisfaction whenever " + getGame().emberScene.emberMF("he","she") + " gazes your way is rewarding despite that.  Plus, it is for a good cause.  You smirk in satisfaction - with a couple of dragons at your beck and call, things will look very different indeed.");
+		                else if (player.cor < 75)  outputText("You grin, savoring the strange, erotic sensations from the life inside your burgeoning womb and the promise of motherhood.  Mmm, if it feels this good, maybe you should \"<i>encourage</i>\" Ember to get you pregnant again.");
+		                else                       outputText("You think dreamily about the wild sex that helped conceive this little one.  Ember is such a great fuck. Really, you're doing this world a favor by bringing more of Ember's offspring into it.");
+		            } else if (player.pregnancyIncubation == 120) {
+		                outputText("Every once in awhile, you feel a kick from inside your bulging belly.  Right now, it's really kicking up a storm, and so you decide to sit down and take it easy.  You keep rubbing your belly, hoping to calm your child down and make it stop battering your innards.");
+		                outputText("\n\nEmber approaches you, and casually asks, \"<i>So... is it kicking already?</i>\"");
+		                outputText("\n\nYou admit that it is, stroking your stomach.  Casually, you ask if Ember would maybe like to touch your belly, wondering if " + getGame().emberScene.emberMF("he","she") + " will be able to bring " + getGame().emberScene.emberMF("him","her") + "self to do it.");
+		                outputText("\n\n\"<i>Yes! Of course!</i>\" Ember replies");
+		                if (flags[kFLAGS.EMBER_ROUNDFACE] == 1)
+		                    outputText(", blush at " + getGame().emberScene.emberMF("his","her") + " own over-enthusiastic reply");
+		                outputText(".  You just smile encouragingly at the dragon " + getGame().emberScene.emberMF("-boy","herm") + " and lean back slightly, sticking out your gravid midriff in open encouragement to its " + getGame().emberScene.emberMF("father","mother") + " to try and connect with " + getGame().emberScene.emberMF("his","her") + " unborn child.");
+		                outputText("\n\nEmber sets a clawed hand on your belly, careful not to hurt you with " + getGame().emberScene.emberMF("his","her") + " claws.  Slowly " + getGame().emberScene.emberMF("he","she") + " rubs your belly, until " + getGame().emberScene.emberMF("he","she") + " feels a small kick and smiles in glee.  You smile at the look of joy on " + getGame().emberScene.emberMF("his","her") + " face, even as " + getGame().emberScene.emberMF("he","she") + " realizes what " + getGame().emberScene.emberMF("he","she") + "'s doing and embarrassedly mumbles an excuse and walks away.");
+		            } else if (player.pregnancyIncubation == 90) {
+		                outputText("You stop for a moment and sit down on a nearby rock.  Your belly feels much heavier than usual, and just walking about has become a chore.  Ember takes notice of your tiredness and quickly closes the distance between you two.  \"<i>[name], are you feeling all right?</i>\"");
+		                outputText("\n\nYou tell " + getGame().emberScene.emberMF("him","her") + " that you are, just worn out.  It's not easy carrying " + getGame().emberScene.emberMF("his","her") + " child, after all.");
+		                outputText("\n\nEmber sighs in relief.  \"<i>Good, is there anything I can do for you?</i>\"");
+		                outputText("\n\nYou tap your lips thoughtfully, mulling it over.  ");
+		                if      (player.cor <= 33)  outputText("There really isn't anything you feel like you need right now... maybe some water?  Or maybe you could have Ember help you to your " + camp.homeDesc() + " for a quick rest?");
+		                else if (player.cor <= 66)  outputText("You wonder if you should take advantage of Ember - you've certainly been feeling a little on edge lately, and besides " + getGame().emberScene.emberMF("he","she") + " did say 'anything'.  You ponder this for a while longer.");
+		                else                        outputText("You  already thought up a perfect way for this sexy dragon to help you, but it's best not to rush.  It's not everyday that Ember says " + getGame().emberScene.emberMF("he","she") + "'ll do 'anything' for you.  A quick jab on your belly from your unborn child makes you recoil a bit though.  Maybe it would be better to wait until this little one is out of you, just so you can have another.  You ponder what to ask of " + getGame().emberScene.emberMF("him","her") + " a while longer.");
+		                outputText("\n\nFinally, you decide there really isn't anything Ember can help you with, and tell " + getGame().emberScene.emberMF("him","her") + " so.  Though " + getGame().emberScene.emberMF("he","she") + " had better be ready to do " + getGame().emberScene.emberMF("his","her") + " part when the baby is born and needs caring.");
+		                if (flags[kFLAGS.EMBER_GENDER] == 1 && flags[kFLAGS.EMBER_MILK] > 0)
+		                    outputText("  You can't resist smirking and patting one of your shemale dragon's bountiful breasts, noting that maybe you should let him do all the breast-feeding.");
+		                
+		                outputText("\n\n");
+		                if (flags[kFLAGS.EMBER_ROUNDFACE] > 0)
+		                    outputText("Ember blushes.  ");
+		                outputText("\"<i>O-of course I'll do my part.  If you don't need me for anything, I'll be going then.</i>\" " + getGame().emberScene.emberMF("He","She") + " turns on " + getGame().emberScene.emberMF("his","her") + " heels and walks away.  You watch " + getGame().emberScene.emberMF("him","her") + " go, pat yourself on the stomach, then painstakingly hoist yourself back upright and go on your way.");
+		            } else if (player.pregnancyIncubation == 60) {
+		                outputText("Besides being so huge you'd probably be asked if you were having twins back in Ingnam, your belly has grown stupidly heavy, ");
+		                if      (player.cor <= 33)  outputText("making you wonder more than ever if it really was a good idea to get pregnant with a dragon.  True, Ember looks ready to burst with pride at your fruitful bounty, but you feel ready to just plain burst yourself.");
+		                else if (player.cor <= 66)  outputText("and you wonder how much longer you have to wait.  Despite being a bit bothersome, you're pleased your child is growing into a healthy, hopefully sexy, dragon; like its father.");
+		                else                        outputText("and you're eager to give birth, so you can get impregnated again.  Particularly because that means more rowdy fucking from Ember.");
+		            } else if (player.pregnancyIncubation == 30) {
+		                outputText("You rub your hands over your gloriously full, ripe belly, lost in the sensations of motherhood.  ");
+		                if      (player.cor <= 33)  outputText("Despite your initial reluctance, you've come to find a very real pleasure in being pregnant.  You hope Ember will want to have more children in the future.");
+		                else if (player.cor <= 66)  outputText("You smile, knowing you'll meet your child in the next few days.  A part of you is almost sad that you'll be empty, but you can always entice Ember into getting you pregnant again.");
+		                else                        outputText("You find yourself daydreaming about being the revered mother-queen of a huge army of dragons, visions of magnificent, sexy, scaly beasts sweeping across the land conquering it in your honor, offering up tribute to the ever-ripe womb that brought them forth; rolling around, as the musk of their fucking fills the air.  The image is so delicious you don't want to wake up from your fantasy.");
+		            }
+		        }
+		        
+		        // Birth scenes //
+		    } else if (player.pregnancyIncubation == 1) {
+		        getGame().emberScene.giveBirthToEmberKids();
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    }
+		    return false;
+		}
+
 		/*	Scene describing Urta pregnancy update.
 		*/
 		private function urtaPregnancy ():Boolean {
@@ -484,7 +474,7 @@ package classes.Scenes
 		    }
 		    return false;
 		}
-		
+
 		/*	Scene describing a sandwitch pregnancy update.
 		*/
 		private function sandwitchPregnancy ():Boolean {
