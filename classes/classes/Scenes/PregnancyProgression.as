@@ -183,77 +183,6 @@ package classes.Scenes
 						displayedUpdate = true;
 					}
 				}
-				//Minotaur Pregnancy!
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) {			
-					if (player.pregnancyIncubation == 336) {
-						outputText("\n<b>You realize your belly has gotten slightly larger.  Maybe you need to cut back on the strange food.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 280) {
-						outputText("\n<b>Your belly is getting more noticeably distended and squirming around.  You are probably pregnant.</b>\n", false);
-						displayedUpdate = true;	
-					}
-					if (player.pregnancyIncubation == 216) {
-						outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  It's feeling heavier by the moment.  ", false);
-						if      (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-						else if (player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
-						else                      outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
-						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
-						outputText("\n", false);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 180) {
-						outputText("\n<b>The sudden impact of a kick from inside your distended womb startles you.  Moments later it happens again, making you gasp and stagger.  Whatever is growing inside you is strong.</b>\n", false);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 120) {
-						outputText("\n<b>Your ever-growing belly makes your pregnancy obvious for those around you.  It's already as big as the belly of any pregnant woman back home.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 72) {
-						outputText("\n<b>Your belly is painfully distended and overswollen with the offspring of some huge beast, ", false);
-						if      (player.cor < 40) outputText("making it difficult to function.</b>", false);
-						else if (player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						else                      outputText("and you're eager to give birth, so you can get impregnated again by monstrous cocks unloading their corrupted seed directly into your eager womb.</b>", false);
-						outputText("\n", false);
-						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 48) {
-						displayedUpdate = true;
-						outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  Whatever beast is inside your overstretched womb seems to appreciate the attention, and stops its incessant squirming.  ", false);
-						if      (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
-						else if (player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
-						else                      outputText("You find yourself daydreaming about birthing some huge monstrous beast, and raising it to fuck your wet pussy over and over.</b>\n", false);
-					}
-					if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
-						displayedUpdate = true;
-						//Increase lactation!
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
-							outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.  You wonder just what kind of creature they're getting ready to feed.\n", false);
-							player.boostLactation(.5);
-						}
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
-							outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n", false);
-							player.boostLactation(.5);
-						}				
-						//Lactate if large && not lactating
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
-							outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n", false);
-							player.boostLactation(1);
-						}
-						//Enlarge if too small for lactation
-						if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-						}
-						//Enlarge if really small!
-						if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-						}
-					}
-				}
 				//Bunny tf preggoz
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_BUNNY) {
 					if (player.pregnancyIncubation == 800) {
@@ -1406,49 +1335,11 @@ package classes.Scenes
 				outputText("\n", false);
 				displayedUpdate = true;
 			}
-			//Give birth if it's time (to a minotaur!)
-			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR) {
-				if (player.vaginas.length == 0) {
-					outputText("\nYou feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.\n", false);
-					player.createVagina();
-					player.genderCheck();
-				}
-				player.boostLactation(.01);		
-				//Main Text here
-				outputText("\nYou wake up suddenly to strong pains and pressures in your gut. As your eyes shoot wide open, you look down to see your belly absurdly full and distended. You can feel movement underneath the skin, and watch as it bulges and shifts as another living being moves independently inside you. Instinctively, you spread your legs as you feel the creature press outward, parting your cervix.\n\nYou try to push with your vaginal muscles, but you feel the creature moving more of its own volition. Your lips part as a pair of black-furred hands grip your vulva and begin to spread them and pull. You cry out in agony as your hips are widened forcefully by the passing mass of the being exiting your womb. A bovine face appears, mercifully lacking in horns. Shoulders follow, muscles already rippling on the newborn's form. A thick barrel chest follows, narrow, masculine hips and powerful bovine legs and hooves.\n\nFinally the worst is over as the toddler-sized minotaur gets to his feet, apparently already able to stand and walk.  He clops around your legs and over to your upper body, and takes hold of one of your milk-swollen breasts. He wraps his bestial lips around your nipple and begins to suckle, relieving the pressure on the milk-swollen jug.\n\n", false);
-				outputText("He suckles and suckles and suckles, leaving you to wonder just how much milk you were actually holding, but even as you wonder this, your eyes grow wide as the newborn minotaur begins to grow. He gains inches at a time, his horns starting to grow from his skull, his muscles rippling and thickening, his cock lengthening, his balls swelling. He reaches four feet tall, but keeps growing, soon then five feet tall, starting to resemble more and more the monster who sired him. Finally, he pulls off your breasts, and finishes his milk-inspired growth spurt at six feet tall, looking practically full grown. His one gesture of gratitude for being brought into the world is a slobbery lick at your cheek, then he turns and runs off towards the mountain, leaving you to recover from the ordeal.  You swiftly pass out.\n\n", false);
-				player.knockUpForce(); //Clear Pregnancy
-				if (player.averageLactation() > 0 && player.averageLactation() < 5) {
-					outputText("Your breasts won't seem to stop dribbling milk, lactating more heavily than before.", false);
-					player.boostLactation(1);
-				}
-				player.cuntChange(120, true,true,false);
-				if (player.vaginas[0].vaginalWetness == VAGINA_WETNESS_DRY) player.vaginas[0].vaginalWetness++;
-				if      (player.gender == 1)  player.gender = 3;
-				else if (player.gender == 0)  player.gender = 2;
-				player.orgasm();
-				dynStats("str", -1,"tou", -2, "spe", 3, "lib", 1, "sen", .5);
-				displayedUpdate = true;
-				//Hip and butt increase
-				if (player.buttRating < 12 && rand(2) == 0) {
-					player.buttRating++;
-					outputText("\n\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.", false);
-				}
-				else if (player.hipRating < 15) {
-					player.hipRating++;
-					outputText("\n\nAfter the birth your " + player.armorName + " fits a bit more snugly about your " + player.hipDescript() + ".", false);
-				}
-				player.knockUpForce(); //Clear Pregnancy
-				outputText("\n", false);
-				//326 Number of sons grown
-				//327 Number of sons pending
-				//328 growup countdown
-				flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00327]++;
-				if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00328] == 0) flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00328] = 150;		
-			}
 
 			// Section of nice pregnancies //
 
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_MINOTAUR)
+				displayedUpdate = minotaurPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_AMILY)
 				displayedUpdate = amilyPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_MOUSE || player.pregnancyType == PregnancyStore.PREGNANCY_JOJO)
@@ -1468,6 +1359,117 @@ package classes.Scenes
 
 			return displayedUpdate;
 		}
+
+		/*	Scene describing minotaur pregnancy update.
+		*/
+		private function minotaurPregnancy ():Boolean {
+		    // Birth scenes //
+		    if (player.pregnancyIncubation == 1) {
+		        if (player.vaginas.length == 0) {
+		            outputText("\nYou feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.\n");
+		            player.createVagina();
+		            player.genderCheck();
+		        }
+		        player.boostLactation(.01);
+		        //Main Text here
+		        outputText("\nYou wake up suddenly to strong pains and pressures in your gut. As your eyes shoot wide open, you look down to see your belly absurdly full and distended. You can feel movement underneath the skin, and watch as it bulges and shifts as another living being moves independently inside you. Instinctively, you spread your legs as you feel the creature press outward, parting your cervix.\n\nYou try to push with your vaginal muscles, but you feel the creature moving more of its own volition. Your lips part as a pair of black-furred hands grip your vulva and begin to spread them and pull. You cry out in agony as your hips are widened forcefully by the passing mass of the being exiting your womb. A bovine face appears, mercifully lacking in horns. Shoulders follow, muscles already rippling on the newborn's form. A thick barrel chest follows, narrow, masculine hips and powerful bovine legs and hooves.\n\nFinally the worst is over as the toddler-sized minotaur gets to his feet, apparently already able to stand and walk.  He clops around your legs and over to your upper body, and takes hold of one of your milk-swollen breasts. He wraps his bestial lips around your nipple and begins to suckle, relieving the pressure on the milk-swollen jug.\n\n");
+		        outputText("He suckles and suckles and suckles, leaving you to wonder just how much milk you were actually holding, but even as you wonder this, your eyes grow wide as the newborn minotaur begins to grow. He gains inches at a time, his horns starting to grow from his skull, his muscles rippling and thickening, his cock lengthening, his balls swelling. He reaches four feet tall, but keeps growing, soon then five feet tall, starting to resemble more and more the monster who sired him. Finally, he pulls off your breasts, and finishes his milk-inspired growth spurt at six feet tall, looking practically full grown. His one gesture of gratitude for being brought into the world is a slobbery lick at your cheek, then he turns and runs off towards the mountain, leaving you to recover from the ordeal.  You swiftly pass out.\n\n");
+		        player.knockUpForce(); //Clear Pregnancy
+		        if (player.averageLactation() > 0 && player.averageLactation() < 5) {
+		            outputText("Your breasts won't seem to stop dribbling milk, lactating more heavily than before.");
+		            player.boostLactation(1);
+		        }
+		        player.cuntChange(120, true,true,false);
+		        if (player.vaginas[0].vaginalWetness == VAGINA_WETNESS_DRY)
+		            player.vaginas[0].vaginalWetness++;
+		        if      (player.gender == 1)  player.gender = 3;
+		        else if (player.gender == 0)  player.gender = 2;
+		        player.orgasm();
+		        dynStats("str", -1,"tou", -2, "spe", 3, "lib", 1, "sen", 0.5);
+		        //Hip and butt increase
+		        if (player.buttRating < 12 && rand(2) == 0) {
+		            player.buttRating++;
+		            outputText("\n\nYou notice your [butt] feeling larger and plumper after the ordeal.");
+		        } else if (player.hipRating < 15) {
+		            player.hipRating++;
+		            outputText("\n\nAfter the birth your [armor] fits a bit more snugly about your [hips].");
+		        }
+		        player.knockUpForce(); //Clear Pregnancy
+		        outputText("\n");
+		        //326 Number of sons grown
+		        //327 Number of sons pending
+		        //328 growup countdown
+		        flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00327]++;
+		        if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00328] == 0)
+		            flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00328] = 150;
+		        
+		        return true;
+		        
+		    // Incubation //
+		    } else if (player.pregnancyIncubation == 336) {
+		        outputText("\n<b>You realize your belly has gotten slightly larger.  Maybe you need to cut back on the strange food.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 280) {
+		        outputText("\n<b>Your belly is getting more noticeably distended and squirming around.  You are probably pregnant.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 216) {
+		        outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  It's feeling heavier by the moment.  ");
+		        if      (player.cor < 40)  outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>");
+		        else if (player.cor < 75)  outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>");
+		        else                       outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>");
+		        dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
+		        outputText("\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 180) {
+		        outputText("\n<b>The sudden impact of a kick from inside your distended womb startles you.  Moments later it happens again, making you gasp and stagger.  Whatever is growing inside you is strong.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 120) {
+		        outputText("\n<b>Your ever-growing belly makes your pregnancy obvious for those around you.  It's already as big as the belly of any pregnant woman back home.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 72) {
+		        outputText("\n<b>Your belly is painfully distended and overswollen with the offspring of some huge beast, ");
+		        if      (player.cor < 40)  outputText("making it difficult to function.</b>");
+		        else if (player.cor < 75)  outputText("and you wonder how much longer you have to wait.</b>");
+		        else                       outputText("and you're eager to give birth, so you can get impregnated again by monstrous cocks unloading their corrupted seed directly into your eager womb.</b>");
+		        outputText("\n");
+		        dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
+		        return true;
+		    } else if (player.pregnancyIncubation == 48) {
+		        outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  Whatever beast is inside your overstretched womb seems to appreciate the attention, and stops its incessant squirming.  ");
+		        if      (player.cor < 40)  outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n");
+		        else if (player.cor < 75)  outputText("You estimate you'll give birth in the next few days.</b>\n");
+		        else                       outputText("You find yourself daydreaming about birthing some huge monstrous beast, and raising it to fuck your wet pussy over and over.</b>\n");
+		        return true;
+		    } else if (inCollection(player.pregnancyIncubation, 32, 64, 85, 150)) {
+		        //Increase lactation!
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
+		            outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.  You wonder just what kind of creature they're getting ready to feed.\n");
+		            player.boostLactation(.5);
+		        }
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
+		            outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n");
+		            player.boostLactation(.5);
+		        }
+		        //Lactate if large && not lactating
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
+		            outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n");
+		            player.boostLactation(1);
+		        }
+		        //Enlarge if too small for lactation
+		        if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
+		            outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n");
+		            player.growTits(1, 1, false, 3);
+		        }
+		        //Enlarge if really small!
+		        if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
+		            outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n");
+		            player.growTits(1, 1, false, 3);
+		        }
+		        return true;
+		    }
+		    return false;
+		}
+
 
 		/*	Scene describing Amily pregnancy update.
 		*/
