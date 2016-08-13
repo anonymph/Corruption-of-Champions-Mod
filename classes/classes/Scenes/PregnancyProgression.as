@@ -175,31 +175,6 @@ package classes.Scenes
 				}
 			}
 
-			// Describe incubation for butt //
-
-			if (player.buttPregnancyIncubation > 1) {
-				//Sand Traps in butt pregnancy
-				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP || player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP_FERTILE) {
-					if (player.buttPregnancyIncubation == 36) {
-						//(Eggs take 2-3 days to lay)
-						outputText("<b>\nYour bowels make a strange gurgling noise and shift uneasily.  You feel ");
-						if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP_FERTILE) outputText(" bloated and full; the sensation isn't entirely unpleasant.");
-						else {
-							outputText("increasingly empty, as though some obstructions inside you were being broken down.");
-							player.buttKnockUpForce(); //Clear Butt Pregnancy
-						}
-						outputText("</b>\n");
-						displayedUpdate = true;
-					}
-					if (player.buttPregnancyIncubation == 20) {
-						//end eggpreg here if unfertilized
-						outputText("\nSomething oily drips from your sphincter, staining the ground.  You suppose you should feel worried about this, but the overriding emotion which simmers in your gut is one of sensual, yielding calm.  The pressure in your bowels which has been building over the last few days feels right somehow, and the fact that your back passage is dribbling lubricant makes you incredibly, perversely hot.  As you stand there and savor the wet, soothing sensation a fantasy pushes itself into your mind, one of being on your hands and knees and letting any number of beings use your ass, of being bred over and over by beautiful, irrepressible insect creatures.  With some effort you suppress these alien emotions and carry on, trying to ignore the oil which occasionally beads out of your " + player.assholeDescript() + " and stains your [armor].\n");
-						dynStats("int", -.5, "lus", 500);
-						displayedUpdate = true;
-					}
-				}
-			}
-		
 			// Describe birth //
 
 			//Give birth to either a faerie or a phouka
@@ -214,20 +189,11 @@ package classes.Scenes
 				displayedUpdate = true;
 				player.knockUpForce(); //Clear Pregnancy
 			}
-			//GIVE BIRF TO TRAPS
-			if (player.buttPregnancyIncubation == 1 && player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP_FERTILE) {
-				getGame().desert.sandTrapScene.birfSandTarps();
-				player.buttKnockUpForce(); //Clear Butt Pregnancy
-				if (player.buttRating < 17 && (player.buttRating < 13 || rand(2) == 0)) {
-					//Guaranteed increase up to level 10
-					player.buttRating++;
-					outputText("\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.\n");
-				}
-				displayedUpdate = true;
-			}	
 			
 			// Section of nice butt pregnancies //
-
+			
+			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP || player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP_FERTILE)
+				displayedUpdate = sandtrapButtPregnancy();
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_BEE_EGGS)
 				displayedUpdate = beeButtPregnancy();
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS)
@@ -333,6 +299,43 @@ package classes.Scenes
 
 /****** Butt Pregnancies ******************************************************/
 
+		/*	Scene describing sandtrap butt pregnancy update.
+		*/
+		private function sandtrapButtPregnancy ():Boolean {
+		    
+		    // Incubation //
+			if (player.buttPregnancyIncubation == 36) {
+				outputText("<b>\nYour bowels make a strange gurgling noise and shift uneasily.  You feel ");
+				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP_FERTILE) {
+					outputText(" bloated and full; the sensation isn't entirely unpleasant.");
+				} else {
+					outputText("increasingly empty, as though some obstructions inside you were being broken down.");
+					player.buttKnockUpForce(); //Clear Butt Pregnancy
+				}
+				outputText("</b>\n");
+				return true;
+			}
+			else if (player.buttPregnancyIncubation == 20) {
+				//end eggpreg here if unfertilized
+				outputText("\nSomething oily drips from your sphincter, staining the ground.  You suppose you should feel worried about this, but the overriding emotion which simmers in your gut is one of sensual, yielding calm.  The pressure in your bowels which has been building over the last few days feels right somehow, and the fact that your back passage is dribbling lubricant makes you incredibly, perversely hot.  As you stand there and savor the wet, soothing sensation a fantasy pushes itself into your mind, one of being on your hands and knees and letting any number of beings use your ass, of being bred over and over by beautiful, irrepressible insect creatures.  With some effort you suppress these alien emotions and carry on, trying to ignore the oil which occasionally beads out of your " + player.assholeDescript() + " and stains your [armor].\n");
+				dynStats("int", -0.5, "lus=", player.maxLust());
+				return true;
+
+		    // Birth scenes //
+		    } else if (player.buttPregnancyIncubation == 1) {
+				getGame().desert.sandTrapScene.birfSandTarps();
+				if (player.buttRating < 17 && (player.buttRating < 13 || rand(2) == 0)) {
+					//Guaranteed increase up to level 10
+					player.buttRating++;
+					outputText("\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.\n");
+				}
+		        player.buttKnockUpForce(); //Clear Butt Pregnancy
+		        return true;
+		    }
+		    
+		    return false;
+		}
+		
 		/*	Scene describing Bee butt pregnancy update.
 		*/
 		private function beeButtPregnancy ():Boolean {
@@ -348,7 +351,7 @@ package classes.Scenes
 		        if   (player.cocks.length == 1)  outputText("[cock], each inhalation making it bigger, harder, and firmer.  You suck in huge lungfuls of air until your [cock] is twitching and dripping.");
 		        else                             outputText("groin.  Your [cocks] fill and grow with every lungful of the stuff you breathe in.  You suck in great lungfuls of the tainted air, desperate for more, your cocks twitching and dripping with need.");
 		        outputText("  You smile knowing you couldn't stop from masturbating if you wanted to.\n");
-		        dynStats("int", -.5, "lus", 500);
+		        dynStats("int", -0.5, "lus=", player.maxLust());
 		        return true;
 		        
 		        // Birth scenes //
