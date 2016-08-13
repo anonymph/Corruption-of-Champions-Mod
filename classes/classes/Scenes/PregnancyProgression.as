@@ -1233,51 +1233,6 @@ package classes.Scenes
 						}
 					}
 				}
-				//Behemoth Pregnancy
-				else if (player.pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH) {
-					if (player.pregnancyIncubation == 1152) {
-						outputText("<b>You realize your belly has gotten slightly larger.  Maybe you need to cut back on the strange food.  However, you have a feel that it's going to be a very long pregnancy.</b>");
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 864) {
-						outputText("<b>Your distended belly has grown noticably, but you still have a long way to go.</b>");
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 576) {
-						outputText("<b>Your belly has yet to betray the sheer size of your expected offspring, but it's certainly making an attempt.  At this rate, you'll need to visit the father more just to keep your strength up.</b>");
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 288) {
-						outputText("<b>Your belly can't grow much larger than it already is; you hope you'll give birth soon.</b>");
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 1024 || player.pregnancyIncubation == 768 || player.pregnancyIncubation == 512 || player.pregnancyIncubation == 256) {
-						//Increase lactation!
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
-							outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.  You hope it'll be enough for the coming birth.\n", false);
-							player.boostLactation(.5);
-						}
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
-							outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n", false);
-							player.boostLactation(.5);
-						}				
-						//Lactate if large && not lactating
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
-							outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n", false);
-							player.boostLactation(1);
-						}
-						//Enlarge if too small for lactation
-						if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-						}
-						//Enlarge if really small!
-						if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-						}
-					}
-				}
 			}
 
 			// Describe incubation for butt //
@@ -2029,36 +1984,87 @@ package classes.Scenes
 				player.knockUpForce(); //Clear Pregnancy
 				outputText("\n", false);
 			}
-			//Give birth to behemoth.
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH && player.pregnancyIncubation == 1) {
-				if (prison.prisonLetter.deliverChildWhileInPrison()) return displayedUpdate;
-				if (player.vaginas.length == 0) {
-					outputText("\nYou feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.\n", false);
-					player.createVagina();
-					player.genderCheck();
-				}
-				kGAMECLASS.volcanicCrag.behemothScene.giveBirthToBehemoth();
-				if (player.hipRating < 10) {
-					player.hipRating++;
-					outputText("\n\nAfter the birth your " + player.armorName + " fits a bit more snugly about your " + player.hipDescript() + ".", false);
-				}
-				player.knockUpForce(); //Clear Pregnancy
-				outputText("\n", false);
-			}
 
-			// Egg Specials, because Eggs a shit //
-
+			// Section of nice pregnancies //
+			
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_BEHEMOTH)
+				displayedUpdate = behemothPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS)
-				displayedUpdate = eggPregancy();
+				displayedUpdate = eggPregnancy();
 
 			// Done! //
 
 			return displayedUpdate;
 		}
 
+		/*	Scene describing Behemoth pregnancy update.
+		*/
+		private function behemothPregnancy ():Boolean {
+		    // Give birth
+		    if (player.pregnancyIncubation == 1) {
+		        if (prison.prisonLetter.deliverChildWhileInPrison())
+		            return false;
+		        if (player.vaginas.length == 0) {
+		            outputText("\nYou feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.\n");
+		            player.createVagina();
+		            player.genderCheck();
+		        }
+		        kGAMECLASS.volcanicCrag.behemothScene.giveBirthToBehemoth();
+		        if (player.hipRating < 10) {
+		            player.hipRating++;
+		            outputText("\n\nAfter the birth your [armor] fits a bit more snugly about your [hips].");
+		        }
+		        player.knockUpForce(); //Clear Pregnancy
+		        outputText("\n");
+		        return true;
+		    }
+		    
+		    // Incubation
+		    else if (player.pregnancyIncubation == 1152) {
+		        outputText("<b>You realize your belly has gotten slightly larger.  Maybe you need to cut back on the strange food.  However, you have a feel that it's going to be a very long pregnancy.</b>");
+				return true;
+		    } else if (player.pregnancyIncubation == 864) {
+		        outputText("<b>Your distended belly has grown noticably, but you still have a long way to go.</b>");
+				return true;
+		    } else if (player.pregnancyIncubation == 576) {
+		        outputText("<b>Your belly has yet to betray the sheer size of your expected offspring, but it's certainly making an attempt.  At this rate, you'll need to visit the father more just to keep your strength up.</b>");
+				return true;
+		    } else if (player.pregnancyIncubation == 288) {
+		        outputText("<b>Your belly can't grow much larger than it already is; you hope you'll give birth soon.</b>");
+				return true;
+		    } else if (inCollection(player.pregnancyIncubation, 1024, 768, 512, 256)) {
+		        //Increase lactation!
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
+		            outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.  You hope it'll be enough for the coming birth.\n");
+		            player.boostLactation(.5);
+		        }
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
+		            outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n");
+		            player.boostLactation(.5);
+		        }
+		        //Lactate if large && not lactating
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
+		            outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n");
+		            player.boostLactation(1);
+		        }
+		        //Enlarge if too small for lactation
+		        if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
+		            outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n");
+		            player.growTits(1, 1, false, 3);
+		        }
+		        //Enlarge if really small!
+		        if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
+		            outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n");
+		            player.growTits(1, 1, false, 3);
+		        }
+				return true;
+		    }
+		    return false;
+		}
+
 		/*	Scene describing egg pregnancy update.
 		*/
-		private function eggPregancy ():Boolean {
+		private function eggPregnancy ():Boolean {
 
 		    // No pregnancy if no vagina //
 		    if (player.vaginas.length == 0) {
