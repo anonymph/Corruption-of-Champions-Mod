@@ -80,45 +80,6 @@ package classes.Scenes
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_URTA) {
 					displayedUpdate = getGame().urtaPregs.urtaPregooUpdates();
 				}
-				//Shark Pregnancy!
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA) {
-					if (player.pregnancyIncubation == 275) {
-						if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1) outputText("\n<b>You wake up feeling kind of nauseous.  Izma insists that you stay in bed and won't hear a word otherwise, tending to you in your sickened state.  When you finally feel better, she helps you up.  \"<i>You know, " + player.short + "... I think you might be pregnant.</i>\" Izma says, sounding very pleased at the idea. You have to admit, you do seem to have gained some weight...</b>\n", false);
-						else outputText("\n<b>You wake up feeling bloated, and your belly is actually looking a little puffy. At the same time, though, you have the oddest cravings... you could really go for some fish.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 250) {
-						outputText("\n<b>Your belly is getting more noticeably distended and squirming around.  You are probably pregnant.</b>\n", false);
-						displayedUpdate = true;	
-					}
-					if (player.pregnancyIncubation == 216) {
-						if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1) outputText("\n<b>Your stomach is undeniably swollen now, and you feel thirsty all the time. Izma is always there to bring you water, even anticipating your thirst before you recognize it yourself. She smiles all the time now, and seems to be very pleased with herself.", false);
-						else outputText("\n<b>There is no question you're pregnant; your belly is getting bigger and for some reason, you feel thirsty ALL the time.", false);
-						outputText("</b>", false);
-						outputText("\n", false);
-						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 180) {
-						if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1) outputText("\n<b>There is no denying your pregnancy, and Izma is head-over-heels with your 'beautifully bountiful new body', as she puts it. She is forever finding an excuse to touch your bulging stomach, and does her best to coax you to rest against her. However, when you do sit against her, she invariably starts getting hard underneath you.</b>\n", false);
-						else outputText("\n<b>There is no denying your pregnancy.  Your belly bulges and occasionally squirms as your growing offspring shifts position.</b>\n", false);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 120) {
-						if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1) outputText("\n<b>Your stomach is swollen and gravid; you can feel the baby inside you kicking and wriggling. Izma is always on hand now, it seems, and she won't dream of you fetching your own food or picking up anything you've dropped. She's always dropping hints about how you should try going around naked for comfort's sake. While you are unwilling to do so, you find yourself dreaming about sinking into cool, clean water, and take many baths and swims. Whatever is inside you always seems to like it; they get so much more active when you're in the water.</b>\n", false);
-						else outputText("\n<b>Your stomach is swollen and gravid; you can feel the baby inside you kicking and wriggling.  You find yourself dreaming about sinking into cool, clean water, and take many baths and swims. Whatever is inside you always seems to like it; they get so much more active when you're in the water.</b>\n", false);
-						dynStats("spe", -2, "lib", 1, "sen", 1, "lus", 4);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 72) {
-						if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1) outputText("\n<b>You dream of the water, of a life under the waves, where it's cool and wet and you are free. You spend as much time in the river as possible now, the baby inside you kicking and squirming impatiently, eager to be free of the confines of your womb and have much greater depths to swim and play in. Izma makes no secret of her pleasure and informs you that you should deliver soon.</b>\n", false);
-						else outputText("\n<b>You dream of the water, of a life under the waves, where it's cool and wet and you are free. You spend as much time in the river as possible now, the baby inside you kicking and squirming impatiently, eager to be free of the confines of your womb and have much greater depths to swim and play in.  The time for delivery will probably come soon.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
-						displayedUpdate = pregnancyLactationUpdate() || displayedUpdate;
-					}
-				}
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_EMBER) {
 					//Pregnancy notes: Egg Laying 
 					if (flags[kFLAGS.EMBER_OVIPOSITION] > 0) {
@@ -337,12 +298,7 @@ package classes.Scenes
 				getGame().dungeons.desertcave.birthAWitch();
 				player.knockUpForce(); //Clear Pregnancy
 			}
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA && player.pregnancyIncubation == 1) {
-				displayedUpdate = true;
-				//Located in izma.as!
-				getGame().izmaScene.pcPopsOutASharkTot();
-				player.knockUpForce(); //Clear Pregnancy
-			}
+
 			
 			// Section of nice butt pregnancies //
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS)
@@ -355,7 +311,9 @@ package classes.Scenes
 				displayedUpdate = bunnyButtPregnancy();
 
 			// Section of nice vagina pregnancies //
-
+	
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA)
+				displayedUpdate = izmaPregnancy();
 			if (player.PregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS || player.PregnancyType == PregnancyStore.PREGNANCY_SPIDER)
 				displayedUpdate = driderAndSpiderPregnancy();
 			if (player.PregnancyType == PregnancyStore.PREGNANCY_COTTON)
@@ -522,6 +480,48 @@ package classes.Scenes
 
 
 /****** Vagina Pregnancies ****************************************************/
+
+		/*	Scene describing Izma pregnancy update.
+		*/
+		private function izmaPregnancy ():Boolean {
+		    
+		    // Incubation //
+		    if (player.pregnancyIncubation == 275) {
+		        if   (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1)  outputText("\n<b>You wake up feeling kind of nauseous.  Izma insists that you stay in bed and won't hear a word otherwise, tending to you in your sickened state.  When you finally feel better, she helps you up.  \"<i>You know, [name]... I think you might be pregnant.</i>\" Izma says, sounding very pleased at the idea. You have to admit, you do seem to have gained some weight...</b>\n");
+		        else                                                 outputText("\n<b>You wake up feeling bloated, and your belly is actually looking a little puffy. At the same time, though, you have the oddest cravings... you could really go for some fish.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 250) {
+		        outputText("\n<b>Your belly is getting more noticeably distended and squirming around.  You are probably pregnant.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 216) {
+		        if   (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1)  outputText("\n<b>Your stomach is undeniably swollen now, and you feel thirsty all the time. Izma is always there to bring you water, even anticipating your thirst before you recognize it yourself. She smiles all the time now, and seems to be very pleased with herself.</b>\n");
+		        else                                                 outputText("\n<b>There is no question you're pregnant; your belly is getting bigger and for some reason, you feel thirsty ALL the time.</b>\n");
+		        dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
+		        return true;
+		    } else if (player.pregnancyIncubation == 180) {
+		        if   (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1)  outputText("\n<b>There is no denying your pregnancy, and Izma is head-over-heels with your 'beautifully bountiful new body', as she puts it. She is forever finding an excuse to touch your bulging stomach, and does her best to coax you to rest against her. However, when you do sit against her, she invariably starts getting hard underneath you.</b>\n");
+		        else                                                 outputText("\n<b>There is no denying your pregnancy.  Your belly bulges and occasionally squirms as your growing offspring shifts position.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 120) {
+		        if   (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1)  outputText("\n<b>Your stomach is swollen and gravid; you can feel the baby inside you kicking and wriggling. Izma is always on hand now, it seems, and she won't dream of you fetching your own food or picking up anything you've dropped. She's always dropping hints about how you should try going around naked for comfort's sake. While you are unwilling to do so, you find yourself dreaming about sinking into cool, clean water, and take many baths and swims. Whatever is inside you always seems to like it; they get so much more active when you're in the water.</b>\n");
+		        else                                                 outputText("\n<b>Your stomach is swollen and gravid; you can feel the baby inside you kicking and wriggling.  You find yourself dreaming about sinking into cool, clean water, and take many baths and swims. Whatever is inside you always seems to like it; they get so much more active when you're in the water.</b>\n");
+		        dynStats("spe", -2, "lib", 1, "sen", 1, "lus", 4);
+		        return true;
+		    } else if (player.pregnancyIncubation == 72) {
+		        if   (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1)  outputText("\n<b>You dream of the water, of a life under the waves, where it's cool and wet and you are free. You spend as much time in the river as possible now, the baby inside you kicking and squirming impatiently, eager to be free of the confines of your womb and have much greater depths to swim and play in. Izma makes no secret of her pleasure and informs you that you should deliver soon.</b>\n");
+		        else                                                 outputText("\n<b>You dream of the water, of a life under the waves, where it's cool and wet and you are free. You spend as much time in the river as possible now, the baby inside you kicking and squirming impatiently, eager to be free of the confines of your womb and have much greater depths to swim and play in.  The time for delivery will probably come soon.</b>\n");
+		        return true;
+		    } else if (inCollection(player.pregnancyIncubation, 32, 64, 85, 150)) {
+		        return pregnancyLactationUpdate();
+		        
+		        // Birth scenes //
+		    } else if (player.pregnancyIncubation == 1) {
+		        getGame().izmaScene.pcPopsOutASharkTot();
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    }
+		    return false;
+		}
 
 		/*	Scene describing spider & drider pregnancy update.
 		*/
