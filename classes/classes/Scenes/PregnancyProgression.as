@@ -450,64 +450,6 @@ package classes.Scenes
 						//temp min lust up addl +5
 					}
 				}
-				//BASILISK Pregnancy!
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_BASILISK || player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT) {	
-					if (player.pregnancyIncubation == 185) {
-						outputText("\n<b>Your belly grumbles as if empty, even though you ate not long ago.  Perhaps with all the exercise you're getting you just need to eat a little bit more.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 160) {
-						outputText("\n<b>Your belly looks a little pudgy", false);
-						if (player.thickness > 60 && player.tone < 40) outputText(" even for you", false);
-						outputText(", maybe you should cut back on all the food you've been consuming lately?</b>\n", false);
-						displayedUpdate = true;	
-					}
-					if (player.pregnancyIncubation == 140) {
-						outputText("\n<b>Your belly is definitely getting bigger, and no matter what you do, you can't seem to stop yourself from eating at the merest twinge of hunger.  The only explanation you can come up with is that you've gotten pregnant during your travels.  Hopefully it won't inconvenience your adventuring.</b>\n", false);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 110) {
-						outputText("\n<b>Your belly has gotten nice and big, perhaps as big as you remember the bellies of the pregnant women back home being.  The elders always did insist on everyone doing their part to keep the population high enough to sustain the loss of a champion every year.  You give yourself a little hug, getting a surge of happiness from your hormone-addled body.  Pregnancy sure is great!</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 72) {
-						outputText("\n<b>The huge size of your pregnant belly constantly impedes your movement, but the constant squirming and shaking of your unborn offspring makes you pretty sure you won't have to carry them much longer.  A sense of motherly pride wells up in your breast - you just know you'll have such wonderful babies.", false);
-						if (player.cor < 50) outputText("  You shudder and shake your head, wondering why you're thinking such unusual things.", false);
-						outputText("</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
-						//Increase lactation!
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
-							outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.\n", false);
-							player.boostLactation(.5);
-							displayedUpdate = true;
-						}
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
-							outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n", false);
-							player.boostLactation(.5);
-							displayedUpdate = true;
-						}				
-						//Lactate if large && not lactating
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
-							outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n", false);
-							player.boostLactation(1);
-							displayedUpdate = true;
-						}
-						//Enlarge if too small for lactation
-						if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-							displayedUpdate = true;
-						}
-						//Enlarge if really small!
-						if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-							displayedUpdate = true;
-						}
-					}
-				}
 			}
 
 			// Describe incubation for butt //
@@ -735,16 +677,7 @@ package classes.Scenes
 				displayedUpdate = true;
 				getGame().plains.satyrScene.satyrBirth(false);
 			}
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT && player.pregnancyIncubation <= 2) {
-				if (model.time.hours != 5 && model.time.hours != 6) {
-					player.knockUpForce(player.pregnancyType, 3); //Make sure eggs are only birthed early in the morning
-				}
-				else {
-					player.knockUpForce(); //Clear Pregnancy
-					displayedUpdate = true;
-					getGame().bazaar.benoit.popOutBenoitEggs();
-				}
-			}
+			
 
 			// Section of nice butt pregnancies //
 			
@@ -755,6 +688,8 @@ package classes.Scenes
 
 			// Section of nice vagina pregnancies //
 
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT)
+				displayedUpdate = benoitPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL)
 				displayedUpdate = frogPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_BUNNY)
@@ -790,7 +725,7 @@ package classes.Scenes
 /****** Butt Pregnancies ******************************************************/
 
 
-/*	Scene describing frog egg butt pregnancy update.
+		/*	Scene describing frog egg butt pregnancy update.
 		*/
 		private function frogButtPregnancy ():Boolean {
 		    
@@ -842,6 +777,71 @@ package classes.Scenes
 
 /****** Vagina Pregnancies ****************************************************/
 
+		/*	Scene describing Benoit pregnancy update.
+		*/
+		private function benoitPregnancy ():Boolean {
+
+			// Birth scenes //
+			if (player.pregnancyIncubation <= 2) {
+				if (model.time.hours != 5 && model.time.hours != 6) {
+					player.knockUpForce(player.pregnancyType, 3); //Make sure eggs are only birthed early in the morning
+				} else {
+					getGame().bazaar.benoit.popOutBenoitEggs();
+					player.knockUpForce(); //Clear Pregnancy
+				}
+				return true;
+
+			// Incubation //
+			} else if (player.pregnancyIncubation == 185) {
+				outputText("\n<b>Your belly grumbles as if empty, even though you ate not long ago.  Perhaps with all the exercise you're getting you just need to eat a little bit more.</b>\n", false);
+				return true;
+			} else if (player.pregnancyIncubation == 160) {
+				outputText("\n<b>Your belly looks a little pudgy", false);
+				if (player.thickness > 60 && player.tone < 40) outputText(" even for you", false);
+				outputText(", maybe you should cut back on all the food you've been consuming lately?</b>\n", false);
+				return true;	
+			} else if (player.pregnancyIncubation == 140) {
+				outputText("\n<b>Your belly is definitely getting bigger, and no matter what you do, you can't seem to stop yourself from eating at the merest twinge of hunger.  The only explanation you can come up with is that you've gotten pregnant during your travels.  Hopefully it won't inconvenience your adventuring.</b>\n", false);
+				return true;				
+			} else if (player.pregnancyIncubation == 110) {
+				outputText("\n<b>Your belly has gotten nice and big, perhaps as big as you remember the bellies of the pregnant women back home being.  The elders always did insist on everyone doing their part to keep the population high enough to sustain the loss of a champion every year.  You give yourself a little hug, getting a surge of happiness from your hormone-addled body.  Pregnancy sure is great!</b>\n", false);
+				return true;
+			} else if (player.pregnancyIncubation == 72) {
+				outputText("\n<b>The huge size of your pregnant belly constantly impedes your movement, but the constant squirming and shaking of your unborn offspring makes you pretty sure you won't have to carry them much longer.  A sense of motherly pride wells up in your breast - you just know you'll have such wonderful babies.", false);
+				if (player.cor < 50) outputText("  You shudder and shake your head, wondering why you're thinking such unusual things.", false);
+				outputText("</b>\n", false);
+				return true;
+			} else if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
+				//Increase lactation!
+				if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
+					outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.\n", false);
+					player.boostLactation(.5);
+				}
+				if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
+					outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n", false);
+					player.boostLactation(.5);
+				}				
+				//Lactate if large && not lactating
+				if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
+					outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n", false);
+					player.boostLactation(1);
+				}
+				//Enlarge if too small for lactation
+				if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
+					outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n", false);
+					player.growTits(1, 1, false, 3);
+				}
+				//Enlarge if really small!
+				if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
+					outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n", false);
+					player.growTits(1, 1, false, 3);
+				}
+				return true;
+			}
+
+			return false;
+		}
+		
 		/*	Scene describing frog egg pregnancy update.
 		*/
 		private function frogPregnancy ():Boolean {
