@@ -160,9 +160,9 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 216) {
 						outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  ", false);
-						if (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
-						if (player.cor >= 75) outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
+						if      (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
+						else if (player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
+						else                      outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
 						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
 						outputText("\n", false);
 						displayedUpdate = true;				
@@ -177,18 +177,18 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 72) {
 						outputText("\n<b>Your belly is painfully distended, ", false);
-						if (player.cor < 40) outputText("making it difficult to function.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						if (player.cor >= 75) outputText("and you're eager to give birth, so you can get impregnated again by corrupted or monstrous cum filling out your eager womb.</b>", false);
+						if      (player.cor < 40) outputText("making it difficult to function.</b>", false);
+						else if (player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
+						else                      outputText("and you're eager to give birth, so you can get impregnated again by corrupted or monstrous cum filling out your eager womb.</b>", false);
 						outputText("\n", false);
 						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
 						displayedUpdate = true;
 					}
 					if (player.pregnancyIncubation == 48) {
 						outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  ", false);
-						if (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
-						if (player.cor >= 75) outputText("You find yourself daydreaming about birthing demons repeatedly, each time being re-impregnated by your hordes of lusty adolescent children.</b>\n", false);
+						if      (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
+						else if (player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
+						else                      outputText("You find yourself daydreaming about birthing demons repeatedly, each time being re-impregnated by your hordes of lusty adolescent children.</b>\n", false);
 						displayedUpdate = true;
 					}
 				}
@@ -204,9 +204,9 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 216) {
 						outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  It's feeling heavier by the moment.  ", false);
-						if (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
-						if (player.cor >= 75) outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
+						if      (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
+						else if (player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
+						else                      outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
 						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
 						outputText("\n", false);
 						displayedUpdate = true;				
@@ -221,9 +221,9 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 72) {
 						outputText("\n<b>Your belly is painfully distended and overswollen with the offspring of some huge beast, ", false);
-						if (player.cor < 40) outputText("making it difficult to function.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						if (player.cor >= 75) outputText("and you're eager to give birth, so you can get impregnated again by monstrous cocks unloading their corrupted seed directly into your eager womb.</b>", false);
+						if      (player.cor < 40) outputText("making it difficult to function.</b>", false);
+						else if (player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
+						else                      outputText("and you're eager to give birth, so you can get impregnated again by monstrous cocks unloading their corrupted seed directly into your eager womb.</b>", false);
 						outputText("\n", false);
 						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
 						displayedUpdate = true;
@@ -231,9 +231,9 @@ package classes.Scenes
 					if (player.pregnancyIncubation == 48) {
 						displayedUpdate = true;
 						outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  Whatever beast is inside your overstretched womb seems to appreciate the attention, and stops its incessant squirming.  ", false);
-						if (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
-						if (player.cor >= 75) outputText("You find yourself daydreaming about birthing some huge monstrous beast, and raising it to fuck your wet pussy over and over.</b>\n", false);
+						if      (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
+						else if (player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
+						else                      outputText("You find yourself daydreaming about birthing some huge monstrous beast, and raising it to fuck your wet pussy over and over.</b>\n", false);
 					}
 					if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
 						displayedUpdate = true;
@@ -301,9 +301,9 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 156) {
 						outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  ", false);
-						if (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("You find yourself wondering what giving birth to bunny-girls is like.</b>", false);
-						if (player.cor >= 75) outputText("You dreamily wonder if you could find a bunny willing to put more than two eggs inside you at once.</b>", false);
+						if      (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
+						else if (player.cor < 75) outputText("You find yourself wondering what giving birth to bunny-girls is like.</b>", false);
+						else                      outputText("You dreamily wonder if you could find a bunny willing to put more than two eggs inside you at once.</b>", false);
 						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
 						outputText("\n", false);
 						displayedUpdate = true;				
@@ -318,18 +318,18 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 72) {
 						outputText("\n<b>Your belly is painfully distended, ", false);
-						if (player.cor < 40) outputText("making it difficult to function.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						if (player.cor >= 75) outputText("and you're eager to give birth so you'll be able to get pregnant again.</b>", false);
+						if      (player.cor < 40) outputText("making it difficult to function.</b>", false);
+						else if (player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
+						else                      outputText("and you're eager to give birth so you'll be able to get pregnant again.</b>", false);
 						outputText("\n", false);
 						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
 						displayedUpdate = true;
 					}
 					if (player.pregnancyIncubation == 48) {
 						outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  ", false);
-						if (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
-						if (player.cor >= 75) outputText("You find yourself daydreaming about birthing bunnies repeatedly, each time being re-impregnated with dozens of eggs from your lusty adolescent children.</b>\n", false);
+						if      (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
+						else if (player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
+						else                      outputText("You find yourself daydreaming about birthing bunnies repeatedly, each time being re-impregnated with dozens of eggs from your lusty adolescent children.</b>\n", false);
 						displayedUpdate = true;
 					}
 				}
@@ -345,9 +345,9 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 216) {
 						outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  It's feeling heavier by the moment.  ", false);
-						if (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
-						if (player.cor >= 75) outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
+						if      (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
+						else if (player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
+						else                      outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
 						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
 						outputText("\n", false);
 						displayedUpdate = true;				
@@ -362,9 +362,9 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 72) {
 						outputText("\n<b>Your belly is distended and overswollen with your offspring, ", false);
-						if (player.cor < 40) outputText("making it difficult to function.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						if (player.cor >= 75) outputText("and you're eager to give birth, so you can get fill your womb with a new charge.</b>", false);
+						if      (player.cor < 40) outputText("making it difficult to function.</b>", false);
+						else if (player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
+						else                      outputText("and you're eager to give birth, so you can get fill your womb with a new charge.</b>", false);
 						outputText("\n", false);
 						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
 						displayedUpdate = true;
@@ -430,131 +430,6 @@ package classes.Scenes
 						outputText("</b>\n", false);
 					}
 				}
-				//Jojo Pregnancy!
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_MOUSE || player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) {
-					if (player.pregnancyIncubation == 336) {
-						outputText("\n<b>You realize your belly has gotten slightly larger.  Maybe you need to cut back on the strange food.</b>\n", false);
-						if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) { //Bimbo Jojo, stage 1
-							outputText("\nJoy notices you examining your belly and strolls over, playfully poking it with her finger. \"<i>Somebody's getting chubby; maybe you and I need to have a little more fun-fun to help you work off those calories, hmm?" + getGame().joyScene.joyHasCockText(" Or maybe I'm just feeding you too much...") + "</i>\" She teases" + getGame().joyScene.joyHasCockText(", patting her " + getGame().joyScene.joyCockDescript()) + ".\n");
-						}
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 280) {
-						outputText("\n<b>Your belly is getting more noticeably distended and squirming around.  You are probably pregnant.</b>\n", false);
-						if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 2
-							outputText("\nA pair of arms suddenly wrap themselves around you, stroking your belly. \"<i>Like, don't worry, [name]; I love you even if you are getting fat. Actually... this little pot belly of yours is, like, kinda sexy, y'know?</i>\" Joy declares.\n");
-							outputText("\nYou roll your eyes at Joy's teasing but appreciate her support all the same.\n");
-						}
-						displayedUpdate = true;	
-					}
-					if (player.pregnancyIncubation == 216) {
-						if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 3
-							outputText("\n<b>You have no doubt that you're pregnant now,</b> and from your recent urges to eat cheese and nuts, as well as the lusty thoughts that roam your head, you can already imagine who the father is...\n");
-							outputText("\nJoy shakes her head. \"<i>Wow, you just keep getting, like, fatter and fatter, don't you, [name]? S'funny, though... I never thought of myself as, like, a chubby chaser before, but that belly of yours really gets me, y'know, hot 'n' bothered.</i>\" She comments.\n");
-							outputText("\nYou sigh, almost laughing... sometimes Joy's inability to see the obvious is cute, sometimes it's just funny and sometimes both. You tell her to quit being silly, it's quite obvious by now that you're pregnant and she's the father, by the way.\n");
-							outputText("\nJoy stares at you, silent and dumbfounded. Moments of silence pass by... you wonder if maybe you've broken her. Then, suddenly. \"<i>Yahoo!</i>\" She screams, and performs a backflip, dancing around with both arms pumping in the air before suddenly rushing towards you and throwing your arms around you, barely remembering to be gentle to avoid squishing your vulnerable belly. \"<i>I'm gonna be a daddy-mommy!</i>\" She shouts in glee.\n");
-							outputText("\nJoy's erm... joy... is infectious and you find yourself smiling at her happy reaction.\n");
-							if (flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] < 70 && !camp.marbleFollower()) {
-								outputText("\nThen her face falls in realisation. \"<i>Crap! I gotta get that nursery built, like, now!</i>\" She yells. She gives your belly a loud, wet kiss, then runs off into the scrub, muttering to herself about what she needs to get.\n");
-								flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] = 69;
-							}
-						}
-						else {
-							outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  It's feeling heavier by the moment.  ", false);
-							if (flags[kFLAGS.JOJO_STATUS] > 0) {
-								if (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-								if (player.cor >= 40 && player.cor < 75) outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>", false);
-								if (player.cor >= 75) outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>", false);
-							}
-							else {
-								outputText("</b>");
-							}
-						}
-						outputText("\n", false);
-						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 180) {
-						if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 4
-							outputText("\nIf there was ever any doubt you were carrying only one child before, it has long been forgotten. <b>Your belly is bigger than any woman's back in your village, and the children within are seemingly restless! They kick you all the time; it is clear they inherited Joy's energy, but it's starting to get bothersome.</b> You sigh as you take a seat to rest a bit as the babies inside you kick.\n");
-							outputText("\nThis would, of course, be less tiresome if you didn't have to lug around a third mouse as well... A smooch on your belly signals Joy's arrival into the scene.\n");
-							outputText("\nThe bimbo mouse smiles up at you, rubbing her cheek against your gravid midriff. \"<i>Aw... how are Joyjoy's little ones today? Are you being good to your mommy?</i>\" She coos.\n");
-							outputText("\nYou tell her they've been very active lately, you barely get a moment's rest as they keep kicking inside your belly.\n");
-							outputText("\nShe frowns and then stares at your belly. \"<i>Naughty little babies! Stop kicking mommy! You wouldn't be kicking like this inside mommy Joy's tummy, now would you?</i>\" She states, unconcerned about the fact she is trying to chastise her unborn offspring.\n");
-							outputText("\nYou chuckle at the bimbo mouse's antics. Somehow the whole scene is uplifting, and you feel a bit less tired by your pregnancy.\n");
-							if (flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] == 69 && !camp.marbleFollower()) {
-								outputText("\nThe mouse turns to walk away, but stops before doing so and looks at you. \"<i>Oh, right! I, like, totally forgot; the nursery's all done now. Our little babies will have a cosy nest to play in when they finally, y'know, come out.</i>\" She states, full of pride at her achievements - both knocking you up and getting a nursery done.\n");
-								flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] = 70;
-							}
-						}
-						else {
-							outputText("\n<b>The sudden impact of a tiny kick from inside your distended womb startles you.  Moments later it happens again, making you gasp.</b>\n", false);
-						}
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 120) {
-						if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 5
-							outputText("\nYou're mildly annoyed at your squirming tummy, it seems your children have taken a liking to scurrying about inside you. The other mildly annoying thing, is Joy's attachment to your huge pregnant belly. It would seem that the bimbo mouse is as eager to see the children as the children inside you are eager to come out and play.\n");
-							outputText("\n\"<i>Like, [name], when are the babies gonna come out and play? I wanna hold my cute little squeakies already!</i>\" Joy pouts, stamping her foot in irritation at the wait for you to give birth.\n");
-							outputText("\nYou tell her that she'll just have to wait, you want them out too. It's getting heavy.\n");
-							outputText("\nJoy pouts, \"<i>But I want them to come out now!</i>\" She whines, then she heaves a heavy sigh. \"<i>Alright, I guess it'll be, like, worth the wait...</i>\" She looks at your " + player.breastDescript(0) + " and develops a sly expression. \"<i>Like... some nice creamy milk would make me feel better...</i>\" She wheedles.\n");
-							outputText("\n");
-							if (player.findPerk(PerkLib.Feeder) >= 0) outputText("You grin at Joy's idea, but you can't simply mash her against your breasts and nurse her without some teasing first.");
-							outputText("You tell Joy that she can have some, but she has to ask nicely, like a good girl.\n");
-							outputText("\nThe bimbo mouse presses her hands together and gives you a winning smile, eyes wide with an uncharacteristic innocence. \"<i>Like, [name], will you please let your little Joyjoy suck on your " + player.breastDescript(0) + " and drink all the yummy mommy-milk she can hold? Puh-lease?</i>\" She begs.\n");
-							outputText("\nYou expose your breasts and open your arms in invitation.\n");
-							outputText("\nJoy squeaks in glee and rushes into your embrace, rubbing her " + (getGame().jojoScene.pregnancy.isPregnant ? "swollen " : "") + "belly against your baby-filled stomach and nuzzling your player.breastDescript excitedly. She wastes no time in slurping on your nipplesdescript until they are painfully erect, then sucks the closest one into her mouth and starts suckling as if her life depends on it.\n");
-							outputText("\nBy the time Joy's had her fill, your babies have calmed down a little. It seems like being close to Joy might have actually helped calm the little mice down. Joy yawns and nuzzles your " + player.breastDescript(0) + ".\n");
-							outputText("\n\"<i>Mmm... Sooo good.</i>\" Joy murmurs, then burps softly. \"<i>I feel, like, so sleepy now...</i>\" She mumbles, yawning hugely, then reluctantly she pushes herself off of you and starts stumbling away in the direction of her bed" + (player.lactationQ() >= 750 || player.findPerk(PerkLib.Feeder) >= 0 ? ", her belly audibly sloshing from all the milk you let her stuff herself with" : "") + ".\n");
-							outputText("\nYou sigh, glad to finally have a moment to rest.\n");
-						}
-						else {
-							outputText("\n<b>Your ever-growing belly makes your pregnancy obvious for those around you.  It's already as big as the belly of any pregnant woman back home.</b>\n", false);
-						}
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 72) {
-						outputText("\n<b>Your belly is painfully distended and overswollen with wriggling offspring, ", false);
-						if (player.cor < 40) outputText("making it difficult to function.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						if (player.cor >= 75) outputText("and you're eager to give birth, so you can get impregnated again by monstrous cocks unloading their corrupted seed directly into your eager womb.</b>", false);
-						outputText("\n", false);
-						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 48) {
-						outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  Whatever is inside your overstretched womb seems to appreciate the attention and stops its incessant squirming.  ", false);
-						if (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("You estimate you'll give birth in the next few days.</b>\n", false);
-						if (player.cor >= 75) outputText("You find yourself daydreaming about birthing hundreds of little babies, and lounging around while they nurse non-stop on your increasingly sensitive breasts.</b>\n", false);				
-					}
-					if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
-						//Increase lactation!
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
-							outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.  You wonder just what kind of creature they're getting ready to feed.\n", false);
-							player.boostLactation(.5);
-						}
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
-							outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n", false);
-							player.boostLactation(.5);
-						}				
-						//Lactate if large && not lactating
-						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
-							outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n", false);
-							player.boostLactation(1);
-						}
-						//Enlarge if too small for lactation
-						if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-						}
-						//Enlarge if really small!
-						if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
-							outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n", false);
-							player.growTits(1, 1, false, 3);
-						}
-					}
-				}	
 				//Amily Pregnancy!
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_AMILY) {
 					if (player.pregnancyIncubation == 336) {
@@ -998,9 +873,9 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 185) {
 						outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  ", false);
-						if (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("Considering the possible fathers, you hope it isn't that big.</b>", false);
-						if (player.cor >= 75) outputText("You think dreamily about the cocks that have recently been fucking you, and hope that your offspring inherit such a divine pleasure tool.</b>", false);
+						if      (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
+						else if (player.cor < 75) outputText("Considering the possible fathers, you hope it isn't that big.</b>", false);
+						else                      outputText("You think dreamily about the cocks that have recently been fucking you, and hope that your offspring inherit such a divine pleasure tool.</b>", false);
 						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
 						outputText("\n", false);
 						displayedUpdate = true;				
@@ -1018,18 +893,18 @@ package classes.Scenes
 					}
 					if (player.pregnancyIncubation == 72) {
 						outputText("\n<b>Your belly is noticeably distended, ", false);
-						if (player.cor < 40) outputText("and constantly shifts and wriggles.  What manner of beast are you bringing into the world?</b>", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						if (player.cor >= 75) outputText("and you're eager to give birth, so you can get impregnated again by corrupted or monstrous cum filling out your eager womb.</b>", false);
+						if      (player.cor < 40) outputText("and constantly shifts and wriggles.  What manner of beast are you bringing into the world?</b>", false);
+						else if (player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
+						else                      outputText("and you're eager to give birth, so you can get impregnated again by corrupted or monstrous cum filling out your eager womb.</b>", false);
 						outputText("\n", false);
 						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", (5 + player.lib / 20));
 						displayedUpdate = true;
 					}
 					if (player.pregnancyIncubation == 48) {
 						outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  ", false);
-						if (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself, but horny.</b>\n", false);
-						if (player.cor >= 40 && player.cor < 75) outputText("You estimate you'll give birth in the next few days.  You hope the birth is as erotically charged as the pregnancy has been.</b>\n", false);
-						if (player.cor >= 75) outputText("You find yourself daydreaming  about birthing cilia-covered worms, orgasming each time their thousands of stingers brush by your clit and fill it full of sensation-enhancing drugs.</b>\n", false);
+						if      (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself, but horny.</b>\n", false);
+						else if (player.cor < 75) outputText("You estimate you'll give birth in the next few days.  You hope the birth is as erotically charged as the pregnancy has been.</b>\n", false);
+						else                      outputText("You find yourself daydreaming  about birthing cilia-covered worms, orgasming each time their thousands of stingers brush by your clit and fill it full of sensation-enhancing drugs.</b>\n", false);
 						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", (10+player.lib/20));
 						displayedUpdate = true;
 					}
@@ -1661,57 +1536,11 @@ package classes.Scenes
 				outputText("\n", false);
 				player.knockUpForce(); //Clear Pregnancy
 			}
-			//Give birth if it's time (to a mouse!)
-			if (player.pregnancyIncubation == 1 && (player.pregnancyType == PregnancyStore.PREGNANCY_MOUSE || player.pregnancyType == PregnancyStore.PREGNANCY_JOJO)) {
-				player.boostLactation(.01);
-				outputText("\nYou wake up suddenly to strong pains and pressures in your gut. As your eyes shoot wide open, you look down to see your belly absurdly full and distended. You can feel movement underneath the skin, and watch as it is pushed out in many places, roiling and squirming in disturbing ways. The feelings you get from inside are just as disconcerting. You count not one, but many little things moving around inside you. There are so many, you can't keep track of them.\n\n", false);
-				if (player.vaginas.length == 0) {
-					outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.  ", false);
-					player.createVagina();
-					player.genderCheck();
-				}		
-
-				//Main Text here
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_JOJO && (flags[kFLAGS.JOJO_STATUS] < 0 || flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) && !prison.inPrison) {
-					if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) {
-						kGAMECLASS.joyScene.playerGivesBirthToJoyBabies();
-						return true;
-					}
-					else kGAMECLASS.jojoScene.giveBirthToPureJojoBabies();
-				}
-				else {
-					outputText("Pain shoots through you as they pull open your cervix forcefully. You grip the ground and pant and push as the pains of labor overwhelm you. You feel your hips being forceably widened by the collective mass of the creatures moving down your birth canal. You spread your legs wide, laying your head back with groans and cries of agony as little white figures begin to emerge from between the lips of your abused pussy. Large innocent eyes, even larger ears, cute little muzzles, long slender pink tails all appear as the figures emerge. Each could be no larger than six inches tall, but they seem as active and curious as if they were already developed children. \n\n", false);
-					outputText("Two emerge, then four, eight... you lose track. They swarm your body, scrambling for your chest, and take turns suckling at your nipples. Milk does their bodies good, making them grow rapidly, defining their genders as the girls grow cute little breasts and get broader hips and the boys develop their little mouse cocks and feel their balls swell. Each stops suckling when they reach two feet tall, and once every last one of them has departed your sore, abused cunt and drunk their fill of your milk, they give you a few grateful nuzzles, then run off towards the forest, leaving you alone to recover.\n", false);
-				}
-				player.knockUpForce(); //Clear Pregnancy
-				if (player.averageLactation() > 0 && player.averageLactation() < 5) {
-					outputText("Your [chest] won't seem to stop dribbling milk, lactating more heavily than before.", false);
-					player.boostLactation(.5);
-				}
-				player.cuntChange(60, true,true,false);
-				if (player.vaginas[0].vaginalWetness == VAGINA_WETNESS_DRY) player.vaginas[0].vaginalWetness++;
-				if      (player.gender == 1)  player.gender = 3;
-				else if (player.gender == 0)  player.gender = 2;
-				player.orgasm();
-				dynStats("str", -1,"tou", -2, "spe", 3, "lib", 1, "sen", .5);
-				displayedUpdate = true;
-				//Butt increase
-				if (player.buttRating < 14 && rand(2) == 0) {
-					if (player.buttRating < 10) {
-						player.buttRating++;
-						outputText("\n\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.", false);				
-					}
-					//Big butts grow slower!
-					else if (player.buttRating < 14 && rand(2) == 0) {
-						player.buttRating++;
-						outputText("\n\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.", false);
-					}
-				}
-				outputText("\n", false);
-			}
 
 			// Section of nice pregnancies //
-			
+
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_MOUSE || player.pregnancyType == PregnancyStore.PREGNANCY_JOJO)
+				displayedUpdate = mousePregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_CENTAUR || player.pregnancyType == PregnancyStore.PREGNANCY_KELT)
 				displayedUpdate = centaurPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_HELL_HOUND)
@@ -1728,7 +1557,168 @@ package classes.Scenes
 			return displayedUpdate;
 		}
 
-		/*	Scene describing Centaur & Kelt pregnancy update.
+		/*	Scene describing mouse & Jojo pregnancy update.
+			TODO: Maybe split this into two? The overlap is just on the edge.
+		*/
+		private function mousePregnancy ():Boolean {
+		    // Birth scenes //
+		    if (player.pregnancyIncubation == 1) {
+		        player.boostLactation(.01);
+		        outputText("\nYou wake up suddenly to strong pains and pressures in your gut. As your eyes shoot wide open, you look down to see your belly absurdly full and distended. You can feel movement underneath the skin, and watch as it is pushed out in many places, roiling and squirming in disturbing ways. The feelings you get from inside are just as disconcerting. You count not one, but many little things moving around inside you. There are so many, you can't keep track of them.\n\n");
+		        if (player.vaginas.length == 0) {
+		            outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.  ");
+		            player.createVagina();
+		            player.genderCheck();
+		        }
+		        
+		        //Main Text here
+		        if (player.pregnancyType == PregnancyStore.PREGNANCY_JOJO && (flags[kFLAGS.JOJO_STATUS] < 0 || flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) && !prison.inPrison) {
+		            if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) {
+		                kGAMECLASS.joyScene.playerGivesBirthToJoyBabies();
+		                return true;
+		            } else kGAMECLASS.jojoScene.giveBirthToPureJojoBabies();
+		        } else {
+		            outputText("Pain shoots through you as they pull open your cervix forcefully. You grip the ground and pant and push as the pains of labor overwhelm you. You feel your hips being forceably widened by the collective mass of the creatures moving down your birth canal. You spread your legs wide, laying your head back with groans and cries of agony as little white figures begin to emerge from between the lips of your abused pussy. Large innocent eyes, even larger ears, cute little muzzles, long slender pink tails all appear as the figures emerge. Each could be no larger than six inches tall, but they seem as active and curious as if they were already developed children. \n\n");
+		            outputText("Two emerge, then four, eight... you lose track. They swarm your body, scrambling for your chest, and take turns suckling at your nipples. Milk does their bodies good, making them grow rapidly, defining their genders as the girls grow cute little breasts and get broader hips and the boys develop their little mouse cocks and feel their balls swell. Each stops suckling when they reach two feet tall, and once every last one of them has departed your sore, abused cunt and drunk their fill of your milk, they give you a few grateful nuzzles, then run off towards the forest, leaving you alone to recover.\n");
+		        }
+		        player.knockUpForce(); //Clear Pregnancy
+		        if (player.averageLactation() > 0 && player.averageLactation() < 5) {
+		            outputText("Your [chest] won't seem to stop dribbling milk, lactating more heavily than before.");
+		            player.boostLactation(.5);
+		        }
+		        player.cuntChange(60, true,true,false);
+		        if (player.vaginas[0].vaginalWetness == VAGINA_WETNESS_DRY)
+		            player.vaginas[0].vaginalWetness++;
+		        if      (player.gender == 1)  player.gender = 3;
+		        else if (player.gender == 0)  player.gender = 2;
+		        player.orgasm();
+		        dynStats("str", -1,"tou", -2, "spe", 3, "lib", 1, "sen", 0.5);
+		        //Butt increase
+		        if (player.buttRating < 14 && rand(2) == 0 && (player.buttRating < 10 || rand(2) == 0) ) {
+		            player.buttRating++;
+		            outputText("\n\nYou notice your [butt] feeling larger and plumper after the ordeal.");
+		        }
+		        outputText("\n");
+		        return true;
+		        
+		    // Incubation //
+		    } else if (player.pregnancyIncubation == 336) {
+		        outputText("\n<b>You realize your belly has gotten slightly larger.  Maybe you need to cut back on the strange food.</b>\n");
+		        if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3) { //Bimbo Jojo, stage 1
+		            outputText("\nJoy notices you examining your belly and strolls over, playfully poking it with her finger. \"<i>Somebody's getting chubby; maybe you and I need to have a little more fun-fun to help you work off those calories, hmm?" + getGame().joyScene.joyHasCockText(" Or maybe I'm just feeding you too much...") + "</i>\" She teases" + getGame().joyScene.joyHasCockText(", patting her " + getGame().joyScene.joyCockDescript()) + ".\n");
+		        }
+		        return true;
+		    } else if (player.pregnancyIncubation == 280) {
+		        outputText("\n<b>Your belly is getting more noticeably distended and squirming around.  You are probably pregnant.</b>\n");
+		        if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 2
+		            outputText("\nA pair of arms suddenly wrap themselves around you, stroking your belly. \"<i>Like, don't worry, [name]; I love you even if you are getting fat. Actually... this little pot belly of yours is, like, kinda sexy, y'know?</i>\" Joy declares.\n");
+		            outputText("\nYou roll your eyes at Joy's teasing but appreciate her support all the same.\n");
+		        }
+		        return true;
+		    } else if (player.pregnancyIncubation == 216) {
+		        if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 3
+		            outputText("\n<b>You have no doubt that you're pregnant now,</b> and from your recent urges to eat cheese and nuts, as well as the lusty thoughts that roam your head, you can already imagine who the father is...\n");
+		            outputText("\nJoy shakes her head. \"<i>Wow, you just keep getting, like, fatter and fatter, don't you, [name]? S'funny, though... I never thought of myself as, like, a chubby chaser before, but that belly of yours really gets me, y'know, hot 'n' bothered.</i>\" She comments.\n");
+		            outputText("\nYou sigh, almost laughing... sometimes Joy's inability to see the obvious is cute, sometimes it's just funny and sometimes both. You tell her to quit being silly, it's quite obvious by now that you're pregnant and she's the father, by the way.\n");
+		            outputText("\nJoy stares at you, silent and dumbfounded. Moments of silence pass by... you wonder if maybe you've broken her. Then, suddenly. \"<i>Yahoo!</i>\" She screams, and performs a backflip, dancing around with both arms pumping in the air before suddenly rushing towards you and throwing your arms around you, barely remembering to be gentle to avoid squishing your vulnerable belly. \"<i>I'm gonna be a daddy-mommy!</i>\" She shouts in glee.\n");
+		            outputText("\nJoy's erm... joy... is infectious and you find yourself smiling at her happy reaction.\n");
+		            if (flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] < 70 && !camp.marbleFollower()) {
+		                outputText("\nThen her face falls in realisation. \"<i>Crap! I gotta get that nursery built, like, now!</i>\" She yells. She gives your belly a loud, wet kiss, then runs off into the scrub, muttering to herself about what she needs to get.\n");
+		                flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] = 69;
+		            }
+		        } else {
+		            outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  It's feeling heavier by the moment.  ");
+		            if (flags[kFLAGS.JOJO_STATUS] > 0) {
+		                if      (player.cor < 40)  outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>");
+		                else if (player.cor < 75)  outputText("Considering the size of the creatures you've fucked, you hope it doesn't hurt when it comes out.</b>");
+		                else                       outputText("You think dreamily about the monstrous cocks that have recently been fucking you, and hope that your offspring inherit such a pleasure tool.</b>");
+		            } else {
+		                outputText("</b>");
+		            }
+		        }
+		        outputText("\n");
+		        dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
+		        return true;
+		    } else if (player.pregnancyIncubation == 180) {
+		        if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 4
+		            outputText("\nIf there was ever any doubt you were carrying only one child before, it has long been forgotten. <b>Your belly is bigger than any woman's back in your village, and the children within are seemingly restless! They kick you all the time; it is clear they inherited Joy's energy, but it's starting to get bothersome.</b> You sigh as you take a seat to rest a bit as the babies inside you kick.\n");
+		            outputText("\nThis would, of course, be less tiresome if you didn't have to lug around a third mouse as well... A smooch on your belly signals Joy's arrival into the scene.\n");
+		            outputText("\nThe bimbo mouse smiles up at you, rubbing her cheek against your gravid midriff. \"<i>Aw... how are Joyjoy's little ones today? Are you being good to your mommy?</i>\" She coos.\n");
+		            outputText("\nYou tell her they've been very active lately, you barely get a moment's rest as they keep kicking inside your belly.\n");
+		            outputText("\nShe frowns and then stares at your belly. \"<i>Naughty little babies! Stop kicking mommy! You wouldn't be kicking like this inside mommy Joy's tummy, now would you?</i>\" She states, unconcerned about the fact she is trying to chastise her unborn offspring.\n");
+		            outputText("\nYou chuckle at the bimbo mouse's antics. Somehow the whole scene is uplifting, and you feel a bit less tired by your pregnancy.\n");
+		            if (flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] == 69 && !camp.marbleFollower()) {
+		                outputText("\nThe mouse turns to walk away, but stops before doing so and looks at you. \"<i>Oh, right! I, like, totally forgot; the nursery's all done now. Our little babies will have a cosy nest to play in when they finally, y'know, come out.</i>\" She states, full of pride at her achievements - both knocking you up and getting a nursery done.\n");
+		                flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] = 70;
+		            }
+		        } else {
+		            outputText("\n<b>The sudden impact of a tiny kick from inside your distended womb startles you.  Moments later it happens again, making you gasp.</b>\n");
+		        }
+		        return true;
+		    } else if (player.pregnancyIncubation == 120) {
+		        if (flags[kFLAGS.JOJO_BIMBO_STATE] >= 3 && player.pregnancyType == PregnancyStore.PREGNANCY_JOJO) { //Bimbo Jojo, stage 5
+		            outputText("\nYou're mildly annoyed at your squirming tummy, it seems your children have taken a liking to scurrying about inside you. The other mildly annoying thing, is Joy's attachment to your huge pregnant belly. It would seem that the bimbo mouse is as eager to see the children as the children inside you are eager to come out and play.\n");
+		            outputText("\n\"<i>Like, [name], when are the babies gonna come out and play? I wanna hold my cute little squeakies already!</i>\" Joy pouts, stamping her foot in irritation at the wait for you to give birth.\n");
+		            outputText("\nYou tell her that she'll just have to wait, you want them out too. It's getting heavy.\n");
+		            outputText("\nJoy pouts, \"<i>But I want them to come out now!</i>\" She whines, then she heaves a heavy sigh. \"<i>Alright, I guess it'll be, like, worth the wait...</i>\" She looks at your " + player.breastDescript(0) + " and develops a sly expression. \"<i>Like... some nice creamy milk would make me feel better...</i>\" She wheedles.\n");
+		            outputText("\n");
+		            if (player.findPerk(PerkLib.Feeder) >= 0)
+		                outputText("You grin at Joy's idea, but you can't simply mash her against your breasts and nurse her without some teasing first.");
+		            outputText("You tell Joy that she can have some, but she has to ask nicely, like a good girl.\n");
+		            outputText("\nThe bimbo mouse presses her hands together and gives you a winning smile, eyes wide with an uncharacteristic innocence. \"<i>Like, [name], will you please let your little Joyjoy suck on your " + player.breastDescript(0) + " and drink all the yummy mommy-milk she can hold? Puh-lease?</i>\" She begs.\n");
+		            outputText("\nYou expose your breasts and open your arms in invitation.\n");
+		            outputText("\nJoy squeaks in glee and rushes into your embrace, rubbing her " + (getGame().jojoScene.pregnancy.isPregnant ? "swollen " : "") + "belly against your baby-filled stomach and nuzzling your player.breastDescript excitedly. She wastes no time in slurping on your nipplesdescript until they are painfully erect, then sucks the closest one into her mouth and starts suckling as if her life depends on it.\n");
+		            outputText("\nBy the time Joy's had her fill, your babies have calmed down a little. It seems like being close to Joy might have actually helped calm the little mice down. Joy yawns and nuzzles your " + player.breastDescript(0) + ".\n");
+		            outputText("\n\"<i>Mmm... Sooo good.</i>\" Joy murmurs, then burps softly. \"<i>I feel, like, so sleepy now...</i>\" She mumbles, yawning hugely, then reluctantly she pushes herself off of you and starts stumbling away in the direction of her bed" + (player.lactationQ() >= 750 || player.findPerk(PerkLib.Feeder) >= 0 ? ", her belly audibly sloshing from all the milk you let her stuff herself with" : "") + ".\n");
+		            outputText("\nYou sigh, glad to finally have a moment to rest.\n");
+		        } else {
+		            outputText("\n<b>Your ever-growing belly makes your pregnancy obvious for those around you.  It's already as big as the belly of any pregnant woman back home.</b>\n");
+		        }
+		        return true;
+		    } else if (player.pregnancyIncubation == 72) {
+		        outputText("\n<b>Your belly is painfully distended and overswollen with wriggling offspring, ");
+		        if      (player.cor < 40)  outputText("making it difficult to function.</b>\n");
+		        else if (player.cor < 75)  outputText("and you wonder how much longer you have to wait.</b>\n");
+		        else                       outputText("and you're eager to give birth, so you can get impregnated again by monstrous cocks unloading their corrupted seed directly into your eager womb.</b>\n");
+		        dynStats("spe", -3, "lib", 1, "sen", 1, "lus", 4);
+		        return true;
+		    } else if (player.pregnancyIncubation == 48) {
+		        outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  Whatever is inside your overstretched womb seems to appreciate the attention and stops its incessant squirming.  ");
+		        if      (player.cor < 40)  outputText("Afterwards you feel somewhat disgusted with yourself.</b>\n");
+		        else if (player.cor < 75)  outputText("You estimate you'll give birth in the next few days.</b>\n");
+		        else                       outputText("You find yourself daydreaming about birthing hundreds of little babies, and lounging around while they nurse non-stop on your increasingly sensitive breasts.</b>\n");
+		        return true;
+		    } else if (inCollection(player.pregnancyIncubation, 32, 64, 85, 150)) {
+		        //Increase lactation!
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
+		            outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.  You wonder just what kind of creature they're getting ready to feed.\n");
+		            player.boostLactation(.5);
+		        }
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
+		            outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n");
+		            player.boostLactation(.5);
+		        }
+		        //Lactate if large && not lactating
+		        if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
+		            outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n");
+		            player.boostLactation(1);
+		        }
+		        //Enlarge if too small for lactation
+		        if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
+		            outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n");
+		            player.growTits(1, 1, false, 3);
+		        }
+		        //Enlarge if really small!
+		        if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
+		            outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n");
+		            player.growTits(1, 1, false, 3);
+		        }
+		        return true;
+		    }
+		    return false;
+		}
+
+		/*	Scene describing centaur & Kelt pregnancy update.
 		*/
 		private function centaurPregnancy ():Boolean {
 		    // Birth scenes //
@@ -1768,7 +1758,7 @@ package classes.Scenes
 		        outputText("\n");
 		        return true;
 		        
-		        // Incubation
+		        // Incubation //
 		    } else if (player.pregnancyIncubation == 350) {
 		        outputText("\n<b>You realize your belly has gotten bigger. Maybe you should cut back on all the strange food.</b>\n");
 		        return true;
@@ -1861,7 +1851,7 @@ package classes.Scenes
 		        outputText("\n");
 		        return true;
 		        
-		    // Incubation
+		    // Incubation //
 		    } else if (player.pregnancyIncubation == 290) {
 		        outputText("\n<b>You realize your belly has gotten slightly larger.  Maybe you need to cut back on the strange food.</b>\n");
 		        return true;
@@ -1948,7 +1938,7 @@ package classes.Scenes
 		        outputText("\n");
 				return true;
 		        
-		    // Incubation
+		    // Incubation //
 		    } else if (player.pregnancyIncubation == 216) {
 		        outputText("<b>You realize your belly has gotten slightly larger.  You could go for some peaches around now.</b>");
 		        return true;
