@@ -74,9 +74,6 @@ package classes.Scenes
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) {
 					displayedUpdate = getGame().bog.phoukaScene.phoukaPregUpdate();
 				}
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_URTA) {
-					displayedUpdate = getGame().urtaPregs.urtaPregooUpdates();
-				}
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_EMBER) {
 					//Pregnancy notes: Egg Laying 
 					if (flags[kFLAGS.EMBER_OVIPOSITION] > 0) {
@@ -285,11 +282,6 @@ package classes.Scenes
 				outputText("\n", false);
 				displayedUpdate = true;
 			}
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_URTA && player.pregnancyIncubation == 1) {
-				displayedUpdate = true;
-				getGame().urtaPregs.PCGivesBirf();
-				player.knockUpForce(); //Clear Pregnancy
-			}
 
 			
 			// Section of nice butt pregnancies //
@@ -304,6 +296,8 @@ package classes.Scenes
 
 			// Section of nice vagina pregnancies //
 	
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_URTA)
+				displayedUpdate = urtaPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_SAND_WITCH)
 				displayedUpdate = sandwitchPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA)
@@ -475,7 +469,24 @@ package classes.Scenes
 
 /****** Vagina Pregnancies ****************************************************/
 
-		/*	Scene describing Izma pregnancy update.
+		/*	Scene describing Urta pregnancy update.
+		*/
+		private function urtaPregnancy ():Boolean {
+		    
+		    // Incubation //
+			if (player.pregnancyIncubation != 1) {
+				return getGame().urtaPregs.urtaPregooUpdates();
+
+		    // Birth scenes //
+		    } else if (player.pregnancyIncubation == 1) {
+				getGame().urtaPregs.PCGivesBirf();
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    }
+		    return false;
+		}
+		
+		/*	Scene describing a sandwitch pregnancy update.
 		*/
 		private function sandwitchPregnancy ():Boolean {
 		    
@@ -491,7 +502,7 @@ package classes.Scenes
 		    }
 		    return false;
 		}
-		
+
 		/*	Scene describing Izma pregnancy update.
 		*/
 		private function izmaPregnancy ():Boolean {
@@ -835,7 +846,6 @@ package classes.Scenes
 		    // Birth scenes //
 		    if (player.pregnancyIncubation == 1) {
 		        outputText("\n");
-		        displayedUpdate = true;
 		        if (player.vaginas.length == 0) {
 		            outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold a vagina.  ");
 		            player.createVagina();
