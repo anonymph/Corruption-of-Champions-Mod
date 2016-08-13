@@ -7,6 +7,16 @@ package classes.Scenes
 	{
 		public function PregnancyProgression() {}
 
+		// Colors of eggs, used by `eggDescript`
+		private const static EGG_COLORS:Array = [
+			"brown",         // index 0 - ass expansion
+			"purple",        // index 1 - hip expansion
+			"blue",          // index 2 - vaginal removal and/or growth of existing maleness
+			"pink",          // index 3 - dick removal and/or fertility increase.
+			"white",         // index 4 - breast growth.  If lactating increases lactation.
+			"rubbery black"  // index 5 - Latex shit.
+		]
+
 		/*	Updates the players pregnancy and output descriptions hereof.
 			If an update is displayed, returns true, else false.
 			Does not assume pregnancy (but it would be reasonable to do.)
@@ -2038,99 +2048,82 @@ package classes.Scenes
 
 			// Egg Specials, because Eggs a shit //
 
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS && player.pregnancyIncubation > 0) {
-				if (player.vaginas.length == 0) {
-					player.removeStatusEffect(StatusEffects.Eggs);
-					outputText("\n<b>Your pregnant belly suddenly begins shrinking, until it disappears.</b>\n", false);
-					player.knockUpForce(); //Clear Pregnancy
-					displayedUpdate = true;
-				}			
-				//Birth scenes
-				if (player.pregnancyIncubation == 1) {
-					outputText("\n", false);
-					if (player.vaginas.length == 0) {
-						outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.\n\n", false);
-						player.createVagina();
-						player.genderCheck();
-					}		
-					//Small egg scenes
-					if (player.statusEffectv2(StatusEffects.Eggs) == 0) {
-						//light quantity
-						if (player.statusEffectv3(StatusEffects.Eggs) < 10) {
-							outputText("You are interrupted as you find yourself overtaken by an uncontrollable urge to undress and squat.   You berate yourself for giving in to the urge for a moment before feeling something shift.  You hear the splash of fluid on the ground and look down to see a thick greenish fluid puddling underneath you.  There is no time to ponder this development as a rounded object passes down your birth canal, spreading your feminine lips apart and forcing a blush to your cheeks.  It plops into the puddle with a splash, and you find yourself feeling visibly delighted to be laying such healthy eggs.   Another egg works its way down and you realize the process is turning you on more and more.   In total you lay ", false);
-							outputText(eggDescript(), false); 
-							outputText(", driving yourself to the very edge of orgasm.", false);
-							dynStats("lus=", player.maxLust(), "resisted", false);
-						}
-						//High quantity
-						else {
-							outputText("A strange desire overwhelms your sensibilities, forcing you to shed your " + player.armorName + " and drop to your hands and knees.   You manage to roll over and prop yourself up against a smooth rock, looking down over your pregnant-looking belly as green fluids leak from you, soaking into the ground.   A powerful contraction rips through you and your legs spread instinctively, opening your " + player.vaginaDescript(0) + " to better deposit your precious cargo.   You see the rounded surface of an egg peek through your lips, mottled with strange colors.   You push hard and it drops free with an abrupt violent motion.  The friction and slimy fluids begin to arouse you, flooding your groin with heat as you feel the second egg pushing down.  It slips free with greater ease than the first, arousing you further as you bleat out a moan from the unexpected pleasure.  Before it stops rolling on the ground, you feel the next egg sliding down your slime-slicked passage, rubbing you perfectly as it slides free.  You lose count of the eggs and begin to masturbate, ", false);
-							if (player.clitLength > 5) outputText("jerking on your huge clitty as if it were a cock, moaning and panting as each egg slides free of your diminishing belly.  You lubricate it with a mix of your juices and the slime until ", false);
-							if (player.clitLength > 2 && player.clitLength <= 5) outputText("playing with your over-large clit as if it were a small cock, moaning and panting as the eggs slide free of your diminishing belly.  You spread the slime and cunt juice over it as you tease and stroke until ", false);
-							if (player.clitLength <= 2) outputText("pulling your folds wide and playing with your clit as another egg pops free from your diminishing belly.  You make wet 'schlick'ing sounds as you spread the slime around, vigorously frigging yourself until ", false); 
-							outputText("you quiver in orgasm, popping out the last of your eggs as your body twitches nervelessly on the ground.   In total you lay " + eggDescript() + ".", false);
-							player.orgasm();
-							dynStats("resisted", false);
-						}
-					}
-					//Large egg scene
-					else {
-						outputText("A sudden shift in the weight of your pregnant belly staggers you, dropping you to your knees.  You realize something is about to be birthed, and you shed your " + player.armorName + " before it can be ruined by what's coming.  A contraction pushes violently through your midsection, ", false);
-						if (player.vaginas[0].vaginalLooseness < VAGINA_LOOSENESS_LOOSE) outputText("stretching your tight cunt painfully, the lips opening wide ", false);
-						if (player.vaginas[0].vaginalLooseness >= VAGINA_LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness <= VAGINA_LOOSENESS_GAPING_WIDE) outputText("temporarily stretching your cunt-lips wide-open ", false);
-						if (player.vaginas[0].vaginalLooseness > VAGINA_LOOSENESS_GAPING_WIDE) outputText("parting your already gaping lips wide ", false);
-						outputText("as something begins sliding down your passage.  A burst of green slime soaks the ground below as the birthing begins in earnest, and the rounded surface of a strangely colored egg peaks between your lips.  You push hard and the large egg pops free at last, making you sigh with relief as it drops into the pool of slime.  The experience definitely turns you on, and you feel your clit growing free of its hood as another big egg starts working its way down your birth canal, rubbing your sensitive vaginal walls pleasurably.   You pant and moan as the contractions stretch you tightly around the next, slowly forcing it out between your nether-lips.  The sound of a gasp startles you as it pops free, until you realize it was your own voice responding to the sudden pressure and pleasure.  Aroused beyond reasonable measure, you begin to masturbate ", false);
-						if (player.clitLength > 5) outputText("your massive cock-like clit, jacking it off with the slimy birthing fluids as lube.   It pulses and twitches in time with your heartbeats, its sensitive surface overloading your fragile mind with pleasure.  ", false);
-						if (player.clitLength > 2 && player.clitLength <= 5) outputText("your large clit like a tiny cock, stroking it up and down between your slime-lubed thumb and fore-finger.  It twitches and pulses with your heartbeats, the incredible sensitivity of it overloading your fragile mind with waves of pleasure.  ", false);
-						if (player.clitLength <= 2) outputText("your " + player.vaginaDescript(0) + " by pulling your folds wide and playing with your clit.  Another egg pops free from your diminishing belly, accompanied by an audible burst of relief.  You make wet 'schlick'ing sounds as you spread the slime around, vigorously frigging yourself.  ", false);
-						outputText("You cum hard, the big eggs each making your cunt gape wide just before popping free.  You slump down, exhausted and barely conscious from the force of the orgasm.  ", false);
-						if (player.statusEffectv3(StatusEffects.Eggs) >= 11) outputText("Your swollen belly doesn't seem to be done with you, as yet another egg pushes its way to freedom.   The stimulation so soon after orgasm pushes you into a pleasure-stupor.  If anyone or anything discovered you now, they would see you collapsed next to a pile of eggs, your fingers tracing the outline of your " + player.vaginaDescript(0) + " as more and more eggs pop free.  In time your wits return, leaving you with the realization that you are no longer pregnant.  ", false);
-						outputText("\n\nYou gaze down at the mess, counting " + eggDescript() + ".", false);
-						player.orgasm();
-						dynStats("resisted", false);
-					}
-					outputText("\n\n<b>You feel compelled to leave the eggs behind, ", false);
-					if (player.findStatusEffect(StatusEffects.AteEgg) >= 0) outputText("but you remember the effects of the last one you ate.\n</b>", false);
-					else outputText("but your body's intuition reminds you they shouldn't be fertile, and your belly rumbles with barely contained hunger.\n</b>", false);
-					player.cuntChange(20, true);
-					player.createStatusEffect(StatusEffects.LootEgg,0,0,0,0);
-					displayedUpdate = true;
-					player.knockUpForce(); //Clear Pregnancy
-				}
-			}
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS)
+				displayedUpdate = eggPregancy();
 
 			// Done! //
 
 			return displayedUpdate;
 		}
 
-		public function eggDescript(plural:Boolean = true):String {
-			var descript:String = "";
-			if (player.findStatusEffect(StatusEffects.Eggs) >= 0) {
-				descript += num2Text(player.statusEffectv3(StatusEffects.Eggs)) + " ";
-				//size descriptor
-				if (player.statusEffectv2(StatusEffects.Eggs) == 1) descript += "large ";
-				/*color descriptor
-				0 - brown - ass expansion
-				1 - purple - hip expansion
-				2 - blue - vaginal removal and/or growth of existing maleness
-				3 - pink - dick removal and/or fertility increase.
-				4 - white - breast growth.  If lactating increases lactation.
-				5 - rubbery black - 
-				*/
-				if (player.statusEffectv1(StatusEffects.Eggs) == 0) descript += "brown ";
-				if (player.statusEffectv1(StatusEffects.Eggs) == 1) descript += "purple ";
-				if (player.statusEffectv1(StatusEffects.Eggs) == 2) descript += "blue ";
-				if (player.statusEffectv1(StatusEffects.Eggs) == 3) descript += "pink ";
-				if (player.statusEffectv1(StatusEffects.Eggs) == 4) descript += "white ";
-				if (player.statusEffectv1(StatusEffects.Eggs) == 5) descript += "rubbery black ";
-				//EGGS
-				if (plural) descript += "eggs";
-				else descript += "egg";
-				return descript;
-			}
-			CoC_Settings.error("");
-			return "EGG ERRORZ";
+		/*	Scene describing egg pregnancy update.
+		*/
+		private function eggPregancy ():Boolean {
+
+		    // No pregnancy if no vagina //
+		    if (player.vaginas.length == 0) {
+		        player.removeStatusEffect(StatusEffects.Eggs);
+		        outputText("\n<b>Your pregnant belly suddenly begins shrinking, until it disappears.</b>\n");
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+			
+			// Birth scenes //
+		    } else if (player.pregnancyIncubation == 1) {
+		        if (player.statusEffectv2(StatusEffects.Eggs) != 0) {
+		            //Large egg scene
+		            outputText("\nA sudden shift in the weight of your pregnant belly staggers you, dropping you to your knees.  You realize something is about to be birthed, and you shed your [armor] before it can be ruined by what's coming.  A contraction pushes violently through your midsection, ");
+		            if      (player.vaginas[0].vaginalLooseness < VAGINA_LOOSENESS_LOOSE)         outputText("stretching your tight cunt painfully, the lips opening wide ");
+		            else if (player.vaginas[0].vaginalLooseness <= VAGINA_LOOSENESS_GAPING_WIDE)  outputText("temporarily stretching your cunt-lips wide-open ");
+		            else                                                                          outputText("parting your already gaping lips wide ");
+		            outputText("as something begins sliding down your passage.  A burst of green slime soaks the ground below as the birthing begins in earnest, and the rounded surface of a strangely colored egg peaks between your lips.  You push hard and the large egg pops free at last, making you sigh with relief as it drops into the pool of slime.  The experience definitely turns you on, and you feel your clit growing free of its hood as another big egg starts working its way down your birth canal, rubbing your sensitive vaginal walls pleasurably.   You pant and moan as the contractions stretch you tightly around the next, slowly forcing it out between your nether-lips.  The sound of a gasp startles you as it pops free, until you realize it was your own voice responding to the sudden pressure and pleasure.  Aroused beyond reasonable measure, you begin to masturbate ");
+		            if      (player.clitLength <= 2)  outputText("your [vagina] by pulling your folds wide and playing with your clit.  Another egg pops free from your diminishing belly, accompanied by an audible burst of relief.  You make wet 'schlick'ing sounds as you spread the slime around, vigorously frigging yourself.  ");
+		            else if (player.clitLength <= 5)  outputText("your large clit like a tiny cock, stroking it up and down between your slime-lubed thumb and fore-finger.  It twitches and pulses with your heartbeats, the incredible sensitivity of it overloading your fragile mind with waves of pleasure.  ");
+		            else                              outputText("your massive cock-like clit, jacking it off with the slimy birthing fluids as lube.   It pulses and twitches in time with your heartbeats, its sensitive surface overloading your fragile mind with pleasure.  ");
+		            outputText("You cum hard, the big eggs each making your cunt gape wide just before popping free.  You slump down, exhausted and barely conscious from the force of the orgasm.  ");
+		            if (player.statusEffectv3(StatusEffects.Eggs) >= 11)
+		                outputText("Your swollen belly doesn't seem to be done with you, as yet another egg pushes its way to freedom.   The stimulation so soon after orgasm pushes you into a pleasure-stupor.  If anyone or anything discovered you now, they would see you collapsed next to a pile of eggs, your fingers tracing the outline of your [vagina] as more and more eggs pop free.  In time your wits return, leaving you with the realization that you are no longer pregnant.  ");
+		            outputText("\n\nYou gaze down at the mess, counting " + eggDescript() + ".");
+		            player.orgasm();
+		            dynStats("resisted", false);
+		        } else if (player.statusEffectv3(StatusEffects.Eggs) < 10) {
+		            // Small eggs, light quantity
+		            outputText("\nYou are interrupted as you find yourself overtaken by an uncontrollable urge to undress and squat.   You berate yourself for giving in to the urge for a moment before feeling something shift.  You hear the splash of fluid on the ground and look down to see a thick greenish fluid puddling underneath you.  There is no time to ponder this development as a rounded object passes down your birth canal, spreading your feminine lips apart and forcing a blush to your cheeks.  It plops into the puddle with a splash, and you find yourself feeling visibly delighted to be laying such healthy eggs.   Another egg works its way down and you realize the process is turning you on more and more.   In total you lay ");
+		            outputText(eggDescript());
+		            outputText(", driving yourself to the very edge of orgasm.");
+		            dynStats("lus=", player.maxLust(), "resisted", false);
+		        } else {
+		            // Small eggs, high quantity
+		            outputText("\nA strange desire overwhelms your sensibilities, forcing you to shed your [armor] and drop to your hands and knees.   You manage to roll over and prop yourself up against a smooth rock, looking down over your pregnant-looking belly as green fluids leak from you, soaking into the ground.   A powerful contraction rips through you and your legs spread instinctively, opening your [vagina] to better deposit your precious cargo.   You see the rounded surface of an egg peek through your lips, mottled with strange colors.   You push hard and it drops free with an abrupt violent motion.  The friction and slimy fluids begin to arouse you, flooding your groin with heat as you feel the second egg pushing down.  It slips free with greater ease than the first, arousing you further as you bleat out a moan from the unexpected pleasure.  Before it stops rolling on the ground, you feel the next egg sliding down your slime-slicked passage, rubbing you perfectly as it slides free.  You lose count of the eggs and begin to masturbate, ");
+		            if      (player.clitLength <= 2)  outputText("pulling your folds wide and playing with your clit as another egg pops free from your diminishing belly.  You make wet 'schlick'ing sounds as you spread the slime around, vigorously frigging yourself until ");
+		            else if (player.clitLength <= 5)  outputText("playing with your over-large clit as if it were a small cock, moaning and panting as the eggs slide free of your diminishing belly.  You spread the slime and cunt juice over it as you tease and stroke until ");
+		            else                              outputText("jerking on your huge clitty as if it were a cock, moaning and panting as each egg slides free of your diminishing belly.  You lubricate it with a mix of your juices and the slime until ");
+		            outputText("you quiver in orgasm, popping out the last of your eggs as your body twitches nervelessly on the ground.   In total you lay " + eggDescript() + ".");
+		            player.orgasm();
+		            dynStats("resisted", false);
+		        }
+		        
+		        outputText("\n\n<b>You feel compelled to leave the eggs behind, ");
+		        if   (player.findStatusEffect(StatusEffects.AteEgg) >= 0)  outputText("but you remember the effects of the last one you ate.\n</b>");
+		        else                                                       outputText("but your body's intuition reminds you they shouldn't be fertile, and your belly rumbles with barely contained hunger.\n</b>");
+
+				// Stats & Shit.
+		        player.cuntChange(20, true);
+		        player.createStatusEffect(StatusEffects.LootEgg,0,0,0,0);
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    }
+		    return false;
+		}
+
+		/*	Function describing the eggs the player has laid.
+			NOTE: Assumes that the player actually is egg pregnant.
+		*/
+		private function eggDescript(plural:Boolean = true):String {
+			// Produces a result like this: "[number] [large?] [color] egg[s?]"
+			return num2Text(player.statusEffectv3(StatusEffects.Eggs))  // Numbers
+			       + (player.statusEffectv2(StatusEffects.Eggs) == 1 ? "large " : " ") // Large?
+                   + EGG_COLORS[player.statusEffectv1(StatusEffects.Eggs)]  //Color
+			       + (plural ? " eggs" : " egg");  // Plural?
 		}
 		
 	}
