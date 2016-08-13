@@ -74,9 +74,6 @@ package classes.Scenes
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) {
 					displayedUpdate = getGame().bog.phoukaScene.phoukaPregUpdate();
 				}
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_SAND_WITCH) {
-					displayedUpdate = getGame().dungeons.desertcave.sandPregUpdate();
-				}
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_URTA) {
 					displayedUpdate = getGame().urtaPregs.urtaPregooUpdates();
 				}
@@ -293,11 +290,6 @@ package classes.Scenes
 				getGame().urtaPregs.PCGivesBirf();
 				player.knockUpForce(); //Clear Pregnancy
 			}
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_SAND_WITCH && player.pregnancyIncubation == 1) {
-				displayedUpdate = true;
-				getGame().dungeons.desertcave.birthAWitch();
-				player.knockUpForce(); //Clear Pregnancy
-			}
 
 			
 			// Section of nice butt pregnancies //
@@ -312,6 +304,8 @@ package classes.Scenes
 
 			// Section of nice vagina pregnancies //
 	
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_SAND_WITCH)
+				displayedUpdate = sandwitchPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_IZMA)
 				displayedUpdate = izmaPregnancy();
 			if (player.PregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS || player.PregnancyType == PregnancyStore.PREGNANCY_SPIDER)
@@ -481,6 +475,23 @@ package classes.Scenes
 
 /****** Vagina Pregnancies ****************************************************/
 
+		/*	Scene describing Izma pregnancy update.
+		*/
+		private function sandwitchPregnancy ():Boolean {
+		    
+		    // Incubation //
+			if (player.pregnancyIncubation != 1) {
+				return getGame().dungeons.desertcave.sandPregUpdate();
+
+		    // Birth scenes //
+		    } else if (player.pregnancyIncubation == 1) {
+				getGame().dungeons.desertcave.birthAWitch();
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    }
+		    return false;
+		}
+		
 		/*	Scene describing Izma pregnancy update.
 		*/
 		private function izmaPregnancy ():Boolean {
