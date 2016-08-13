@@ -119,48 +119,6 @@ package classes.Scenes
 						displayedUpdate = pregnancyLactationUpdate() || displayedUpdate;
 					}
 				}
-				//SPOIDAH Pregnancy!
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_SPIDER || player.pregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS) {	
-					if (player.pregnancyIncubation == 399) {
-						outputText("\n<b>After your session with the spider, you feel much... fuller.  There is no outward change on your body as far as you can see but your womb feels slightly tingly whenever you move.  Hopefully it's nothing to be alarmed about.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 275) {
-						outputText("\n<b>Your belly grumbles as if empty, even though you ate not long ago.  Perhaps with all the exercise you're getting you just need to eat a little bit more.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 250) {
-						outputText("\n<b>Your belly looks a little pudgy", false);
-						if (player.thickness > 60 && player.tone < 40) outputText(" even for you", false);
-						outputText(", maybe you should cut back on all the food you've been consuming lately?</b>\n", false);
-						displayedUpdate = true;	
-					}
-					if (player.pregnancyIncubation == 216) {
-						outputText("\n<b>Your belly is definitely getting bigger, and no matter what you do, you can't seem to stop yourself from eating at the merest twinge of hunger.  The only explanation you can come up with is that you've gotten pregnant during your travels.  Hopefully it won't inconvenience your adventuring.</b>\n", false);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 180) {
-						outputText("\n<b>A hot flush works its way through you, and visions of aroused ", false);
-						if (player.pregnancyType == PregnancyStore.PREGNANCY_SPIDER) outputText("spider-morphs ", false);
-						else outputText("driders ", false);
-						outputText("quickly come to dominate your thoughts.  You start playing with a nipple while you lose yourself in the fantasy, imagining being tied up in webs and mated with over and over, violated by a pack of horny males, each hoping to father your next brood.  You shake free of the fantasy and notice your hands rubbing over your slightly bloated belly.  Perhaps it wouldn't be so bad?</b>\n", false);
-						dynStats("lib", 1, "sen", 1, "lus", 20);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 120) {
-						outputText("\n<b>Your belly has gotten nice and big, perhaps as big as you remember the bellies of the pregnant women back home being.  The elders always did insist on everyone doing their part to keep the population high enough to sustain the loss of a champion every year.  You give yourself a little hug, getting a surge of happiness from your hormone-addled body.  Pregnancy sure is great!</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 72) {
-						outputText("\n<b>The huge size of your pregnant belly constantly impedes your movement, but the constant squirming and shaking of your unborn offspring makes you pretty sure you won't have to carry them much longer.  A sense of motherly pride wells up in your breast - you just know you'll have such wonderful babies.", false);
-						if (player.cor < 50) outputText("  You shudder and shake your head, wondering why you're thinking such unusual things.", false);
-						outputText("</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
-						displayedUpdate = pregnancyLactationUpdate() || displayedUpdate;
-					}
-				}
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_EMBER) {
 					//Pregnancy notes: Egg Laying 
 					if (flags[kFLAGS.EMBER_OVIPOSITION] > 0) {
@@ -265,27 +223,6 @@ package classes.Scenes
 			// Describe incubation for butt //
 
 			if (player.buttPregnancyIncubation > 1) {
-				//DRIDAH BUTT Pregnancy!
-				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS) {	
-					if (player.buttPregnancyIncubation == 199) {
-						outputText("\n<b>After your session with the drider, you feel so nice and... full.  There is no outward change on your body, aside from the egg-packed bulge of your belly, but your " + player.assholeDescript() + " tingles slightly and leaks green goop from time to time. Hopefully it's nothing to be alarmed about.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.buttPregnancyIncubation == 180) {
-						outputText("\n<b>A hot flush works its way through you, and visions of aroused driders quickly come to dominate your thoughts.  You start playing with a nipple while you lose yourself in the fantasy, imagining being tied up in webs and packed completely full of eggs, stuffing your belly completely with burgeoning spheres of love.  You shake free of the fantasy and notice your hands rubbing over your slightly bloated belly.  Perhaps it wouldn't be so bad?</b>\n", false);
-						dynStats("lib", 1, "sen", 1, "lus", 20);
-						displayedUpdate = true;				
-					}
-					if (player.buttPregnancyIncubation == 120) {
-						outputText("\n<b>Your belly is bulging from the size of the eggs growing inside you and gurgling just about any time you walk.  Green goo runs down your " + player.legs() + " frequently, drooling out of your pregnant asshole.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.buttPregnancyIncubation == 72) {
-						outputText("\n<b>The huge size of your pregnant belly constantly impedes your movement, but the constant squirming and shaking of your unborn offspring makes you pretty sure you won't have to carry them much longer.", false);
-						outputText("</b>\n", false);
-						displayedUpdate = true;
-					}
-				}
 				//Bee Egg's in butt pregnancy
 				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_BEE_EGGS) {
 					if (player.buttPregnancyIncubation == 36) {
@@ -338,12 +275,6 @@ package classes.Scenes
 				getGame().bog.phoukaScene.phoukaPregBirth();
 				displayedUpdate = true;
 				player.knockUpForce(); //Clear Pregnancy
-			}
-			//Give birf if its time... to ANAL EGGS
-			if (player.buttPregnancyIncubation == 1 && player.buttPregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS) {
-				getGame().swamp.corruptedDriderScene.birthSpiderEggsFromAnusITSBLEEDINGYAYYYYY();
-				displayedUpdate = true;
-				player.buttKnockUpForce(); //Clear Butt Pregnancy
 			}
 			//Give birf to dragons
 			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_EMBER) {
@@ -412,21 +343,10 @@ package classes.Scenes
 				getGame().izmaScene.pcPopsOutASharkTot();
 				player.knockUpForce(); //Clear Pregnancy
 			}
-			//SPOIDAH BIRF
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_SPIDER && player.pregnancyIncubation == 1) {
-				player.knockUpForce(); //Clear Pregnancy
-				displayedUpdate = true;
-				getGame().swamp.maleSpiderMorphScene.spiderPregVagBirth();
-			}
-			//DRIDER BIRF
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS && player.pregnancyIncubation == 1) {
-				player.knockUpForce(); //Clear Pregnancy
-				displayedUpdate = true;
-				getGame().swamp.corruptedDriderScene.driderPregVagBirth();
-			}
 			
 			// Section of nice butt pregnancies //
-			
+			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS)
+				displayedUpdate = driderButtPregnancy();
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_SATYR)
 				displayedUpdate = satyrGenericPregnancy(false);
 			if (player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL)
@@ -436,6 +356,8 @@ package classes.Scenes
 
 			// Section of nice vagina pregnancies //
 
+			if (player.PregnancyType == PregnancyStore.PREGNANCY_DRIDER_EGGS || player.PregnancyType == PregnancyStore.PREGNANCY_SPIDER)
+				displayedUpdate = driderAndSpiderPregnancy();
 			if (player.PregnancyType == PregnancyStore.PREGNANCY_COTTON)
 				displayedUpdate = cottonPregnancy();
 			if (player.PregnancyType == PregnancyStore.PREGNANCY_GOO_GIRL)
@@ -520,6 +442,35 @@ package classes.Scenes
 
 /****** Butt Pregnancies ******************************************************/
 
+		/*	Scene describing drider egg butt pregnancy update.
+		*/
+		private function driderButtPregnancy ():Boolean {
+		    
+		    // Incubation //
+		    if (player.buttPregnancyIncubation == 199) {
+		        outputText("\n<b>After your session with the drider, you feel so nice and... full.  There is no outward change on your body, aside from the egg-packed bulge of your belly, but your [asshole] tingles slightly and leaks green goop from time to time. Hopefully it's nothing to be alarmed about.</b>\n");
+		        return true;
+		    } else if (player.buttPregnancyIncubation == 180) {
+		        outputText("\n<b>A hot flush works its way through you, and visions of aroused driders quickly come to dominate your thoughts.  You start playing with a nipple while you lose yourself in the fantasy, imagining being tied up in webs and packed completely full of eggs, stuffing your belly completely with burgeoning spheres of love.  You shake free of the fantasy and notice your hands rubbing over your slightly bloated belly.  Perhaps it wouldn't be so bad?</b>\n");
+		        dynStats("lib", 1, "sen", 1, "lus", 20);
+		        return true;
+		    } else if (player.buttPregnancyIncubation == 120) {
+		        outputText("\n<b>Your belly is bulging from the size of the eggs growing inside you and gurgling just about any time you walk.  Green goo runs down your [legs] frequently, drooling out of your pregnant asshole.</b>\n");
+		        return true;
+		    } else if (player.buttPregnancyIncubation == 72) {
+		        outputText("\n<b>The huge size of your pregnant belly constantly impedes your movement, but the constant squirming and shaking of your unborn offspring makes you pretty sure you won't have to carry them much longer.</b>\n");
+		        return true;
+		        
+		    // Birth scenes //
+		    } else if (player.buttPregnancyIncubation == 1) {
+		        getGame().swamp.corruptedDriderScene.birthSpiderEggsFromAnusITSBLEEDINGYAYYYYY();
+		        player.buttKnockUpForce(); //Clear Butt Pregnancy
+		        return true;
+		    }
+		    
+		    return false;
+		}
+
 		/*	Scene describing frog egg butt pregnancy update.
 		*/
 		private function frogButtPregnancy ():Boolean {
@@ -572,7 +523,61 @@ package classes.Scenes
 
 /****** Vagina Pregnancies ****************************************************/
 
-		/*	Scene describing goo pregnancy update.
+		/*	Scene describing spider & drider pregnancy update.
+		*/
+		private function driderAndSpiderPregnancy ():Boolean {
+		    
+		    // Incubation //
+		    if (player.pregnancyIncubation == 399) {
+		        outputText("\n<b>After your session with the spider, you feel much... fuller.  There is no outward change on your body as far as you can see but your womb feels slightly tingly whenever you move.  Hopefully it's nothing to be alarmed about.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 275) {
+		        outputText("\n<b>Your belly grumbles as if empty, even though you ate not long ago.  Perhaps with all the exercise you're getting you just need to eat a little bit more.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 250) {
+		        outputText("\n<b>Your belly looks a little pudgy");
+		        if (player.thickness > 60 && player.tone < 40)
+		            outputText(" even for you");
+		        outputText(", maybe you should cut back on all the food you've been consuming lately?</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 216) {
+		        outputText("\n<b>Your belly is definitely getting bigger, and no matter what you do, you can't seem to stop yourself from eating at the merest twinge of hunger.  The only explanation you can come up with is that you've gotten pregnant during your travels.  Hopefully it won't inconvenience your adventuring.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 180) {
+		        outputText("\n<b>A hot flush works its way through you, and visions of aroused ");
+		        if   (player.pregnancyType == PregnancyStore.PREGNANCY_SPIDER)
+		            outputText("spider-morphs ");
+		        else
+		            outputText("driders ");
+		        outputText("quickly come to dominate your thoughts.  You start playing with a nipple while you lose yourself in the fantasy, imagining being tied up in webs and mated with over and over, violated by a pack of horny males, each hoping to father your next brood.  You shake free of the fantasy and notice your hands rubbing over your slightly bloated belly.  Perhaps it wouldn't be so bad?</b>\n");
+		        dynStats("lib", 1, "sen", 1, "lus", 20);
+		        return true;
+		    } else if (player.pregnancyIncubation == 120) {
+		        outputText("\n<b>Your belly has gotten nice and big, perhaps as big as you remember the bellies of the pregnant women back home being.  The elders always did insist on everyone doing their part to keep the population high enough to sustain the loss of a champion every year.  You give yourself a little hug, getting a surge of happiness from your hormone-addled body.  Pregnancy sure is great!</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 72) {
+		        outputText("\n<b>The huge size of your pregnant belly constantly impedes your movement, but the constant squirming and shaking of your unborn offspring makes you pretty sure you won't have to carry them much longer.  A sense of motherly pride wells up in your breast - you just know you'll have such wonderful babies.");
+		        if (player.cor < 50)
+		            outputText("  You shudder and shake your head, wondering why you're thinking such unusual things.");
+		        outputText("</b>\n");
+		        return true;
+		    } else if (inCollection(player.pregnancyIncubation, 32, 64, 85, 150)) {
+		        return pregnancyLactationUpdate();
+		        
+		    // Birth scenes //
+		    } else if (player.pregnancyIncubation == 1) {
+		        if   (player.pregnancyType == PregnancyStore.PREGNANCY_SPIDER)
+		            getGame().swamp.maleSpiderMorphScene.spiderPregVagBirth();
+		        else
+		            getGame().swamp.corruptedDriderScene.driderPregVagBirth();
+		        
+		        player.knockUpForce(); //Clear Pregnancy
+		        return true;
+		    }
+		    return false;
+		}
+
+		/*	Scene describing Cotton pregnancy update.
 		*/
 		private function cottonPregnancy ():Boolean {
 			// Birth scenes //
