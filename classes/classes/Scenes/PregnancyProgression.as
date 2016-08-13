@@ -578,55 +578,6 @@ package classes.Scenes
 						}
 					}
 				}
-				//Anemone Pregnancy
-				if (player.pregnancyType == PregnancyStore.PREGNANCY_ANEMONE) {			
-					if (player.pregnancyIncubation == 240) {
-						outputText("\n<b>You feel something shifting and moving inside you.  You start to think you might be pregnant.</b>\n", false);
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 210) {
-						outputText("\n<b>The fluttering of sensation inside you is getting stronger and more frequent.  At times it even feels as if the inner lining of your womb is tingling.</b>\n", false);
-						dynStats("lus", (5+player.lib/20));
-						displayedUpdate = true;	
-					}
-					if (player.pregnancyIncubation == 185) {
-						outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  ", false);
-						if      (player.cor < 40) outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>", false);
-						else if (player.cor < 75) outputText("Considering the possible fathers, you hope it isn't that big.</b>", false);
-						else                      outputText("You think dreamily about the cocks that have recently been fucking you, and hope that your offspring inherit such a divine pleasure tool.</b>", false);
-						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
-						outputText("\n", false);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 154) {
-						outputText("\n<b>The sudden impact of a strong movement from inside your womb startles you.</b>\n", false);
-						displayedUpdate = true;				
-					}
-					if (player.pregnancyIncubation == 120) {
-						outputText("\n<b>Your larger, squirming belly makes your pregnancy obvious for those around you", false);
-						if (player.hasVagina()) outputText(" and keeps your " + player.vaginaDescript(0) + " aroused from the constant tingling in your womb", false);
-						outputText(".</b>\n", false);
-						dynStats("lus", (10+player.lib/20));
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 72) {
-						outputText("\n<b>Your belly is noticeably distended, ", false);
-						if      (player.cor < 40) outputText("and constantly shifts and wriggles.  What manner of beast are you bringing into the world?</b>", false);
-						else if (player.cor < 75) outputText("and you wonder how much longer you have to wait.</b>", false);
-						else                      outputText("and you're eager to give birth, so you can get impregnated again by corrupted or monstrous cum filling out your eager womb.</b>", false);
-						outputText("\n", false);
-						dynStats("spe", -3, "lib", 1, "sen", 1, "lus", (5 + player.lib / 20));
-						displayedUpdate = true;
-					}
-					if (player.pregnancyIncubation == 48) {
-						outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  ", false);
-						if      (player.cor < 40) outputText("Afterwards you feel somewhat disgusted with yourself, but horny.</b>\n", false);
-						else if (player.cor < 75) outputText("You estimate you'll give birth in the next few days.  You hope the birth is as erotically charged as the pregnancy has been.</b>\n", false);
-						else                      outputText("You find yourself daydreaming  about birthing cilia-covered worms, orgasming each time their thousands of stingers brush by your clit and fill it full of sensation-enhancing drugs.</b>\n", false);
-						dynStats("spe", -1, "lib", 1, "sen", 1, "lus", (10+player.lib/20));
-						displayedUpdate = true;
-					}
-				}
 				//Frog Eggs
 				else if (player.pregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
 					if (player.pregnancyIncubation == 8) {
@@ -974,93 +925,11 @@ package classes.Scenes
 				player.orgasm();
 				dynStats("lib", 1, "sen", 10, "cor", -2);
 			}
-			//Anemone birfs
-			//Anemone Pregnancy
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_ANEMONE && player.pregnancyIncubation == 1) {
-				outputText("\n", false);
-				displayedUpdate = true;
-				if (player.vaginas.length == 0) {
-					outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold a vagina.  ", false);
-					player.createVagina();
-					player.genderCheck();
-				}
-				outputText("Your " + player.armorName + " feels damp around the groin and you reach down to check the area.  The  " + player.vaginaDescript(0) + " you feel is dilated and slick with unusual wetness; your water must have broken!\n\n", false);
-				
-				outputText("Hurriedly you strip off your gear and sit down with your back against a rock.  Focusing yourself, you attempt to prepare for labor; you try to remember your recent partners and worry about what kind of monstrous infant you might have to force out of your " + player.vaginaDescript(0) + ".  The first contraction comes and you push as hard as you can, to be rewarded with the feeling of something sliding out between your labia.  You attempt a few more pushes but nothing further seems forthcoming; curious, you look down at your crotch only to discover a blue stalk sticking proudly out of your vagina!\n\n", false);
-				
-				if (flags[kFLAGS.ANEMONE_KID] > 0) {
-					outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The pain makes you lock up and nearly takes away your consciousness as its sticky surface releases its grip on your labia and " + player.clitDescript() + "!   It writhes and slips out of your pain-wracked hands, leaving them tingling.  As you lie there, stunned, it begins to inch back toward your " + player.vaginaDescript(0)+ ".  Footfalls sound next to you, and a blue hand picks up the squirming, cilliated creature.  Kid A gives you a shy smile, then turns to her barrel.  A quick splash and a filled waterskin later, she heads toward the stream, toting your grub-like offspring.");
-					player.cuntChange(20,true,true,false);
-					outputText("\n\nExhausted by the birth but with a burden lifted from your mind, you slip into a grateful doze.");
-					player.knockUpForce(); //Clear Pregnancy
-					return true;
-				}
-				else if (player.countCocksOfType(CockTypesEnum.ANEMONE) > 0 && player.cor < 25 && flags[kFLAGS.ANEMONE_KID] == 0) {
-					outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The ensuing pain in your labia and " + player.clitDescript() + " makes you lock up and nearly takes away your consciousness, and with " + player.multiCockDescript() + " in the way, you can't get any leverage on the pull at all!  The anemone detaches weakly, but writhes and slips out of your pain-wracked grip, leaving your hands tingling.  As you lie there, stunned, it begins to inch back toward your " + player.vaginaDescript(0)+ ".  Searching about weakly with the feelers, it touches along your thigh and searches out the entrance of your pussy.  When the tentacled crown brushes past your lips a venomous heat stirs your crotch and fills you with energy; shocked into sense, you look at the absurd creature.  You raise your arm to slap at it, but something stays your hand.  As if sensing your hesitation, it stands upright and holds itself at attention for inspection.  It would be easy to knock it away... and yet, the unprepossessing little thing looks so proud that you can't quite bring yourself to do so.");
-					outputText("\n\nYou scoop the diminutive anemone up and look around for somewhere wet to put it.  The stream is too far, the lake doubly so; you'd never make it to either, as sick as you feel from yanking viciously on your clitoris.  Driven to last resorts, you lurch over to the water barrel in your camp and, wrenching the lid off, drop the blue stalk unceremoniously inside.  Exhausted by the shock and pain of the ordeal, you slump down beside the barrel and slip into a doze...");
-					player.cuntChange(20,true,true,false);
-					outputText("\n");
-					player.createStatusEffect(StatusEffects.CampAnemoneTrigger,0,0,0,0);
-					player.knockUpForce(); //Clear Pregnancy
-					return true;
-				}
-				//[(if pc has 0-9 existing cocks)
-				else if (player.cockTotal() < 10) {
-					outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The pain makes you lock up and nearly takes away your consciousness as its sticky surface releases its grip on your labia and " + player.clitDescript() + "!  The small anemone and you both lay there twitching, but it recovers its bearings first; through your haze of pain you watch it flexing its body, wedging the head under itself, and elevating the base.", false);
-					player.cuntChange(20,true,true,false);
-					
-					outputText("\n\nBeset by a panic, you watch as the strange thing sets butt-end down on your pubic mound and adheres", false);
-					//[(if cocks)
-					if (player.cockTotal() > 0) outputText(" below your " + player.multiCockDescriptLight(), false);
-					outputText(". A sharp pinch lances through the nerves in your groin and sends your hands to it reflexively.  This smaller pain, coupled with the adrenaline and dopamine that have finally chased the fog from your head, is enough to pull your thoughts into focus for another attempt to remove your strange, parasitic offspring.  You shift your grip and pull a few more times, but the thing doesn't budge.  The handling of it only serves to make the stalk thicken and become stiff; gradually you notice that you're feeling the sensation of your own pulling not from the skin at the point of attachment but from the stalk itself, and this realization is accompanied by the ring of tentacles opening and pulling back to reveal the crown of a penis!  <b>You have a new anemone-penis!</b>", false);
-					//[(dick slot 1 exists)
-					if (player.cockTotal() > 0) outputText("  The tentacles writhe around, rubbing against your " + player.multiCockDescriptLight(), false);
-					//(doesn't exist)
-					else outputText("  The tentacles curl inwards, rubbing on the head of your new blue pecker", false);
-					player.createCock((4+rand(3)),1.2);
-					player.cocks[player.cockTotal()-1].cockType = CockTypesEnum.ANEMONE;
-					outputText(" and you quickly become fully erect from the aphrodisiac they inject.  Over and over the tentacles caress " + player.sMultiCockDesc() + " sensually, leaving behind a tingling trail of vibrant pleasure", false);
-					//[(if no dick1 and no balls)
-					if (player.totalCocks() == 1 && player.balls == 0) outputText("; you feel a pressure build below the shaft, near your asshole", false);
-					outputText(".  As the venom and the rubbing work you to the edge of climax, your muscles clench and a ", false);
-					if (player.cumQ() < 100) outputText("glob", false);
-					else if (player.cumQ() < 500) outputText("squirt", false);
-					else outputText("spray", false);
-					outputText(" of semen shoots from your new penis and lands on your ", false);
-					//[(if boobs)
-					if (player.biggestTitSize() >= 1) outputText(player.allBreastsDescript() + " and ", false);
-					outputText("stomach", false);
-					//[(dick1 exists)
-					if (player.cockTotal() > 1) outputText(", followed in short order by white squirts from " + player.sMultiCockDesc() + " remaining", false);
-					outputText(".  Your " + player.vaginaDescript(0) + " quivers and pulses as well, adding ", false);
-					if (player.vaginas[0].vaginalWetness < VAGINA_WETNESS_SLICK) outputText("a trickle", false);
-					else if (player.vaginas[0].vaginalWetness < VAGINA_WETNESS_SLAVERING) outputText("a squirt", false);
-					else outputText("nearly a cupful of fluid", false);
-					outputText(" from your female orgasm to the puddle on the ground below your ass.\n\n", false);
-					//(gain 1 nemo-dick, reduce lust to min)]
-					player.genderCheck();
-					player.orgasm();
-					dynStats("lib", 2, "sen", 5);
-				}
-				//[(if PC has 10 existing cocks) && no kid
-				else {
-					outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The ensuing pain in your labia and " + player.clitDescript() + " makes you lock up and nearly takes away your consciousness, robbing your pull of force.  The anemone detaches weakly, but writhes and slips out of your pain-wracked grip, leaving your hands tingling.  As you lie there, stunned, it begins to inch back toward your " + player.vaginaDescript(0)+ ".  Casting about with the feelers, it touches along your thigh and searches out the entrance of your pussy.  When the tentacled crown brushes past your lips a venomous heat stirs your crotch and fills you with energy; renewed, you slap at it, trying to knock the little creature away.  Several weak hits land on it, and, almost as if irritated, the tentacles seize on your labia and pull the stalk back toward your crotch and thence into your pussy.  Next you feel the thing shift and flatten itself against your insides, then a pinch on your vaginal walls where the little anemone presses on them.  This can't be good.");
-					player.cuntChange(20,true,true,false);
-								
-					//OLD TXToutputText("The anemone writhes and slips out of your pain-wracked grip, leaving your hands tingling.  As you lie there, stunned, it begins to inch back into your " + player.vaginaDescript(0)+ ".  As the tentacled crown brushes past your lips a venomous heat fills your crotch - you feel the thing shift and flatten itself against your insides, then a pinch on your vaginal walls where the little anemone was pressing on them.  This can't be good.\n\n", false);
-
-					outputText("\n\nPush as you might, you can't get it to peek back out even the slightest bit.  What's worse, the heat isn't subsiding, as the tentacles are now lodged inside your pussy!  Prodding and pulling at your " + player.vaginaDescript(0) + " is only worsening the effect; " + player.sMultiCockDesc() + " and your clitoris harden as you attempt to retrieve your invader.  Your probes get weaker and weaker as your vagina spasms to each stroke of your insides; each time you touch the creature, the sensation is being transmitted right back to your nerves.  Eventually you push yourself to accidental orgasm; your " + player.vaginaDescript(0) + " quivers around your fingers and your " + player.multiCockDescriptLight() + " does the best ejaculation it can manage with hardly any warmup time and no direct stimulation.  Even after the orgasm ends, the tentacles continue to torment your groin.  <b>You are VERY horny with this thing inside you... though you can't reach it, maybe there's a way to crowd it out?</b>\n\n", false);
-					//(reduce lust to min, increased minimum lust by 30 until halfway through PC's next pregnancy)]
-					player.orgasm();
-					dynStats("lib", 2, "sen", 5);
-					if (player.findStatusEffect(StatusEffects.AnemoneArousal) < 0) player.createStatusEffect(StatusEffects.AnemoneArousal,0,0,0,0);
-				}		
-				player.knockUpForce(); //Clear Pregnancy
-				outputText("Exhausted by the 'birth' and the climax, you slip into a doze.\n", false);
-			}
 
 			// Section of nice pregnancies //
 			
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_ANEMONE)
+				displayedUpdate = anemonePregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_IMP)
 				displayedUpdate = impPregnancy();
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_MARBLE)
@@ -1085,6 +954,143 @@ package classes.Scenes
 			// Done! //
 
 			return displayedUpdate;
+		}
+
+		/*	Scene describing anemone pregnancy update.
+		*/
+		private function anemonePregnancy ():Boolean {
+		    // Birth scenes //
+		    if (player.pregnancyIncubation == 1) {
+		        outputText("\n");
+		        displayedUpdate = true;
+		        if (player.vaginas.length == 0) {
+		            outputText("You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold a vagina.  ");
+		            player.createVagina();
+		            player.genderCheck();
+		        }
+		        outputText("Your [armor] feels damp around the groin and you reach down to check the area.  The  [vagina] you feel is dilated and slick with unusual wetness; your water must have broken!\n\n");
+		        outputText("Hurriedly you strip off your gear and sit down with your back against a rock.  Focusing yourself, you attempt to prepare for labor; you try to remember your recent partners and worry about what kind of monstrous infant you might have to force out of your [vagina].  The first contraction comes and you push as hard as you can, to be rewarded with the feeling of something sliding out between your labia.  You attempt a few more pushes but nothing further seems forthcoming; curious, you look down at your crotch only to discover a blue stalk sticking proudly out of your vagina!\n\n");
+		        
+		        if (flags[kFLAGS.ANEMONE_KID] > 0) {
+		            outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The pain makes you lock up and nearly takes away your consciousness as its sticky surface releases its grip on your labia and [clit]!   It writhes and slips out of your pain-wracked hands, leaving them tingling.  As you lie there, stunned, it begins to inch back toward your [vagina].  Footfalls sound next to you, and a blue hand picks up the squirming, cilliated creature.  Kid A gives you a shy smile, then turns to her barrel.  A quick splash and a filled waterskin later, she heads toward the stream, toting your grub-like offspring.");
+		            player.cuntChange(20,true,true,false);
+		            outputText("\n\nExhausted by the birth but with a burden lifted from your mind, you slip into a grateful doze.");
+		            player.knockUpForce(); //Clear Pregnancy
+		            return true;
+		        } else if (player.countCocksOfType(CockTypesEnum.ANEMONE) > 0 && player.cor < 25 && flags[kFLAGS.ANEMONE_KID] == 0) {
+		            outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The ensuing pain in your labia and [clit] makes you lock up and nearly takes away your consciousness, and with " + player.multiCockDescript() + " in the way, you can't get any leverage on the pull at all!  The anemone detaches weakly, but writhes and slips out of your pain-wracked grip, leaving your hands tingling.  As you lie there, stunned, it begins to inch back toward your [vagina].  Searching about weakly with the feelers, it touches along your thigh and searches out the entrance of your pussy.  When the tentacled crown brushes past your lips a venomous heat stirs your crotch and fills you with energy; shocked into sense, you look at the absurd creature.  You raise your arm to slap at it, but something stays your hand.  As if sensing your hesitation, it stands upright and holds itself at attention for inspection.  It would be easy to knock it away... and yet, the unprepossessing little thing looks so proud that you can't quite bring yourself to do so.");
+		            outputText("\n\nYou scoop the diminutive anemone up and look around for somewhere wet to put it.  The stream is too far, the lake doubly so; you'd never make it to either, as sick as you feel from yanking viciously on your clitoris.  Driven to last resorts, you lurch over to the water barrel in your camp and, wrenching the lid off, drop the blue stalk unceremoniously inside.  Exhausted by the shock and pain of the ordeal, you slump down beside the barrel and slip into a doze...");
+		            player.cuntChange(20,true,true,false);
+		            outputText("\n");
+		            player.createStatusEffect(StatusEffects.CampAnemoneTrigger,0,0,0,0);
+		            player.knockUpForce(); //Clear Pregnancy
+		            return true;
+		        } else if (player.cocks.length < 10) {
+					//[(if pc has 0-9 existing cocks)
+		            outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The pain makes you lock up and nearly takes away your consciousness as its sticky surface releases its grip on your labia and [clit]!  The small anemone and you both lay there twitching, but it recovers its bearings first; through your haze of pain you watch it flexing its body, wedging the head under itself, and elevating the base.");
+		            player.cuntChange(20,true,true,false);
+		            
+		            outputText("\n\nBeset by a panic, you watch as the strange thing sets butt-end down on your pubic mound and adheres");
+		            //[(if cocks)
+		            if (player.cocks.length > 0)
+		                outputText(" below your [cocks]");
+		            outputText(". A sharp pinch lances through the nerves in your groin and sends your hands to it reflexively.  This smaller pain, coupled with the adrenaline and dopamine that have finally chased the fog from your head, is enough to pull your thoughts into focus for another attempt to remove your strange, parasitic offspring.  You shift your grip and pull a few more times, but the thing doesn't budge.  The handling of it only serves to make the stalk thicken and become stiff; gradually you notice that you're feeling the sensation of your own pulling not from the skin at the point of attachment but from the stalk itself, and this realization is accompanied by the ring of tentacles opening and pulling back to reveal the crown of a penis!  <b>You have a new anemone-penis!</b>");
+		            //[(dick slot 1 exists)
+		            if   (player.cocks.length > 0)  outputText("  The tentacles writhe around, rubbing against your [cocks]");
+		            //(doesn't exist)
+		            else                            outputText("  The tentacles curl inwards, rubbing on the head of your new blue pecker");
+		            player.createCock((4+rand(3)),1.2);
+		            player.cocks[player.cocks.length-1].cockType = CockTypesEnum.ANEMONE;
+		            outputText(" and you quickly become fully erect from the aphrodisiac they inject.  Over and over the tentacles caress [eachcock] sensually, leaving behind a tingling trail of vibrant pleasure");
+		            //[(if no dick1 and no balls)
+		            if (player.cocks.length == 1 && player.balls == 0)
+		                outputText("; you feel a pressure build below the shaft, near your asshole");
+		            outputText(".  As the venom and the rubbing work you to the edge of climax, your muscles clench and a ");
+		            if      (player.cumQ() < 100)  outputText("glob");
+		            else if (player.cumQ() < 500)  outputText("squirt");
+		            else                           outputText("spray");
+		            outputText(" of semen shoots from your new penis and lands on your ");
+		            //[(if boobs)
+		            if (player.biggestTitSize() >= 1)
+		                outputText(player.allBreastsDescript() + " and ");
+		            outputText("stomach");
+		            //[(dick1 exists)
+		            if (player.cocks.length > 1)
+		                outputText(", followed in short order by white squirts from [eachcock] remaining");
+		            outputText(".  Your [vagina] quivers and pulses as well, adding ");
+		            if      (player.vaginas[0].vaginalWetness < VAGINA_WETNESS_SLICK)
+		                outputText("a trickle");
+		            else if (player.vaginas[0].vaginalWetness < VAGINA_WETNESS_SLAVERING)
+		                outputText("a squirt");
+		            else
+		            	outputText("nearly a cupful of fluid");
+		            outputText(" from your female orgasm to the puddle on the ground below your ass.\n\n");
+		            //(gain 1 nemo-dick, reduce lust to min)]
+		            player.genderCheck();
+		            player.orgasm();
+		            dynStats("lib", 2, "sen", 5);
+		        } else {
+					//[(if PC has 10 existing cocks) && no kid
+		            outputText("As you take in the sight, small nodules around the tip begin to form and lengthen, until the little anemone is capped by a mop of wriggling blue-green tentacles.  Horrified, you grasp it at the base and give it a sharp pull.  The ensuing pain in your labia and [clit] makes you lock up and nearly takes away your consciousness, robbing your pull of force.  The anemone detaches weakly, but writhes and slips out of your pain-wracked grip, leaving your hands tingling.  As you lie there, stunned, it begins to inch back toward your [vagina].  Casting about with the feelers, it touches along your thigh and searches out the entrance of your pussy.  When the tentacled crown brushes past your lips a venomous heat stirs your crotch and fills you with energy; renewed, you slap at it, trying to knock the little creature away.  Several weak hits land on it, and, almost as if irritated, the tentacles seize on your labia and pull the stalk back toward your crotch and thence into your pussy.  Next you feel the thing shift and flatten itself against your insides, then a pinch on your vaginal walls where the little anemone presses on them.  This can't be good.");
+		            player.cuntChange(20,true,true,false);
+		            
+		            //OLD TXToutputText("The anemone writhes and slips out of your pain-wracked grip, leaving your hands tingling.  As you lie there, stunned, it begins to inch back into your [vagina].  As the tentacled crown brushes past your lips a venomous heat fills your crotch - you feel the thing shift and flatten itself against your insides, then a pinch on your vaginal walls where the little anemone was pressing on them.  This can't be good.\n\n", false);
+		            
+		            outputText("\n\nPush as you might, you can't get it to peek back out even the slightest bit.  What's worse, the heat isn't subsiding, as the tentacles are now lodged inside your pussy!  Prodding and pulling at your [vagina] is only worsening the effect; [eachcock] and your clitoris harden as you attempt to retrieve your invader.  Your probes get weaker and weaker as your vagina spasms to each stroke of your insides; each time you touch the creature, the sensation is being transmitted right back to your nerves.  Eventually you push yourself to accidental orgasm; your [vagina] quivers around your fingers and your [cocks] does the best ejaculation it can manage with hardly any warmup time and no direct stimulation.  Even after the orgasm ends, the tentacles continue to torment your groin.  <b>You are VERY horny with this thing inside you... though you can't reach it, maybe there's a way to crowd it out?</b>\n\n");
+		            //(reduce lust to min, increased minimum lust by 30 until halfway through PC's next pregnancy)]
+		            player.orgasm();
+		            dynStats("lib", 2, "sen", 5);
+		            if (player.findStatusEffect(StatusEffects.AnemoneArousal) < 0)
+		                player.createStatusEffect(StatusEffects.AnemoneArousal,0,0,0,0);
+		        }
+		        player.knockUpForce(); //Clear Pregnancy
+		        outputText("Exhausted by the 'birth' and the climax, you slip into a doze.\n");
+		        return true;
+		        
+		    // Incubation //
+		    } else if (player.pregnancyIncubation == 240) {
+		        outputText("\n<b>You feel something shifting and moving inside you.  You start to think you might be pregnant.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 210) {
+		        outputText("\n<b>The fluttering of sensation inside you is getting stronger and more frequent.  At times it even feels as if the inner lining of your womb is tingling.</b>\n");
+		        dynStats("lus", (5+player.lib/20));
+		        return true;
+		    } else if (player.pregnancyIncubation == 185) {
+		        outputText("\n<b>The unmistakable bulge of pregnancy is visible in your tummy.  ");
+		        if      (player.cor < 40)  outputText("You are distressed by your unwanted pregnancy, and your inability to force this thing out of you.</b>");
+		        else if (player.cor < 75)  outputText("Considering the possible fathers, you hope it isn't that big.</b>");
+		        else                       outputText("You think dreamily about the cocks that have recently been fucking you, and hope that your offspring inherit such a divine pleasure tool.</b>");
+		        dynStats("spe", -1, "lib", 1, "sen", 1, "lus", 2);
+		        outputText("\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 154) {
+		        outputText("\n<b>The sudden impact of a strong movement from inside your womb startles you.</b>\n");
+		        return true;
+		    } else if (player.pregnancyIncubation == 120) {
+		        outputText("\n<b>Your larger, squirming belly makes your pregnancy obvious for those around you");
+		        if (player.vaginas.length > 0)
+		            outputText(" and keeps your [vagina] aroused from the constant tingling in your womb");
+		        outputText(".</b>\n");
+		        dynStats("lus", (10+player.lib/20));
+		        return true;
+		    } else if (player.pregnancyIncubation == 72) {
+		        outputText("\n<b>Your belly is noticeably distended, ");
+		        if      (player.cor < 40)  outputText("and constantly shifts and wriggles.  What manner of beast are you bringing into the world?</b>");
+		        else if (player.cor < 75)  outputText("and you wonder how much longer you have to wait.</b>");
+		        else                       outputText("and you're eager to give birth, so you can get impregnated again by corrupted or monstrous cum filling out your eager womb.</b>");
+		        outputText("\n");
+		        dynStats("spe", -3, "lib", 1, "sen", 1, "lus", (5 + player.lib / 20));
+		        return true;
+		    } else if (player.pregnancyIncubation == 48) {
+		        outputText("\n<b>You rub your hands over your bulging belly, lost in the sensations of motherhood.  ");
+		        if      (player.cor < 40)  outputText("Afterwards you feel somewhat disgusted with yourself, but horny.</b>\n");
+		        else if (player.cor < 75)  outputText("You estimate you'll give birth in the next few days.  You hope the birth is as erotically charged as the pregnancy has been.</b>\n");
+		        else                       outputText("You find yourself daydreaming  about birthing cilia-covered worms, orgasming each time their thousands of stingers brush by your clit and fill it full of sensation-enhancing drugs.</b>\n");
+		        dynStats("spe", -1, "lib", 1, "sen", 1, "lus", (10+player.lib/20));
+		        return true;
+		    }
+		    
+		    return false;
 		}
 
 		/*	Scene describing imp pregnancy update.
