@@ -6,15 +6,27 @@ package classes.Scenes
 	public class PregnancyProgression extends BaseContent
 	{
 		public function PregnancyProgression() {}
-		
+
+		/*	Updates the players pregnancy and output descriptions hereof.
+			If an update is displayed, returns true, else false.
+			Does not assume pregnancy (but it would be reasonable to do.)
+		*/
 		public function updatePregnancy():Boolean {
+
+			// Variables //
+
 			var displayedUpdate:Boolean = false;
 			var pregText:String = "";
+
+			// Return if no pregnancy active //.
+
 			if ((player.pregnancyIncubation <= 0 && player.buttPregnancyIncubation <= 0) ||
 				(player.pregnancyType == 0 && player.buttPregnancyType == 0)) {
 				return false;
 			}
-			//Cancel Heat
+
+			// Cancels Heat //
+
 			if (player.inHeat) {
 				outputText("\nYou calm down a bit and realize you no longer fantasize about getting fucked constantly.  It seems your heat has ended.\n", false);
 				//Remove bonus libido from heat
@@ -24,6 +36,23 @@ package classes.Scenes
 				player.removeStatusEffect(StatusEffects.Heat);
 				displayedUpdate = true;
 			}
+			
+			// Round pregnancyIncubation to 1 //
+
+			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation < 2)
+				player.knockUpForce(player.pregnancyType, 1);
+				
+
+			// Amily failsaves, because amily a shit //
+			// Can happen because: Amily is corrupted or Amily is with Urta or PC in prison.
+
+			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_AMILY) {
+				if (flags[kFLAGS.AMILY_FOLLOWER] == 2 || flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00170] > 0 || flags[kFLAGS.AMILY_VISITING_URTA] == 1 || flags[kFLAGS.AMILY_VISITING_URTA] == 2 || prison.inPrison)
+					player.knockUpForce(PregnancyStore.PREGNANCY_MOUSE, player.pregnancyIncubation);
+			}
+
+			// Increment birthed status effect, and possibility of perk //
+
 			if (player.pregnancyIncubation == 1) {
 				if (player.fertility < 15) player.fertility++;
 				if (player.fertility < 25) player.fertility++;
@@ -37,8 +66,9 @@ package classes.Scenes
 					}
 				}
 			}
-			if (player.pregnancyIncubation > 0 && player.pregnancyIncubation < 2) player.knockUpForce(player.pregnancyType, 1);
-			//IF INCUBATION IS VAGINAL
+
+			// Describe incubation for vaginas //
+
 			if (player.pregnancyIncubation > 1) {
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) {
 					displayedUpdate = getGame().bog.phoukaScene.phoukaPregUpdate();
@@ -1239,7 +1269,9 @@ package classes.Scenes
 					}
 				}
 			}
-			//IF INCUBATION IS ANAL
+
+			// Describe incubation for butt //
+
 			if (player.buttPregnancyIncubation > 1) {
 				if (player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
 					if (player.buttPregnancyIncubation == 8) {
@@ -1384,12 +1416,15 @@ package classes.Scenes
 					}
 				}
 			}
+		
+			// Describe birth //
+
 			//Give birth to either a faerie or a phouka
 			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_FAERIE) {
-					getGame().bog.phoukaScene.phoukaPregBirth();
-					displayedUpdate = true;
-					player.knockUpForce(); //Clear Pregnancy
-				}
+				getGame().bog.phoukaScene.phoukaPregBirth();
+				displayedUpdate = true;
+				player.knockUpForce(); //Clear Pregnancy
+			}
 			//Give birf if its time... to ANAL EGGS
 			if (player.buttPregnancyIncubation == 1 && player.buttPregnancyType == PregnancyStore.PREGNANCY_FROG_GIRL) {
 				getGame().bog.frogGirlScene.birthFrogEggsAnal();
@@ -1412,17 +1447,10 @@ package classes.Scenes
 			if (player.buttPregnancyIncubation == 1 && player.buttPregnancyType == PregnancyStore.PREGNANCY_SANDTRAP_FERTILE) {
 				getGame().desert.sandTrapScene.birfSandTarps();
 				player.buttKnockUpForce(); //Clear Butt Pregnancy
-				if (player.buttRating < 17) {
+				if (player.buttRating < 17 && (player.buttRating < 13 || rand(2) == 0)) {
 					//Guaranteed increase up to level 10
-					if (player.buttRating < 13) {
-						player.buttRating++;
-						outputText("\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.\n", false);
-					}
-					//Big butts only increase 50% of the time.
-					else if (rand(2) == 0){
-						player.buttRating++;
-						outputText("\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.\n", false);				
-					}
+					player.buttRating++;
+					outputText("\nYou notice your " + player.buttDescript() + " feeling larger and plumper after the ordeal.\n");
 				}
 				displayedUpdate = true;
 			}	
@@ -1825,21 +1853,7 @@ package classes.Scenes
 				flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00327]++;
 				if (flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00328] == 0) flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00328] = 150;		
 			}
-			//Amily failsafe - converts PC with pure babies to mouse babies if Amily is corrupted
-			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_AMILY) 
-			{
-				if (flags[kFLAGS.AMILY_FOLLOWER] == 2 || flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00170] > 0) player.knockUpForce(PregnancyStore.PREGNANCY_MOUSE, player.pregnancyIncubation);
-			}
-			//Amily failsafe - converts PC with pure babies to mouse babies if Amily is with Urta
-			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_AMILY) 
-			{
-				if (flags[kFLAGS.AMILY_VISITING_URTA] == 1 || flags[kFLAGS.AMILY_VISITING_URTA] == 2) player.knockUpForce(PregnancyStore.PREGNANCY_MOUSE, player.pregnancyIncubation);
-			}
-			//Amily failsafe - converts PC with pure babies to mouse babies if PC is in prison.
-			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_AMILY) 
-			{
-				if (prison.inPrison) player.knockUpForce(PregnancyStore.PREGNANCY_MOUSE, player.pregnancyIncubation);
-			}
+
 			//Give birth if it's time (to an AMILY BITCH mouse!)
 			if (player.pregnancyIncubation == 1 && player.pregnancyType == PregnancyStore.PREGNANCY_AMILY) {
 				player.boostLactation(.01);
@@ -2021,7 +2035,9 @@ package classes.Scenes
 				player.knockUpForce(); //Clear Pregnancy
 				outputText("\n", false);
 			}
-			//Egg status messages
+
+			// Egg Specials, because Eggs a shit //
+
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_OVIELIXIR_EGGS && player.pregnancyIncubation > 0) {
 				if (player.vaginas.length == 0) {
 					player.removeStatusEffect(StatusEffects.Eggs);
@@ -2082,6 +2098,9 @@ package classes.Scenes
 					player.knockUpForce(); //Clear Pregnancy
 				}
 			}
+
+			// Done! //
+
 			return displayedUpdate;
 		}
 
