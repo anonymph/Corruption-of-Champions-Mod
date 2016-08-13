@@ -590,11 +590,6 @@ package classes.Scenes
 				displayedUpdate = true;
 				getGame().lake.gooGirlScene.gooPregVagBirth();
 			}
-			if (player.pregnancyType == PregnancyStore.PREGNANCY_BASILISK && player.pregnancyIncubation == 1) {
-				player.knockUpForce(); //Clear Pregnancy
-				displayedUpdate = true;
-				getGame().highMountains.basiliskScene.basiliskBirth();
-			}
 			
 			// Section of nice butt pregnancies //
 			
@@ -607,6 +602,8 @@ package classes.Scenes
 
 			// Section of nice vagina pregnancies //
 			
+			if (player.PregnancyType == PregnancyStore.PREGNANCY_BASILISK)
+				displayedUpdate = basiliskPregnancy();
 			if (player.PregnancyType == PregnancyStore.PREGNANCY_SATYR)
 				displayedUpdate = satyrGenericPregnancy(true);
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_BENOIT)
@@ -683,7 +680,6 @@ package classes.Scenes
 		    return false;
 		}
 
-
 /****** Butt Pregnancies ******************************************************/
 
 		/*	Scene describing frog egg butt pregnancy update.
@@ -738,6 +734,20 @@ package classes.Scenes
 
 /****** Vagina Pregnancies ****************************************************/
 
+		/*	Scene describing basilisk pregnancy update.
+		*/
+		private function basiliskPregnancy ():Boolean {
+			// Birth scenes //
+			if (player.pregnancyIncubation == 1) {
+				getGame().highMountains.basiliskScene.basiliskBirth();
+				player.knockUpForce(); //Clear Pregnancy
+				return true;
+			
+			// Incubation //
+			} /* TODO: Add some incubation scenes? */
+
+			return false;
+		}
 		/*	Scene describing Benoit pregnancy update.
 		*/
 		private function benoitPregnancy ():Boolean {
